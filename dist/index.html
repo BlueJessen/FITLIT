@@ -2,11 +2,27 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../src/css/styles.css">
     <title>Fitlit</title>
   </head>
   <body>
+    <header>
     <h1>Activity Tracker</h1>
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+    </header>
+    <nav>Left Nav</nav>
+    <section class="wrapper">
+      <div>
+      <canvas id="myChart" width="400" height="400">Chart</canvas>
+      <button>Change View</button>
+      <button>Info Breakdown</button>
+      </div>
+      <div class ="progress-circle">
+      </div>
+      <div class ="progress-circle">
+      </div>
+      <div class ="progress-circle">
+      </div>
+    </section>
 
 <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
     <script src="bundle.js"></script>
