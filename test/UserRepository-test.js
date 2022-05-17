@@ -1,19 +1,19 @@
 import { expect } from 'chai'; //<- object destructuring
-import UserRepository from '../src/UserRepository';
+import UserRepository from '../src/UserRepository.js';
+import User from '../src/User.js'
 
 describe('User Repository', () => {
-  it.skip('should be a function', function () {
+  it('should be a function', function () {
     expect(UserRepository).to.be.a('function');
   });
 
-  it.skip('should hold user data', () => {
+  it('should hold user data', () => {
     const users = [new User({user: "info"}), new User({user: "test"}), new User({user: "another"})];
     const userRepo = new UserRepository(users);
     expect(userRepo.userData).to.deep.equal(users);
   });
 
-  it.skip('should have a method to find user data by id', () => {
-    const userRepo = new UserRepository(data);
+  it('should have a method to find user data by id', () => {
     const user2 = {
         "id": 2,
         "name": "Jarvis Considine",
@@ -24,10 +24,11 @@ describe('User Repository', () => {
         "friends": [9, 18, 24, 19]
       }
     const user2Class = new User(user2);
-    expect(userRepo.findUser(2).to.deep.equal(user2Class));
+    const userRepo = new UserRepository([user2Class]);
+    expect(userRepo.findUser(2)).to.deep.equal(user2Class);
   });
 
-  it.skip('should have a method to check the average step goal amongst users', () => {
+  it('should have a method to check the average step goal amongst users', () => {
       const testData = [new User({
               "id": 2,
               "name": "Jarvis Considine",
@@ -57,6 +58,6 @@ describe('User Repository', () => {
                     })];
       const userRepo = new UserRepository(testData);
 
-      expect(userRepo.getAverage().to.equal(4666));
+      expect(userRepo.getAverage()).to.equal(4666);
   });
 });
