@@ -1,41 +1,59 @@
+
+import userData from './data/users';
+import Chart from 'chart.js/auto';
+import UserRepository from './UserRepository';
+import User from './User';
+
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
-
-const ctx = document.getElementById('myChart');
-const myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
+var userCard = document.querySelector('.user-card');
+var name = document.querySelector('#name');
+var userArray = userData.map(user => {
+    return new User(user)
 });
+
+var userRepo = new UserRepository(userArray)
+
+var user = getRandomUser(userRepo.userData);
+//event listener
+
+
+function getRandomUser(array) {
+  var randomIndex = Math.floor(Math.random() * array.length)
+    return array[randomIndex]
+};
+
+
+console.log("REPO", userRepo)
+
+
+
+//INPUT:
+// 1) Class new UserRepository which holds the User class
+// 2) Passing into function
+// 3) Using iterator loop to properly filter through each instance-selecting one by their assigned ID
+// 4) Implementing data through innerText/innerHTML
+// 5) the Char should hold a User instance data
+function welcomeUser() {
+  name.innerHTML = user.returnUserName();
+}
+
+welcomeUser();
+
+function userToDisplay() {
+  userCard.innerHTML =  `<div> Id: ${user.id}</div>
+                <div> Name: ${user.name}</div>
+                <div> Address: ${user.address}</div>
+                <div> Email: ${user.email}</div>
+                <div> Stride Count: ${user.strideLength}</div>
+                <div> Daily Step Goal: ${user.dailyStepGoal}</div>
+                <div> Friends: ${user.friends}</div>
+                <div> Average Step Goal: ${userRepo.getAverage()}</div>`;
+
+};
+
+userToDisplay();
+
 
 console.log(userData,"<>>>>userData")
 // An example of how you tell webpack to use a CSS file
@@ -47,7 +65,3 @@ import './images/turing-logo.png'
 console.log('This is the JavaScript entry file - your code begins here.');
 
 // An example of how you tell webpack to use a JS file
-
-import userData from './data/users';
-import Chart from 'chart.js/auto';
-import UserRepository from './UserRepository';
