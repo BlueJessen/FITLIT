@@ -1,5 +1,24 @@
 body, html {
-  background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+  /* background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); */
   background-repeat: no-repeat;
   height: 100%;
+}
+nav {
+  height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+
+}
+.progress-circle {
+  /* Progress Circle */
+background-image: url(src/images/Progress Circle.svg);
+height: 300px;
+width: 300px;
+
+}
+
+.wrapper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
 }
