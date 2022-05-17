@@ -23,7 +23,8 @@ nav {
 
 .progress-circle {
   /* Progress Circle */
-background-image: url(src/images/Progress Circle.svg);
+
+/* background-image: url('src/images/Progress Circle.svg'); */
 height: 100px;
 width: 100px;
 }
