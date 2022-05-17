@@ -6,23 +6,25 @@
     <title>Fitlit</title>
   </head>
   <body>
-    <header>
-    <h1>Activity Tracker</h1>
-    </header>
-    <nav>Left Nav</nav>
-    <section class="wrapper">
-      <div>
-      <canvas id="myChart" width="400" height="400">Chart</canvas>
-      <button>Change View</button>
-      <button>Info Breakdown</button>
-      </div>
-      <div class ="progress-circle">
-      </div>
-      <div class ="progress-circle">
-      </div>
-      <div class ="progress-circle">
-      </div>
+    <section class="main">
+      <nav>Left Nav</nav>
+      <!-- <section class="wrapper"> -->
+        <section class="user-data">
+          <h1>Activity Tracker</h1>
+          <section class="chart-holder">
+            <canvas id="myChart">Chart</canvas>
+          </section>
+          <section class="progress-holder">
+            <div class ="progress-circle">
+            </div>
+            <div class ="progress-circle">
+            </div>
+            <div class ="progress-circle">
+            </div>
+          </section>
+        </section>
     </section>
+    <!-- </section> -->
 
 <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
     <script src="bundle.js"></script>
