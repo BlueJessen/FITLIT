@@ -41,16 +41,19 @@ function welcomeUser() {
 welcomeUser();
 
 function userToDisplay() {
-  userCard.innerHTML =  `<div>${user.id}</div>
-                <div>${user.name}</div>
-                <div>${user.address}</div>
-                <div>${user.email}</div>
-                <div>${user.strideLength}</div>
-                <div>${user.dailyStepGoal}</div>
-                <div>${user.friends}</div>`;
+  userCard.innerHTML =  `<div> Id: ${user.id}</div>
+                <div> Name: ${user.name}</div>
+                <div> Address: ${user.address}</div>
+                <div> Email: ${user.email}</div>
+                <div> Stride Count: ${user.strideLength}</div>
+                <div> Daily Step Goal: ${user.dailyStepGoal}</div>
+                <div> Friends: ${user.friends}</div>
+                <div> Average Step Goal: ${userRepo.getAverage()}</div>`;
+
 };
 
 userToDisplay();
+
 
 console.log(userData,"<>>>>userData")
 // An example of how you tell webpack to use a CSS file
