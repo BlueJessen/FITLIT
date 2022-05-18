@@ -1,16 +1,27 @@
 import Chart from 'chart.js/auto';
 import UserRepository from './UserRepository';
 import User from './User';
-
+// import getPromise from './apiCalls';
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
+
 var userCard = document.querySelector('.user-card');
 var name = document.querySelector('#name');
-var userArray = []
 
+fetch('https://fitlit-api.herokuapp.com/api/v1/users').then(response => response.json()).then(data => {
 
-fetch('https://fitlit-api.herokuapp.com/api/v1/users').then(response => response.json()).then(data => userArray = data.userData.forEach(person => userArray.push(new User(person))));
-
+  let userArray = data.userData.map(person => new User(person));
+  let userRepo = new UserRepository(userArray);
+  let user = getRandomUser(userRepo.userData);
+  userCard.innerHTML =  `<div> Id: ${user.id}</div>
+                <div> Name: ${user.name}</div>
+                <div> Address: ${user.address}</div>
+                <div> Email: ${user.email}</div>
+                <div> Stride Count: ${user.strideLength}</div>
+                <div> Daily Step Goal: ${user.dailyStepGoal}</div>
+                <div> Friends: ${user.friends}</div>
+                <div> Average Step Goal: ${userRepo.getAverage()}</div>`;
+});
 
 
 //   userArray = data.userData.map((person) => {
@@ -19,9 +30,9 @@ fetch('https://fitlit-api.herokuapp.com/api/v1/users').then(response => response
 // console.log(userArray);
 //userData.map(user => {return new User(user)});
 
-var userRepo = new UserRepository(userArray)
-console.log(userRepo);
-var user = getRandomUser(userRepo.userData);
+// var userRepo = new UserRepository(userArray)
+// console.log(userRepo);
+// var user = getRandomUser(userRepo.userData);
 //event listener
 
 
@@ -42,6 +53,7 @@ console.log("REPO", userRepo)
 // 4) Implementing data through innerText/innerHTML
 // 5) the Char should hold a User instance data
 function welcomeUser() {
+  console.log(user);
   name.innerHTML = user.returnUserName();
 }
 
