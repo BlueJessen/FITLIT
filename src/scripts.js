@@ -6,6 +6,15 @@ import User from './User';
 var userCard = document.querySelector('.user-card');
 var name = document.querySelector('#name');
 
+const {populateDatabases} = require("./apiCalls");
+//Figure out how to rewrite this so it looks consistent
+
+let userData = [];
+let sleepData = [];
+let activityData = [];
+let hydratationData = [];
+
+populateDatabases();
 
 function getRandomUser(array) {
   var randomIndex = Math.floor(Math.random() * array.length)
@@ -23,9 +32,9 @@ function userToDisplay(user, repo) {
   userCard.innerHTML +=  `<div> Daily Step Goal: ${user.dailyStepGoal}</div>`;
   userCard.innerHTML +=  `<div> Friends: ${user.friends}</div>`;
   if (user.dailyStepGoal > repo.getAverage()) {
-    userCard.innerHTML +=  `<div> Your average Step Goal is ${user.dailyStepGoal -repo.getAverage()} over the average of ${repo.getAverage()}! Great Work!</div>`
+    userCard.innerHTML +=  `<div> Your average step goal is ${user.dailyStepGoal -repo.getAverage()} over the average of ${repo.getAverage()}! Great work!</div>`
   } else {
-    userCard.innerHTML +=  `<div> Your average Step Goal is ${repo.getAverage() - user.dailyStepGoal} under the average of ${repo.getAverage()}! You can STEP it up!</div>`
+    userCard.innerHTML +=  `<div> Your average step goal is ${repo.getAverage() - user.dailyStepGoal} under the average of ${repo.getAverage()}! You can STEP it up!</div>`
   }
 };
 
