@@ -12,25 +12,29 @@ function getRandomUser(array) {
     return array[randomIndex]
 };
 
-function userToDisplay(user, userRepo) {
+function userToDisplay(user, repo) {
   name.innerHTML = user.returnUserName();
   userCard.innerHTML = ``;
   userCard.innerHTML +=  `<div> Id: ${user.id}</div>`;
+  userCard.innerHTML +=  `<div> Name: ${user.name}</div>`;
   userCard.innerHTML +=  `<div> Address: ${user.address}</div>`;
   userCard.innerHTML +=  `<div> Email: ${user.email}</div>`;
   userCard.innerHTML +=  `<div> Stride Count: ${user.strideLength}</div>`;
   userCard.innerHTML +=  `<div> Daily Step Goal: ${user.dailyStepGoal}</div>`;
   userCard.innerHTML +=  `<div> Friends: ${user.friends}</div>`;
-  userCard.innerHTML +=  `<div> Name: ${user.name}</div>`;
-  userCard.innerHTML +=  `<div> Average Step Goal: ${userRepo.getAverage()}</div>`;
+  if (user.dailyStepGoal > repo.getAverage()) {
+    userCard.innerHTML +=  `<div> Your average Step Goal is ${user.dailyStepGoal -repo.getAverage()} over the average of ${repo.getAverage()}! Great Work!</div>`
+  } else {
+    userCard.innerHTML +=  `<div> Your average Step Goal is ${repo.getAverage() - user.dailyStepGoal} under the average of ${repo.getAverage()}! You can STEP it up!</div>`
+  }
 };
 
 function initialSetup() {
   fetch('https://fitlit-api.herokuapp.com/api/v1/users').then(response => response.json()).then(data => {
     let userArray = data.userData.map(person => new User(person));
     let userRepo = new UserRepository(userArray);
-    let user = getRandomUser(userRepo.userData);
-    userToDisplay(user, userRepo);
+    let randomUser = getRandomUser(userRepo.userData);
+    userToDisplay(randomUser, userRepo);
   });
 }
 
