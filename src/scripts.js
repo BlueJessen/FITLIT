@@ -1,5 +1,3 @@
-
-import userData from './data/users';
 import Chart from 'chart.js/auto';
 import UserRepository from './UserRepository';
 import User from './User';
@@ -8,12 +6,21 @@ import User from './User';
 // Do not delete or rename this file ********
 var userCard = document.querySelector('.user-card');
 var name = document.querySelector('#name');
-var userArray = userData.map(user => {
-    return new User(user)
-});
+var userArray = []
+
+
+fetch('https://fitlit-api.herokuapp.com/api/v1/users').then(response => response.json()).then(data => userArray = data.userData.forEach(person => userArray.push(new User(person))));
+
+
+
+//   userArray = data.userData.map((person) => {
+//  return new User(person)
+// }));
+// console.log(userArray);
+//userData.map(user => {return new User(user)});
 
 var userRepo = new UserRepository(userArray)
-
+console.log(userRepo);
 var user = getRandomUser(userRepo.userData);
 //event listener
 
