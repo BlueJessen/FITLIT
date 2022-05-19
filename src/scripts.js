@@ -7,6 +7,7 @@ import User from './User';
 // Do not delete or rename this file ********
 var userCard = document.querySelector('.user-card');
 var name = document.querySelector('#name');
+var hydrationWidget = document.querySelector('.hydration');
 
 let userData = [];
 let sleepData = [];
@@ -47,9 +48,18 @@ function userToDisplay(user, repo) {
   }
 };
 
+function hydrationDisplay () {
+  // let recentDate = '2020/01/22'; // placeholder <--
+  hydrationWidget.innerText =`Today's intake: ${hydrationRepo.findDayHydration(user.id, recentDate)}
+  Weekly Average: ${hydrationRepo.findWeekAverage(user.id, recentDate)}`;
+
+}
+
 function initialSetup () {
     let userArray = userData.userData.map(person => new User(person));
     let userRepo = new UserRepository(userArray);
+    // let hydrationRepo = new Hydration(hydrationData);
     let randomUser = getRandomUser(userRepo.userData);
     userToDisplay(randomUser, userRepo);
+    hydrationDisplay();
 }
