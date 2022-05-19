@@ -49,7 +49,7 @@ function userToDisplay(user, repo) {
 };
 
 function hydrationDisplay () {
-  // let recentDate = '2020/01/22'; // placeholder <--
+  let recentDate = '2020/01/22'; 
   hydrationWidget.innerText =`Today's intake: ${hydrationRepo.findDayHydration(user.id, recentDate)}
   Weekly Average: ${hydrationRepo.findWeekAverage(user.id, recentDate)}`;
 
@@ -58,8 +58,8 @@ function hydrationDisplay () {
 function initialSetup () {
     let userArray = userData.userData.map(person => new User(person));
     let userRepo = new UserRepository(userArray);
-    // let hydrationRepo = new Hydration(hydrationData);
+    let hydrationRepo = new Hydration(hydrationData);
     let randomUser = getRandomUser(userRepo.userData);
     userToDisplay(randomUser, userRepo);
-    hydrationDisplay();
+    hydrationDisplay(randomUser);
 }
