@@ -3,6 +3,7 @@ import { allData } from './apiCalls';
 import Chart from 'chart.js/auto';
 import UserRepository from './UserRepository';
 import User from './User';
+import Hydration from './Hydration';
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
 var userCard = document.querySelector('.user-card');
@@ -12,7 +13,7 @@ var hydrationWidget = document.querySelector('.hydration');
 let userData = [];
 let sleepData = [];
 let activityData = [];
-let hydratationData = [];
+let hydrationData = [];
 
 //EVENT LISTENERS -----------------------
 
@@ -21,7 +22,7 @@ window.addEventListener('load', () => {
     userData = data[0];
     sleepData = data[1];
     activityData = data[2];
-    hydratationData = data[3];
+    hydrationData = data[3];
     initialSetup();
 }).catch(error => console.log(error))
 });
@@ -48,18 +49,16 @@ function userToDisplay(user, repo) {
   }
 };
 
-function hydrationDisplay () {
-  let recentDate = '2020/01/22'; 
-  hydrationWidget.innerText =`Today's intake: ${hydrationRepo.findDayHydration(user.id, recentDate)}
-  Weekly Average: ${hydrationRepo.findWeekAverage(user.id, recentDate)}`;
-
+function hydrationDisplay (user, repo) {
+  let recentDate = '2020/01/22';
+  hydrationWidget.innerText =`Today's intake: ${repo.findDayHydration(user.id, recentDate)} Weekly Hydration: ${repo.findWeekHydration(user.id, recentDate)}`;
 }
 
 function initialSetup () {
     let userArray = userData.userData.map(person => new User(person));
     let userRepo = new UserRepository(userArray);
-    let hydrationRepo = new Hydration(hydrationData);
+    let hydrationRepo = new Hydration(hydrationData.hydrationData);
     let randomUser = getRandomUser(userRepo.userData);
     userToDisplay(randomUser, userRepo);
-    hydrationDisplay(randomUser);
+    hydrationDisplay(randomUser, hydrationRepo);
 }
