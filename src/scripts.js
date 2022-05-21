@@ -24,6 +24,7 @@ window.addEventListener('load', () => {
     activityData = data[2];
     hydrationData = data[3];
     initialSetup();
+
 }).catch(error => console.log(error))
 });
 
@@ -59,6 +60,47 @@ function initialSetup () {
     let userRepo = new UserRepository(userArray);
     let hydrationRepo = new Hydration(hydrationData.hydrationData);
     let randomUser = getRandomUser(userRepo.userData);
+    console.log(randomUser);
     userToDisplay(randomUser, userRepo);
     hydrationDisplay(randomUser, hydrationRepo);
+    createLineChart(randomUser);
 }
+
+function createLineChart(user) {
+  const ctx = document.getElementById('myChart').getContext('2d');
+  let hydrationRepo = new Hydration(hydrationData.hydrationData);
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        datasets: [{
+            label: `${user.name}'s weekly hydration`,
+              data: hydrationRepo.findWeekHydration(user.id, "2020/01/22"),
+            backgroundColor: [
+                'rgba(0, 0, 255, .3)',
+            //     'rgba(54, 162, 235, 0.2)',
+            //     'rgba(255, 206, 86, 0.2)',
+            //     'rgba(75, 192, 192, 0.2)',
+            //     'rgba(153, 102, 255, 0.2)',
+            //     'rgba(255, 159, 64, 0.2)',
+            //     'rgba(222, 111, 64, 0.2)'
+            ],
+            // borderColor: [
+            //     'rgba(255, 99, 132, 1)',
+            //     'rgba(54, 162, 235, 1)',
+            //     'rgba(255, 206, 86, 1)',
+            //     'rgba(75, 192, 192, 1)',
+            //     'rgba(153, 102, 255, 1)',
+            //     'rgba(255, 159, 64, 1)'
+            // ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+})};
