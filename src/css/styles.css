@@ -16,8 +16,9 @@ body, html {
 nav {
   height: 100vh;
   width: 20vw;
-  background: pink;
+  background: #25A18E;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
 }
 
