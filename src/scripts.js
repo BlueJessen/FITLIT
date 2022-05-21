@@ -38,8 +38,8 @@ function getRandomUser(array) {
 function userToDisplay(user, repo) {
   name.innerHTML = user.returnUserName();
   userCard.innerHTML = `
-    <div> Id: ${user.id}</div>
-    <div> Name: ${user.name}</div>
+    <!-- <div> Id: ${user.id}</div>
+    <div> Name: ${user.name}</div> -->
     <div> Address: ${user.address}</div>
     <div> Email: ${user.email}</div>
     <div> Stride Count: ${user.strideLength}</div>

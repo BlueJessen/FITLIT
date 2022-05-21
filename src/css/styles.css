@@ -4,6 +4,9 @@
 
 * {
   border: solid 2px black;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  color: #04352E;
 }
 
 body, html {
@@ -47,6 +50,16 @@ width: 100px;
 h1 {
   height: 10vh;
   width: inherit;
+}
+
+.user-card {
+  background-color: #9FFFCB;
+  text-align: center;
+}
+
+.name {
+  background-color: #9FFFCB;
+  text-align: center;
 }
 
 .chart-holder {
