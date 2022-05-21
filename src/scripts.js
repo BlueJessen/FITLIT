@@ -4,11 +4,13 @@ import Chart from 'chart.js/auto';
 import UserRepository from './UserRepository';
 import User from './User';
 import Hydration from './Hydration';
+import Sleep from './Sleep';
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
 var userCard = document.querySelector('.user-card');
 var name = document.querySelector('#name');
 var hydrationWidget = document.querySelector('.hydration');
+var sleepWidget = document.querySelector('.sleep');
 
 let userData = [];
 let sleepData = [];
@@ -54,11 +56,24 @@ function hydrationDisplay (user, repo) {
   hydrationWidget.innerText =`Today's intake: ${repo.findDayHydration(user.id, recentDate)} Weekly Hydration: ${repo.findWeekHydration(user.id, recentDate)}`;
 }
 
+function sleepDisplay(user, repo) {
+  let recentDate = '2020/01/22';
+  console.log(repo.findWeeklySleepQuality(user.id, recentDate))
+  sleepWidget.innerText = `Latest sleep data (Hours): ${repo.findDaySleepHours(user.id, recentDate)}
+  Latest sleep data (Quality): ${repo.findDaySleepQuality(user.id, recentDate)}
+   Weekly average (Hours): ${repo.findWeeklySleepHours(user.id, recentDate)}
+   Weekly average (Quality): ${repo.findWeeklySleepQuality(user.id, recentDate)}
+    All time average (Hours): ${repo.findAverageSleepHours(user.id)}
+    All time average (Quality): ${repo.findAverageSleepQuality(user.id)}`;
+}
+
 function initialSetup () {
     let userArray = userData.userData.map(person => new User(person));
     let userRepo = new UserRepository(userArray);
+    let sleepRepo = new Sleep(sleepData.sleepData);
     let hydrationRepo = new Hydration(hydrationData.hydrationData);
     let randomUser = getRandomUser(userRepo.userData);
     userToDisplay(randomUser, userRepo);
+    sleepDisplay(randomUser, sleepRepo);
     hydrationDisplay(randomUser, hydrationRepo);
 }
