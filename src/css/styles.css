@@ -66,10 +66,15 @@ h1 {
 }
 
 .chart-holder {
-  height: 50vh;
-  width: inherit;
+  height: 30vh;
+  width: 30vw;
   display: flex;
   flex-direction: column;
+}
+
+.myChart {
+  height: 30vh;
+  width: 30vw;
 }
 
 .progress-holder {
