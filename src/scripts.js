@@ -79,8 +79,6 @@ function initialSetup () {
     // sleepDisplay(randomUser, sleepRepo);
     // hydrationDisplay(randomUser, hydrationRepo);
     createBarChart(randomUser);
-    // createSleepWidget(randomUser);
-    // createHydrationWidget(randomUser);
 }
 
 function createBarChart(user) {
@@ -110,63 +108,6 @@ function createBarChart(user) {
             //     'rgba(153, 102, 255, 1)',
             //     'rgba(255, 159, 64, 1)'
             // ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-})};
-
-function createSleepWidget(user) {
-  const ctx = document.getElementById('sleep').getContext('2d');
-  let sleepRepo  = new Sleep(sleepData.sleepData);
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        datasets: [{
-            label: `${user.name}'s Sleep Info`,
-              data: sleepRepo.findWeeklySleepHours(user.id, "2020/01/22"),
-            backgroundColor: [
-                'rgba(23, 97, 85, .7)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(222, 111, 64, 0.2)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-})};
-
-function createHydrationWidget(user) {
-  const ctx = document.getElementById('hydration').getContext('2d');
-  let hydrationRepo  = new Hydration(hydrationData.hydrationData);
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ["2020/01/22", "Average"],
-        datasets: [{
-            label: `${user.name}'s Day Hydration Info`,
-              data: [hydrationRepo.findDayHydration(user.id, "2020/01/22"), 30],
-            backgroundColor: [
-                'rgba(23, 97, 85, .7)',
-                'rgba(54, 162, 235, 0.2)'
-            ],
             borderWidth: 1
         }]
     },
