@@ -69,6 +69,10 @@ text-align: center;
   text-align: center;
 }
 
+.user-friends {
+
+}
+
 .chart-holder {
   height: 40vh;
   width: 40vw;
@@ -98,16 +102,17 @@ text-align: center;
   justify-content: center;
   overflow: hidden;
 }
-.rectangle {
+.rectangle-1 {
   background-color: #E2D9D9;
   position: absolute;
-  top:50%;
+  bottom:50%;
   left:50%;
   width: 50vw;
   height: 50vh;
   transform-origin: 0 0;
 }
-.rectangle-2{
+
+.rectangle-2 {
   background-color: #E2D9D9;
   position: absolute;
   bottom:50%;
@@ -117,14 +122,42 @@ text-align: center;
   transform-origin: 0 0;
 }
 
+.rectangle-3 {
+  background-color: #E2D9D9;
+  position: absolute;
+  top:50%;
+  left:50%;
+  width: 50vw;
+  height: 50vh;
+  transform-origin: 0 0;
+}
+
+.rectangle-4 {
+  background-color: #E2D9D9;
+  position: absolute;
+  top:50%;
+  right:50%;
+  width: 50vw;
+  height: 50vh;
+  transform-origin: 0 0;
+}
+/* .rectangle-2{
+  background-color: #E2D9D9;
+  position: absolute;
+  bottom:50%;
+  right:50%;
+  width: 50vw;
+  height: 50vh;
+  transform-origin: 0 0;
+} */
+
 .inner-circle {
   position: relative;
-  display: flex;
-  align-items: center;
   height: 16vh;
   width: 10vw;
   border-radius: 50%;
   background-color: #E2D9D9;
+  color: black;
 }
 
 .inner-ring {
@@ -137,4 +170,8 @@ text-align: center;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+.hidden {
+  display: none;
 }

@@ -10,6 +10,7 @@ import Sleep from './Sleep';
 var userCard = document.querySelector('.user-card');
 var name = document.querySelector('#name');
 var hydrationWidget = document.querySelector('.hydration');
+var innerDisplay = document.querySelector('.percent')
 var sleepWidget = document.querySelector('.sleep');
 
 let userData = [];
@@ -36,10 +37,8 @@ function getRandomUser(array) {
 }
 
 function userToDisplay(user, repo) {
-  name.innerHTML = user.returnUserName();
+  name.innerHTML = `Welcome ${user.returnUserName()}!`;
   userCard.innerHTML = `
-    <!-- <div> Id: ${user.id}</div>
-    <div> Name: ${user.name}</div> -->
     <div> Address: ${user.address}</div>
     <div> Email: ${user.email}</div>
     <div> Stride Count: ${user.strideLength}</div>
@@ -51,10 +50,37 @@ function userToDisplay(user, repo) {
     userCard.innerHTML +=  `<div> Your average step goal is ${repo.getAverage() - user.dailyStepGoal} under the average of ${repo.getAverage()}! You can STEP it up!</div>`
   }
 };
+function populateFriends(user) {
+
+}
 
 function hydrationDisplay (user, repo) {
+  //should drink 85 fl oz a day
   let recentDate = '2020/01/22';
-  hydrationWidget.innerText =`Today's intake: ${repo.findDayHydration(user.id, recentDate)} Weekly Hydration: ${repo.findWeekHydration(user.id, recentDate)}`;
+  let displayInfo = getRectangleDegree(repo.findDayHydration(user.id, recentDate));
+  setHydrationProgress(displayInfo);
+}
+//Gets degree out of 360 the rectangle should cover and percent intake user has done vs reccomendation
+function getRectangleDegree(userFluid){
+  let percent = (userFluid/85)*100;
+  let degree = ((percent*360)/100).toFixed(0);
+  degree = 360 - degree;
+  return {degree: degree, percent: percent};
+}
+
+function setHydrationProgress(hydrationInfo) {
+  let rectangleAmount = Math.ceil(hydrationInfo.degree/90);//rounds up
+  let degreeSkew = 0;
+  // innerDisplay.innerText = `${hydrationInfo.percent.toFixed(2)}%`;
+  if (rectangleAmount > 1){
+    degreeSkew = hydrationInfo.degree - 90*(rectangleAmount-1);
+    degreeSkew = 90-degreeSkew;
+  }
+  for(let i =0; i<rectangleAmount; i++){
+    //HTML STUFF
+    hydrationWidget.innerHTML += `<div class= "rectangle-${i+1}" style= ></div>`;
+  }
+  hydrationWidget.children[hydrationWidget.children.length-1].style = `transform: skew(${degreeSkew}deg)`;
 }
 
 function sleepDisplay(user, repo) {
@@ -77,7 +103,7 @@ function initialSetup () {
     console.log(randomUser);
     userToDisplay(randomUser, userRepo);
     // sleepDisplay(randomUser, sleepRepo);
-    // hydrationDisplay(randomUser, hydrationRepo);
+    hydrationDisplay(randomUser, hydrationRepo);
     createBarChart(randomUser);
 }
 
