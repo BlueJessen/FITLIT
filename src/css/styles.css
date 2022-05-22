@@ -29,6 +29,10 @@ nav {
 }
 .progress-holder {
   display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  padding-top: 40px;
+  width: 65vw;
 }
 .main {
   height: 100vh;
@@ -42,16 +46,22 @@ nav {
   width: 85vw;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
 }
 
 h1 {
-  height: 10vh;
   width: inherit;
+text-align: center;
 }
 
 .user-card {
   background-color: #9FFFCB;
   text-align: center;
+}
+.chart-text {
+  font-size: 5vh;
 }
 
 .name {
@@ -60,19 +70,71 @@ h1 {
 }
 
 .chart-holder {
-  height: 30vh;
-  width: 30vw;
+  height: 40vh;
+  width: 40vw;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .myChart {
   height: 30vh;
   width: 30vw;
 }
+.progress-container {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+}
 
 .progress-circle {
-  height: 20vh;
-  width: 20vw;
+  position: relative;
+  height: 25vh;
+  width: 15vw;
+  border-radius: 50%;
+  background-color: #2D6CA5;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.rectangle {
+  background-color: #E2D9D9;
+  position: absolute;
+  top:50%;
+  left:50%;
+  width: 50vw;
+  height: 50vh;
+  transform-origin: 0 0;
+}
+.rectangle-2{
+  background-color: #E2D9D9;
+  position: absolute;
+  bottom:50%;
+  right:50%;
+  width: 50vw;
+  height: 50vh;
+  transform-origin: 0 0;
+}
+
+.inner-circle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 16vh;
+  width: 10vw;
+  border-radius: 50%;
+  background-color: #E2D9D9;
+}
+
+.inner-ring {
+  position: relative;
+  height: 20vh;
+  width: 12vw;
+  border-radius: 50%;
+  background-color: #FABE86;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }

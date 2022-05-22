@@ -79,8 +79,8 @@ function initialSetup () {
     // sleepDisplay(randomUser, sleepRepo);
     // hydrationDisplay(randomUser, hydrationRepo);
     createBarChart(randomUser);
-    createSleepWidget(randomUser);
-    createHydrationWidget(randomUser);
+    // createSleepWidget(randomUser);
+    // createHydrationWidget(randomUser);
 }
 
 function createBarChart(user) {

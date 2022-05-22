@@ -14,21 +14,23 @@
       </nav>
       <!-- <section class="wrapper"> -->
         <section class="user-data">
-            <h1 id="name">Activity Tracker</h1>
+            <h1 class="chart-text">Activity Tracker</h1>
           <section class="chart-holder">
                           <canvas class= "myChart" id="myChart"></canvas>
-            <div>Loading..
-            </div>
           </section>
           <section class="progress-holder">
+            <div class= "progress-container">
             <div class ="progress-circle hydration">
-                <canvas class= "myChart" id="hydration"></canvas>
+                  <div class= "rectangle"></div>
+                  <div class="inner-ring">
+                      <div class= "rectangle-2"></div>
+                      <div class="inner-circle">
+                        <h1>78%</h1>
+                      </div>
+                  </div>
+                <!-- <canvas class= "myChart" id="hydration"></canvas> -->
             </div>
-            <div class ="progress-circle sleep">
-                <canvas class= "myChart" id="sleep"></canvas>
-            </div>
-            <div class ="progress-circle">
-            </div>
+          </div>
           </section>
         </section>
     </section>
