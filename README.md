@@ -26,9 +26,6 @@ FITLIT is a webpage that allows you to keep track of fitness, sleep and even hyd
 2. `cd` into the directory.
 3. Run `open index.html`.
 
-### Deployment Link
-- [Click here for deployed webpage.](DEPLOYED URL HERE)
-
 ### Features
 - A data card on the left with all of the user's important info.
 - Custom widgets let users keep track of their progress on important stats like daily hydration and sleep quality.
