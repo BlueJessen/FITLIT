@@ -2,31 +2,44 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Fitlit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500&display=swap" rel="stylesheet">
   </head>
   <body>
     <section class="main">
-      <nav>Left Nav</nav>
-      <!-- <section class="wrapper"> -->
+      <nav>
+        <h1 id="name" class= "name">NAME</h1>
+        <section class="user-card">Loading...</section>
+        <section class="user-friends"></section>
+      </nav>
         <section class="user-data">
-            <h1 id="name">Activity Tracker</h1>
+            <h1 class="chart-text">Activity Tracker</h1>
           <section class="chart-holder">
-            <div class="user-card">Loading..
-            </div>
+                          <canvas class= "myChart" id="myChart"></canvas>
           </section>
           <section class="progress-holder">
+            <div class= "progress-container">
+              <h1>Todays Water Intake</h1>
             <div class ="progress-circle hydration">
+                      <div class="inner-circle inner-hydration"></div>
             </div>
-            <div class ="progress-circle sleep">
-            </div>
-            <div class ="progress-circle">
-            </div>
+          </div>
+          <div class ="progress-container">
+                  <h1>Last Night Hours of Sleep<h1>
+                    <div class="progress-circle sleep">
+                      <div class='inner-circle inner-sleep'></div>
+                    </div>
+                </div>
+              <div class ="progress-container">
+                <h1>Steps vs Steps Goal<h1>
+                  <div class="progress-circle steps">
+                      <div class='inner-circle inner-step'></div>
+                  </div>
+              </div>
           </section>
         </section>
     </section>
-    <!-- </section> -->
-
-<!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
     <script src="bundle.js"></script>
   </body>
 </html>
