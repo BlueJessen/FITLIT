@@ -14,11 +14,20 @@ var hydrationWidget = document.querySelector('.hydration');
 var sleepWidget = document.querySelector('.sleep');
 var innerDisplayHydration = document.querySelector('.inner-hydration');
 var innerDisplaySleep = document.querySelector('.inner-sleep');
+var sleepBtn = document.querySelector('.sleepBtn');
+var waterBtn = document.querySelector('.waterBtn');
+var waterChart = document.querySelector('.waterChart');
+var sleepChart = document.querySelector('.sleepChart');
 
 let userData = [];
 let sleepData = [];
 let activityData = [];
 let hydrationData = [];
+let randomUser;
+let userArray;
+let userRepo;
+let sleepRepo;
+let hydrationRepo;
 
 //EVENT LISTENERS -----------------------
 
@@ -30,8 +39,11 @@ window.addEventListener('load', () => {
     hydrationData = data[3];
     initialSetup();
 
-}).catch(error => console.log(error))
+  }).catch(error => console.log(error))
 });
+
+sleepBtn.addEventListener('click', clickSleepBtn);
+waterBtn.addEventListener('click', clickWaterBtn);
 
 function getRandomUser(array) {
   let randomIndex = Math.floor(Math.random() * array.length)
@@ -110,19 +122,20 @@ function sleepDisplay(user, repo) {
 }
 
 function initialSetup () {
-    let userArray = userData.userData.map(person => new User(person));
-    let userRepo = new UserRepository(userArray);
-    let sleepRepo = new Sleep(sleepData.sleepData);
-    let hydrationRepo = new Hydration(hydrationData.hydrationData);
-    let randomUser = getRandomUser(userRepo.userData);
+    userArray = userData.userData.map(person => new User(person));
+    userRepo = new UserRepository(userArray);
+    sleepRepo = new Sleep(sleepData.sleepData);
+    hydrationRepo = new Hydration(hydrationData.hydrationData);
+    randomUser = getRandomUser(userRepo.userData);
     userToDisplay(randomUser, userRepo);
     sleepDisplay(randomUser, sleepRepo);
     hydrationDisplay(randomUser, hydrationRepo);
-    createBarChart(randomUser);
+    createWaterChart(randomUser);
+    createSleepWidget(randomUser);
 }
 
-function createBarChart(user) {
-  const ctx = document.getElementById('myChart').getContext('2d');
+function createWaterChart(user) {
+  const ctx = document.getElementById('waterChart').getContext('2d');
   let hydrationRepo = new Hydration(hydrationData.hydrationData);
   new Chart(ctx, {
     type: 'bar',
@@ -145,3 +158,51 @@ function createBarChart(user) {
         }
     }
 })};
+
+function createSleepWidget(user) {
+  const ctx = document.getElementById('sleepChart').getContext('2d');
+  let sleepRepo  = new Sleep(sleepData.sleepData);
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        datasets: [{
+            label: `${user.name}'s Sleep Info`,
+              data: sleepRepo.findWeeklySleepHours(user.id, "2020/01/22"),
+            backgroundColor: [
+                'rgba(23, 97, 85, .7)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(222, 111, 64, 0.2)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+})};
+
+function clickWaterBtn() {
+  console.log('what?')
+  sleepChart.classList.add('hidden')
+  waterBtn.classList.add('hidden')
+  waterChart.classList.remove('hidden')
+  sleepBtn.classList.remove('hidden')
+};
+
+function clickSleepBtn() {
+    console.log('what?')
+    waterChart.classList.add('hidden')
+    sleepBtn.classList.add('hidden')
+    sleepChart.classList.remove('hidden')
+    waterBtn.classList.remove('hidden')
+
+};
