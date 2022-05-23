@@ -1,4 +1,4 @@
-# Ideabox
+# FITLIT
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -12,9 +12,9 @@
 - [Project Specifications](#project-specifications)
 
 ### Introduction
-Have you ever had a fantastic idea only to forget it before it came to life? If so, **Ideabox** is a webpage for you!
+Have you ever had trouble keeping track of all your goals and info when trying to get healthy or stay fit? If so, **FITLIT** is here for you!
 
-Ideabox is a webpage that allows you to add your ideas to a virtual box so that you can keep track of them. Fear not! The next brilliant idea you have won't so easily forgotten when you use Ideabox.
+FITLIT is a webpage that allows you to keep track of fitness, sleep and even hydration information for you and all your friends. So fear not! from now on all your fitness info will be there when you need it with FITLIT.
 
 ### Technologies
 - JavaScript
@@ -22,23 +22,30 @@ Ideabox is a webpage that allows you to add your ideas to a virtual box so that 
 - CSS
 
 ### Set Up
-1.  Clone this [repository](https://github.com/BlueJessen/FITLIT).
+1. Clone this [repository](https://github.com/BlueJessen/FITLIT).
 2. `cd` into the directory.
 3. Run `open index.html`.
 
-### Deployment Link
-- [Click here for deployed webpage.](DEPLOYED URL HERE)
-
 ### Features
-- A bunch of pretty charts
+- A data card on the left with all of the user's important info.
+- Custom widgets let users keep track of their progress on important stats like daily hydration and sleep quality.
+![Page Layout](/src/images/FITLIT2.gif)
+- Users can swap between charts for their hydration data and their sleep data.
+![ChartSwap](/src/images/FITLIT1.gif)
+- Charts using chart.js integration.
+![PageLayout](/src/images/FITLIT3.gif)
 
-
-### Reflection
--
+### Reflections
+- During this project we learned that javascript being dry and succinct makes it easier to implement the css and DOM manipulation, and in the future we want to make that consideration as we're building out a program.
+- We decided to add features (such as local storage) to the webpage, even though these lessons were not formally taught. To give ourselves more experience with webpack and npm.
+- Teamwork makes the dream work.
+![teamwork](https://user-images.githubusercontent.com/99382481/163876131-cc5b620d-540a-4ebd-b4d1-32fcec783c2b.png)
 
 
 ### Future Features
-- Make it the prettiest website on earth so Jonny Ive is like "damn son, that's a good website"
+- Allow users to select which user in the data set to display.
+- Add widgets with info on each of a user's friends.
+- Redesign/condense display of info in the data card in the sidebar.
 
 ### Contributors
 - [David Daw](https://github.com/davidhdaw)
