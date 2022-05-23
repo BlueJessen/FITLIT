@@ -1,5 +1,13 @@
 :root {
-
+  --vhMAX: 100vh;
+  --vwMAX: 100vw;
+  --Mint: #CCF1E8;
+  --darkMint: #25A18E;
+  --lightMint: #BBE1DB;
+  --seafoam: #9FFFCB;
+  --navyblue: #2D6CA5;
+  --paleRed: #E2D9D9;
+  --orange: #FABE86;
 }
 
 * {
@@ -8,38 +16,56 @@
   font-weight: 500;
   color: #04352E;
 }
-
+/* BODY */
 body, html {
   /* background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); */
   background-repeat: no-repeat;
-  height: 100vh;
-  width: 100vw;
+  height: var(--vhMAX);
+  width: var(--vwMAX);
   display: flex;
-  background-color: #CCF1E8;
+  background-color: var(--Mint);
 }
+/* MAIN */
+.main {
+  height: var(--vhMAX);
+  width: var(--vwMAX);
+  display: flex;
+}
+
 nav {
-  height: 100vh;
+  height: var(--vhMAX);
   width: 20vw;
-  background: #25A18E;
+  background: var(--darkMint);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   border-radius: 3px;
-  border: solid 2px #BBE1DB;
-}
-.progress-holder {
-  display: flex;
-  justify-content: space-around;
-  padding: 20px;
-  padding-top: 40px;
-  width: 65vw;
-}
-.main {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
+  border: solid 2px var(--lightMint);
 }
 
+h1 {
+  width: inherit;
+  text-align: center;
+}
+
+.name {
+  background-color: var(--seafoam);
+  text-align: center;
+  font-size: 5vh;
+}
+
+.user-card {
+  background-color: var(--seafoam);
+  text-align: center;
+}
+
+.chart-holder {
+  height: 40vh;
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .user-data {
   height: inherit;
@@ -48,25 +74,9 @@ nav {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
 }
 
-h1 {
-  width: inherit;
-text-align: center;
-}
-
-.user-card {
-  background-color: #9FFFCB;
-  text-align: center;
-}
 .chart-text {
-  font-size: 5vh;
-}
-
-.name {
-  background-color: #9FFFCB;
-  text-align: center;
   font-size: 5vh;
 }
 
@@ -79,23 +89,17 @@ padding-top: 5vh;
   padding: 1vh;
 }
 
-.chart-holder {
-  height: 40vh;
-  width: 40vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .myChart {
   height: 30vh;
   width: 30vw;
 }
 
-.progress-container {
-  position: relative;
-  display: inline-block;
-  margin-right: 20px;
+.progress-holder {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  padding-top: 40px;
+  width: 65vw;
 }
 
 .progress-circle {
@@ -103,14 +107,22 @@ padding-top: 5vh;
   height: 25vh;
   width: 15vw;
   border-radius: 50%;
-  background-color: #2D6CA5;
+  background-color: var(--navyblue);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
+
+/* PROGRESS CIRCLE */
+.progress-container {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+}
+
 .rectangle-1 {
-  background-color: #E2D9D9;
+  background-color: var(--paleRed);
   position: absolute;
   bottom:50%;
   left:50%;
@@ -120,7 +132,7 @@ padding-top: 5vh;
 }
 
 .rectangle-2 {
-  background-color: #E2D9D9;
+  background-color: var(--paleRed);
   position: absolute;
   bottom:50%;
   right:50%;
@@ -130,7 +142,7 @@ padding-top: 5vh;
 }
 
 .rectangle-3 {
-  background-color: #E2D9D9;
+  background-color: var(--paleRed);
   position: absolute;
   top:50%;
   left:50%;
@@ -140,7 +152,7 @@ padding-top: 5vh;
 }
 
 .rectangle-4 {
-  background-color: #E2D9D9;
+  background-color: var(--paleRed);
   position: absolute;
   top:50%;
   right:50%;
@@ -157,7 +169,7 @@ padding-top: 5vh;
   height: 16vh;
   width: 10vw;
   border-radius: 50%;
-  background-color: #E2D9D9;
+  background-color: var(--paleRed);
   color: black;
   z-index: 1;
 }
@@ -167,7 +179,7 @@ padding-top: 5vh;
   height: 20vh;
   width: 12vw;
   border-radius: 50%;
-  background-color: #FABE86;
+  background-color: var(--orange);
   display: flex;
   align-items: center;
   justify-content: center;
