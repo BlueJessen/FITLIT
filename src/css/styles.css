@@ -78,6 +78,7 @@ padding-top: 5vh;
 .user-info {
   padding: 1vh;
 }
+
 .chart-holder {
   height: 40vh;
   width: 40vw;
@@ -90,6 +91,7 @@ padding-top: 5vh;
   height: 30vh;
   width: 30vw;
 }
+
 .progress-container {
   position: relative;
   display: inline-block;
@@ -149,11 +151,15 @@ padding-top: 5vh;
 
 .inner-circle {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 16vh;
   width: 10vw;
   border-radius: 50%;
   background-color: #E2D9D9;
   color: black;
+  z-index: 1;
 }
 
 .inner-ring {

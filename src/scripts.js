@@ -12,7 +12,8 @@ var userFriends = document.querySelector('.user-friends');
 var name = document.querySelector('#name');
 var hydrationWidget = document.querySelector('.hydration');
 var sleepWidget = document.querySelector('.sleep');
-var innerDisplay = document.querySelector('.percent')
+var innerDisplayHydration = document.querySelector('.inner-hydration');
+var innerDisplaySleep = document.querySelector('.inner-sleep');
 
 let userData = [];
 let sleepData = [];
@@ -51,6 +52,7 @@ function userToDisplay(user, repo) {
   }
   populateFriends(user);
 };
+
 function populateFriends(user) {
   userFriends.innerHTML = `<div> Friends: ${user.friends}</div>`;
 }
@@ -64,36 +66,47 @@ function hydrationDisplay (user, repo) {
 
 //Gets degree out of 360 the rectangle should cover and percent intake user has done vs reccomendation
 function getRectangleDegree(userInfo, rec){
-  let percent = (userFluid/rec)*100;
+  let percent = (userInfo/rec)*100;
   let degree = ((percent*360)/100).toFixed(0);
   degree = 360 - degree;
   return {degree: degree, percent: percent};
 }
 
 function setProgressWidget(info, type) {
-  let rectangleAmount = Math.ceil(hydrationInfo.degree/90);//rounds up
+  let rectangleAmount = Math.ceil(info.degree/90);//rounds up
   let degreeSkew = 0;
-  // innerDisplay.innerText = `${hydrationInfo.percent.toFixed(2)}%`;
   if (rectangleAmount > 1){
-    degreeSkew = hydrationInfo.degree - 90*(rectangleAmount-1);
+    degreeSkew = info.degree - 90*(rectangleAmount-1);
     degreeSkew = 90-degreeSkew;
   }
+  if(type === 'hydration') {
+    innerDisplayHydration.innerText = `${info.percent.toFixed(2)}%`;
   for(let i =0; i<rectangleAmount; i++){
     //HTML STUFF
-    `${type}Widget`.innerHTML += `<div class= "rectangle-${i+1}" style= ></div>`;
+  hydrationWidget.innerHTML += `<div class= "rectangle-${i+1}" style= ></div>`;
   }
-    `${type}Widget`.children[`${type}Widget`.children.length-1].style = `transform: skew(${degreeSkew}deg)`;
+    hydrationWidget.children[  hydrationWidget.children.length-1].style = `transform: skew(${degreeSkew}deg)`;
+  } else if(type === 'sleep') {
+    innerDisplaySleep.innerText = `${info.percent.toFixed(2)}%`;
+    for(let i =0; i<rectangleAmount; i++){
+      //HTML STUFF
+    sleepWidget.innerHTML += `<div class= "rectangle-${i+1}" style= ></div>`;
+    }
+    sleepWidget.children[sleepWidget.children.length-1].style = `transform: skew(${degreeSkew}deg)`;
+  }
 }
 
 function sleepDisplay(user, repo) {
   let recentDate = '2020/01/22';
-  console.log(repo.findWeeklySleepQuality(user.id, recentDate))
-  sleepWidget.innerText = `Latest sleep data (Hours): ${repo.findDaySleepHours(user.id, recentDate)}
-  Latest sleep data (Quality): ${repo.findDaySleepQuality(user.id, recentDate)}
-   Weekly average (Hours): ${repo.findWeeklySleepHours(user.id, recentDate)}
-   Weekly average (Quality): ${repo.findWeeklySleepQuality(user.id, recentDate)}
-    All time average (Hours): ${repo.findAverageSleepHours(user.id)}
-    All time average (Quality): ${repo.findAverageSleepQuality(user.id)}`;
+  // console.log(repo.findWeeklySleepQuality(user.id, recentDate));
+  // sleepWidget.innerText = `Latest sleep data (Hours): ${repo.findDaySleepHours(user.id, recentDate)}
+  // Latest sleep data (Quality): ${repo.findDaySleepQuality(user.id, recentDate)}
+  //  Weekly average (Hours): ${repo.findWeeklySleepHours(user.id, recentDate)}
+  //  Weekly average (Quality): ${repo.findWeeklySleepQuality(user.id, recentDate)}
+  //   All time average (Hours): ${repo.findAverageSleepHours(user.id)}
+  //   All time average (Quality): ${repo.findAverageSleepQuality(user.id)}`;
+    let displayInfo = getRectangleDegree(repo.findDaySleepHours(user.id, recentDate), 8);
+    setProgressWidget(displayInfo, 'sleep');
 }
 
 function initialSetup () {
