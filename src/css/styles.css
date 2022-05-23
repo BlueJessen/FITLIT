@@ -175,5 +175,5 @@ padding-top: 5vh;
 }
 
 .hidden {
-  display: none;
+  display: none!important;
 }
