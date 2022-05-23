@@ -81,7 +81,7 @@ function getRectangleDegree(userInfo, rec){
   let percent = (userInfo/rec)*100;
   let degree = ((percent*360)/100).toFixed(0);
   degree = 360 - degree;
-  return {degree: degree, percent: percent};
+  return {degree: degree, percent: percent, userInfo: userInfo};
 }
 
 function setProgressWidget(info, type) {
@@ -92,14 +92,17 @@ function setProgressWidget(info, type) {
     degreeSkew = 90-degreeSkew;
   }
   if(type === 'hydration') {
-    innerDisplayHydration.innerText = `${info.percent.toFixed(2)}%`;
+    innerDisplayHydration.innerText = `${info.percent.toFixed(2)}%
+    ${info.userInfo} fl oz`;
   for(let i =0; i<rectangleAmount; i++){
     //HTML STUFF
   hydrationWidget.innerHTML += `<div class= "rectangle-${i+1}" style= ></div>`;
   }
     hydrationWidget.children[  hydrationWidget.children.length-1].style = `transform: skew(${degreeSkew}deg)`;
   } else if(type === 'sleep') {
-    innerDisplaySleep.innerText = `${info.percent.toFixed(2)}%`;
+    innerDisplaySleep.innerText = `${info.percent.toFixed(2)}%
+      ${info.userInfo} hours
+      ${info.dayQuality} quality`;
     for(let i =0; i<rectangleAmount; i++){
       //HTML STUFF
     sleepWidget.innerHTML += `<div class= "rectangle-${i+1}" style= ></div>`;
@@ -110,14 +113,15 @@ function setProgressWidget(info, type) {
 
 function sleepDisplay(user, repo) {
   let recentDate = '2020/01/22';
+  //   All time average (Quality): ${repo.findAverageSleepQuality(user.id)}`;
   // console.log(repo.findWeeklySleepQuality(user.id, recentDate));
   // sleepWidget.innerText = `Latest sleep data (Hours): ${repo.findDaySleepHours(user.id, recentDate)}
   // Latest sleep data (Quality): ${repo.findDaySleepQuality(user.id, recentDate)}
   //  Weekly average (Hours): ${repo.findWeeklySleepHours(user.id, recentDate)}
   //  Weekly average (Quality): ${repo.findWeeklySleepQuality(user.id, recentDate)}
   //   All time average (Hours): ${repo.findAverageSleepHours(user.id)}
-  //   All time average (Quality): ${repo.findAverageSleepQuality(user.id)}`;
     let displayInfo = getRectangleDegree(repo.findDaySleepHours(user.id, recentDate), 8);
+    displayInfo['dayQuality'] = `${repo.findDaySleepQuality(user.id, recentDate)}`;
     setProgressWidget(displayInfo, 'sleep');
 }
 
@@ -163,22 +167,25 @@ function createSleepWidget(user) {
   const ctx = document.getElementById('sleepChart').getContext('2d');
   let sleepRepo  = new Sleep(sleepData.sleepData);
   new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: {
         labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         datasets: [{
-            label: `${user.name}'s Sleep Info`,
+            label: `${user.name}'s Sleep Time in Hours`,
               data: sleepRepo.findWeeklySleepHours(user.id, "2020/01/22"),
             backgroundColor: [
-                'rgba(23, 97, 85, .7)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(222, 111, 64, 0.2)'
+              'rgba(0, 39, 44, 0.88)',
             ],
-            borderWidth: 1
+            borderColor:'rgba(0, 39, 44, 0.88)',
+            borderWidth: 2
+        }, {  label: `${user.name}'s Sleep Quality`,
+            data: sleepRepo.findWeeklySleepQuality(user.id, "2020/01/22"),
+          backgroundColor: [
+              'rgba(249, 130, 0, 0.8)',
+          ],
+          borderColor: 'rgba(249, 130, 0, 0.8)',
+          borderWidth: 2
+
         }]
     },
     options: {
