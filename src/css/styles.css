@@ -4,7 +4,7 @@
 
 * {
   /* border: solid 2px black; */
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Archivo', sans-serif;
   font-weight: 500;
   color: #04352E;
 }
@@ -67,12 +67,17 @@ text-align: center;
 .name {
   background-color: #9FFFCB;
   text-align: center;
+  font-size: 5vh;
 }
 
 .user-friends {
-
+text-align: center;
+padding-top: 5vh;
 }
 
+.user-info {
+  padding: 1vh;
+}
 .chart-holder {
   height: 40vh;
   width: 40vw;
@@ -141,15 +146,6 @@ text-align: center;
   height: 50vh;
   transform-origin: 0 0;
 }
-/* .rectangle-2{
-  background-color: #E2D9D9;
-  position: absolute;
-  bottom:50%;
-  right:50%;
-  width: 50vw;
-  height: 50vh;
-  transform-origin: 0 0;
-} */
 
 .inner-circle {
   position: relative;

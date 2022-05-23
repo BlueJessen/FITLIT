@@ -8,10 +8,11 @@ import Sleep from './Sleep';
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
 var userCard = document.querySelector('.user-card');
+var userFriends = document.querySelector('.user-friends');
 var name = document.querySelector('#name');
 var hydrationWidget = document.querySelector('.hydration');
-var innerDisplay = document.querySelector('.percent')
 var sleepWidget = document.querySelector('.sleep');
+var innerDisplay = document.querySelector('.percent')
 
 let userData = [];
 let sleepData = [];
@@ -39,36 +40,37 @@ function getRandomUser(array) {
 function userToDisplay(user, repo) {
   name.innerHTML = `Welcome ${user.returnUserName()}!`;
   userCard.innerHTML = `
-    <div> Address: ${user.address}</div>
-    <div> Email: ${user.email}</div>
-    <div> Stride Count: ${user.strideLength}</div>
-    <div> Daily Step Goal: ${user.dailyStepGoal}</div>
-    <div> Friends: ${user.friends}</div>`;
+    <div class='user-info'> ${user.address}</div>
+    <div class='user-info'> ${user.email}</div>
+    <div class='user-info'> Stride Count: ${user.strideLength}</div>
+    <div class='user-info'> Daily Step Goal: ${user.dailyStepGoal}</div>`;
   if (user.dailyStepGoal > repo.getAverage()) {
-    userCard.innerHTML +=  `<div> Your average step goal is ${user.dailyStepGoal -repo.getAverage()} over the average of ${repo.getAverage()}! Great work!</div>`
+    userCard.innerHTML +=  `<div class='user-info'> Your average step goal is ${user.dailyStepGoal -repo.getAverage()} over the average of ${repo.getAverage()}! Great work!</div>`
   } else {
-    userCard.innerHTML +=  `<div> Your average step goal is ${repo.getAverage() - user.dailyStepGoal} under the average of ${repo.getAverage()}! You can STEP it up!</div>`
+    userCard.innerHTML +=  `<div class='user-info'> Your average step goal is ${repo.getAverage() - user.dailyStepGoal} under the average of ${repo.getAverage()}! You can STEP it up!</div>`
   }
+  populateFriends(user);
 };
 function populateFriends(user) {
-
+  userFriends.innerHTML = `<div> Friends: ${user.friends}</div>`;
 }
 
 function hydrationDisplay (user, repo) {
   //should drink 85 fl oz a day
   let recentDate = '2020/01/22';
-  let displayInfo = getRectangleDegree(repo.findDayHydration(user.id, recentDate));
-  setHydrationProgress(displayInfo);
+  let displayInfo = getRectangleDegree(repo.findDayHydration(user.id, recentDate), 85);
+  setProgressWidget(displayInfo, 'hydration');
 }
+
 //Gets degree out of 360 the rectangle should cover and percent intake user has done vs reccomendation
-function getRectangleDegree(userFluid){
-  let percent = (userFluid/85)*100;
+function getRectangleDegree(userInfo, rec){
+  let percent = (userFluid/rec)*100;
   let degree = ((percent*360)/100).toFixed(0);
   degree = 360 - degree;
   return {degree: degree, percent: percent};
 }
 
-function setHydrationProgress(hydrationInfo) {
+function setProgressWidget(info, type) {
   let rectangleAmount = Math.ceil(hydrationInfo.degree/90);//rounds up
   let degreeSkew = 0;
   // innerDisplay.innerText = `${hydrationInfo.percent.toFixed(2)}%`;
@@ -78,9 +80,9 @@ function setHydrationProgress(hydrationInfo) {
   }
   for(let i =0; i<rectangleAmount; i++){
     //HTML STUFF
-    hydrationWidget.innerHTML += `<div class= "rectangle-${i+1}" style= ></div>`;
+    `${type}Widget`.innerHTML += `<div class= "rectangle-${i+1}" style= ></div>`;
   }
-  hydrationWidget.children[hydrationWidget.children.length-1].style = `transform: skew(${degreeSkew}deg)`;
+    `${type}Widget`.children[`${type}Widget`.children.length-1].style = `transform: skew(${degreeSkew}deg)`;
 }
 
 function sleepDisplay(user, repo) {
@@ -100,9 +102,8 @@ function initialSetup () {
     let sleepRepo = new Sleep(sleepData.sleepData);
     let hydrationRepo = new Hydration(hydrationData.hydrationData);
     let randomUser = getRandomUser(userRepo.userData);
-    console.log(randomUser);
     userToDisplay(randomUser, userRepo);
-    // sleepDisplay(randomUser, sleepRepo);
+    sleepDisplay(randomUser, sleepRepo);
     hydrationDisplay(randomUser, hydrationRepo);
     createBarChart(randomUser);
 }
@@ -119,21 +120,7 @@ function createBarChart(user) {
               data: hydrationRepo.findWeekHydration(user.id, "2020/01/22"),
             backgroundColor: [
                 'rgba(23, 97, 85, .7)',
-            //     'rgba(54, 162, 235, 0.2)',
-            //     'rgba(255, 206, 86, 0.2)',
-            //     'rgba(75, 192, 192, 0.2)',
-            //     'rgba(153, 102, 255, 0.2)',
-            //     'rgba(255, 159, 64, 0.2)',
-            //     'rgba(222, 111, 64, 0.2)'
             ],
-            // borderColor: [
-            //     'rgba(255, 99, 132, 1)',
-            //     'rgba(54, 162, 235, 1)',
-            //     'rgba(255, 206, 86, 1)',
-            //     'rgba(75, 192, 192, 1)',
-            //     'rgba(153, 102, 255, 1)',
-            //     'rgba(255, 159, 64, 1)'
-            // ],
             borderWidth: 1
         }]
     },
