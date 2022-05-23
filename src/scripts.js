@@ -56,7 +56,9 @@ function userToDisplay(user, repo) {
     <div class='user-info'> ${user.address}</div>
     <div class='user-info'> ${user.email}</div>
     <div class='user-info'> Stride Count: ${user.strideLength}</div>
-    <div class='user-info'> Daily Step Goal: ${user.dailyStepGoal}</div>`;
+    <div class='user-info'> Daily Step Goal: ${user.dailyStepGoal}</div>
+    <div class='user-info'>All time average sleep (Quality): ${sleepRepo.findAverageSleepQuality(user.id)}</div>
+    <div class='user-info'>All time average sleep (Hours): ${sleepRepo.findAverageSleepHours(user.id)}</div>`;
   if (user.dailyStepGoal > repo.getAverage()) {
     userCard.innerHTML +=  `<div class='user-info'> Your average step goal is ${user.dailyStepGoal -repo.getAverage()} over the average of ${repo.getAverage()}! Great work!</div>`
   } else {
@@ -113,13 +115,6 @@ function setProgressWidget(info, type) {
 
 function sleepDisplay(user, repo) {
   let recentDate = '2020/01/22';
-  //   All time average (Quality): ${repo.findAverageSleepQuality(user.id)}`;
-  // console.log(repo.findWeeklySleepQuality(user.id, recentDate));
-  // sleepWidget.innerText = `Latest sleep data (Hours): ${repo.findDaySleepHours(user.id, recentDate)}
-  // Latest sleep data (Quality): ${repo.findDaySleepQuality(user.id, recentDate)}
-  //  Weekly average (Hours): ${repo.findWeeklySleepHours(user.id, recentDate)}
-  //  Weekly average (Quality): ${repo.findWeeklySleepQuality(user.id, recentDate)}
-  //   All time average (Hours): ${repo.findAverageSleepHours(user.id)}
     let displayInfo = getRectangleDegree(repo.findDaySleepHours(user.id, recentDate), 8);
     displayInfo['dayQuality'] = `${repo.findDaySleepQuality(user.id, recentDate)}`;
     setProgressWidget(displayInfo, 'sleep');
@@ -198,7 +193,6 @@ function createSleepWidget(user) {
 })};
 
 function clickWaterBtn() {
-  console.log('what?')
   sleepChart.classList.add('hidden')
   waterBtn.classList.add('hidden')
   waterChart.classList.remove('hidden')
@@ -206,7 +200,6 @@ function clickWaterBtn() {
 };
 
 function clickSleepBtn() {
-    console.log('what?')
     waterChart.classList.add('hidden')
     sleepBtn.classList.add('hidden')
     sleepChart.classList.remove('hidden')
