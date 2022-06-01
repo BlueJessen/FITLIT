@@ -23,7 +23,9 @@ findWeekHydration(id, date) {
   let userHydration = this.findUser(id);
   let dayIndex = userHydration.findIndex(data => date === data.date);
   const toDate = userHydration.slice(0 , (dayIndex+1));
-  return toDate;
+  let result = toDate.slice(-7).map(day => day.numOunces);
+  console.log(result);
+  return result;
 }
 }
 
