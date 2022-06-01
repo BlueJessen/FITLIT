@@ -40,9 +40,14 @@ describe('User' , () => {
   expect(user.name).to.equal("Luisa Hane");
   });
 
-  it('should not accept accept numbers as a name', () => {
+  it('should be a string', () => {
 
-    expect(user.name).to.not.equal(333)
+    expect(user.name).to.be.a('string')
+  });
+
+  it('should not have a number as a name', () => {
+
+    expect(user.name).to.not.include(0, 1, 3, 4, 5, 6, 7, 8, 9)
   });
 
   it('should have an address', () => {
@@ -50,9 +55,24 @@ describe('User' , () => {
   expect(user.address).to.equal("15195 Nakia Tunnel, Erdmanport VA 19901-1697");
 });
 
+it('should always be a string', () => {
+
+  expect(user.address).to.be.a('string')
+});
+
 it('should have an email', () => {
 
 expect(user.email).to.equal("Diana.Hayes1@hotmail.com");
+});
+
+it('should be a valid email', () => {
+
+  expect(user.email).to.include('@')
+});
+
+it('should always be a string', () => {
+
+  expect(user.email).to.be.a('string')
 });
 
 it('should have a recorded stride length', () => {
