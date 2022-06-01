@@ -15,6 +15,9 @@ describe('Hydration', () => {
 
     expect(hydrationRepo).to.be.an.instanceof(Hydration);
   });
+  it('should be able to find the most recent date', function () ) {
+    expect(hydration.findRecentDateHydration(50).to.deep.equal("2020/01/16")
+  });
   it("should be able to find a user's info", function () {
     expect(hydrationRepo.findUser(49)).to.deep.equal([{"userID":49,"date":"2020/01/14","numOunces":87},{"userID":49,"date":"2020/01/15","numOunces":57},{"userID":49,"date":"2020/01/16","numOunces":71},{"userID":49,"date":"2020/01/17","numOunces":68},{"userID":49,"date":"2020/01/18","numOunces":55},{"userID":49,"date":"2020/01/19","numOunces":52},{"userID":49,"date":"2020/01/20","numOunces":37},{"userID":49,"date":"2020/01/21","numOunces":38},{"userID":49,"date":"2020/01/22","numOunces":36},])
   });
