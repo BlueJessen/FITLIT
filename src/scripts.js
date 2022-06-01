@@ -51,7 +51,7 @@ waterBtn.addEventListener('click', clickWaterBtn);
 
 //Dom functions -----------------------
 
-function userToDisplay(user, repo) {
+function displayUserInfo(user, repo) {
   name.innerHTML = `Welcome ${user.returnUserName()}!`;
   userCard.innerHTML = `
     <div class='user-info'> ${user.address}</div>
@@ -82,13 +82,13 @@ function setProgressWidget(info, type) {
   let rectangleAmount = Math.ceil(info.degree / 90);
   let degreeSkew = getDegreeSkew(rectangleAmount, info);
   if (type === 'hydration') {
-    progressWidgetHydration(info, degreeSkew, rectangleAmount);
+    addProgressWidgetHydration(info, degreeSkew, rectangleAmount);
   }else if (type === 'sleep') {
-    progressWidgetSleep(info, degreeSkew, rectangleAmount);
+    addProgressWidgetSleep(info, degreeSkew, rectangleAmount);
   }
 }
 
-function progressWidgetHydration(info, degreeSkew, rectangleAmount) {
+function addProgressWidgetHydration(info, degreeSkew, rectangleAmount) {
   innerDisplayHydration.innerText = `${info.percent.toFixed(2)}%
   ${info.userInfo} fl oz`;
   for (let i = 0; i < rectangleAmount; i++) {
@@ -97,7 +97,7 @@ function progressWidgetHydration(info, degreeSkew, rectangleAmount) {
   hydrationWidget.children[hydrationWidget.children.length - 1].style = `transform: skew(${degreeSkew}deg)`;
 }
 
-function progressWidgetSleep(info, degreeSkew, rectangleAmount) {
+function addProgressWidgetSleep(info, degreeSkew, rectangleAmount) {
   innerDisplaySleep.innerText = `${info.percent.toFixed(2)}%
     ${info.userInfo} hours
     ${info.dayQuality} quality`;
@@ -107,7 +107,7 @@ function progressWidgetSleep(info, degreeSkew, rectangleAmount) {
   sleepWidget.children[sleepWidget.children.length - 1].style = `transform: skew(${degreeSkew}deg)`;
 }
 
-function sleepDisplay(user, repo) {
+function showSleepDisplay(user, repo) {
   let recentDate = repo.findRecentDate(user.id);
   let displayInfo = getRectangleDegree(repo.findDaySleepHours(user.id, recentDate), 8);
   displayInfo['dayQuality'] = `${repo.findDaySleepQuality(user.id, recentDate)}`;
@@ -120,8 +120,8 @@ function initialSetup() {
   sleepRepo = new Sleep(sleepData.sleepData);
   hydrationRepo = new Hydration(hydrationData.hydrationData);
   randomUser = getRandomUser(userRepo.userData);
-  userToDisplay(randomUser, userRepo);
-  sleepDisplay(randomUser, sleepRepo);
+  displayUserInfo(randomUser, userRepo);
+  showSleepDisplay(randomUser, sleepRepo);
   hydrationDisplay(randomUser, hydrationRepo);
   createWaterChart(randomUser);
   createSleepWidget(randomUser);
