@@ -42,9 +42,8 @@ describe('Sleep', () => {
     expect(sleepData.findAverageSleepQuality(10)).to.equal(2.9);
   });
 
-  if('should be able to find the most recent date', () => {
-
-    expect(sleepData.findRecentDateSleep(10).to.deep.equal("2019/06/21"))
+  it('should be able to find the most recent date', () => {
+    expect(sleepData.findRecentDate(10)).to.deep.equal("2019/06/21")
   });
 
   it('should find how many hours a user slept for a specific day', () => {

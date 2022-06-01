@@ -37,6 +37,10 @@ class Sleep {
     return this.sleepData.find(userData => userID === userData.userID && date === userData.date).sleepQuality;
   };
 
+  findRecentDate(id) {
+    return this.findAllUserData(id).slice(-1)[0].date;
+  }
+
   findWeeklySleepHours(userID, date) {
     const userData = this.findAllUserData(userID);
     const dayIndex = userData.findIndex(dataEntry => dataEntry.date === date);
