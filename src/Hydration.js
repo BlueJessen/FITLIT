@@ -4,11 +4,11 @@ constructor(userStats) {
 this.userData = userStats;
 }
 findUser(id) {
-  let userInfo = this.userData.reduce((acc,user) => {
+  let userInfo = this.userData.reduce((data, user) => {
     if(id === user.userID) {
-      acc.push(user);
+      data.push(user);
     }
-    return acc
+    return data
   },[]);
   return userInfo;
 }

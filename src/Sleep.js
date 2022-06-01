@@ -13,18 +13,18 @@ class Sleep {
 
   findAverageSleepHours(userID) {
     const userData = this.findAllUserData(userID);
-    const averageSleepHours = userData.reduce((acc, dataEntry) => {
-      acc += dataEntry.hoursSlept;
-      return acc
+    const averageSleepHours = userData.reduce((total, dataEntry) => {
+      total += dataEntry.hoursSlept;
+      return total
     }, 0)/userData.length;
     return Number(averageSleepHours.toFixed(1));
   };
 
   findAverageSleepQuality(userID) {
     const userData = this.findAllUserData(userID);
-    const averageSleepQuality = userData.reduce((acc, dataEntry) => {
-      acc += dataEntry.sleepQuality;
-      return acc
+    const averageSleepQuality = userData.reduce((total, dataEntry) => {
+      total += dataEntry.sleepQuality;
+      return total
     }, 0)/userData.length;
     return Number(averageSleepQuality.toFixed(1));
   };

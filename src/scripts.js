@@ -207,8 +207,7 @@ function clickSleepBtn() {
 
 function getRectangleDegree(userInfo, rec) {
   let percent = (userInfo / rec) * 100;
-  let degree = ((percent * 360) / 100).toFixed(0);
-  degree = 360 - degree;
+  let degree = 360 - (((percent * 360) / 100).toFixed(0));
   return {
     degree: degree,
     percent: percent,
@@ -219,8 +218,7 @@ function getRectangleDegree(userInfo, rec) {
 function getDegreeSkew(rectangleAmount, info) {
   let degreeSkew = 0;
   if (rectangleAmount > 1) {
-    degreeSkew = info.degree - 90 * (rectangleAmount - 1);
-    degreeSkew = 90 - degreeSkew;
+    degreeSkew = 90 - (info.degree - 90 * (rectangleAmount - 1));
   }
   return degreeSkew;
 }

@@ -6,9 +6,9 @@ class UserRepository {
     return this.userData.find(user => id === user.id);
   };
   getAverageSteps() {
-    const totalSteps = this.userData.reduce((a, user) => {
-      a += user.dailyStepGoal;
-      return a;
+    const totalSteps = this.userData.reduce((total, user) => {
+      total += user.dailyStepGoal;
+      return total;
     }, 0);
     return Math.floor(totalSteps / this.userData.length)
   };
