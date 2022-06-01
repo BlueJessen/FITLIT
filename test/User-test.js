@@ -30,9 +30,19 @@ describe('User' , () => {
     expect(user.id).to.equal(1);
   });
 
+  it('should not have a number as an id', () => {
+
+    expect(user.id).to.not.equal('hello')
+  });
+
   it('should have a name', () => {
 
   expect(user.name).to.equal("Luisa Hane");
+  });
+
+  it('should not accept accept numbers as a name', () => {
+
+    expect(user.name).to.not.equal(333)
   });
 
   it('should have an address', () => {
