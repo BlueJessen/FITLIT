@@ -136,7 +136,7 @@ function createWaterChart(user) {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       datasets: [{
         label: `${user.name}'s weekly hydration in fl oz`,
-        data: hydrationRepo.findWeekHydration(user.id, "2020/01/22"),
+        data: hydrationRepo.findWeekHydration(user.id, hydrationRepo.findRecentDate(user.id)),
         backgroundColor: [
           'rgba(23, 97, 85, .7)',
         ],
@@ -162,7 +162,7 @@ function createSleepWidget(user) {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       datasets: [{
         label: `${user.name}'s Sleep Time in Hours`,
-        data: sleepRepo.findWeeklySleepHours(user.id, "2020/01/22"),
+        data: sleepRepo.findWeeklySleepHours(user.id, sleepRepo.findRecentDate(user.id)),
         backgroundColor: [
           'rgba(0, 39, 44, 0.88)',
         ],
@@ -170,7 +170,7 @@ function createSleepWidget(user) {
         borderWidth: 2
       }, {
         label: `${user.name}'s Sleep Quality`,
-        data: sleepRepo.findWeeklySleepQuality(user.id, "2020/01/22"),
+        data: sleepRepo.findWeeklySleepQuality(user.id, sleepRepo.findRecentDate(user.id)),
         backgroundColor: [
           'rgba(249, 130, 0, 0.8)',
         ],
