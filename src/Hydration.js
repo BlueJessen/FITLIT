@@ -23,7 +23,7 @@ findRecentDate(id) {
   return this.findUser(id).slice(-1)[0].date
 }
 
-findWeekHydration(id, date) {
+findWeeklyHydration(id, date) {
   let userHydration = this.findUser(id);
   let dayIndex = userHydration.findIndex(data => date === data.date);
   const toDate = userHydration.slice(0 , (dayIndex+1));

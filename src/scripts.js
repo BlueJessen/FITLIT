@@ -60,10 +60,10 @@ function displayUserInfo(user, repo) {
     <div class='user-info'> Daily Step Goal: ${user.dailyStepGoal}</div>
     <div class='user-info'>All time average sleep (Quality): ${sleepRepo.findAverageSleepQuality(user.id)}</div>
     <div class='user-info'>All time average sleep (Hours): ${sleepRepo.findAverageSleepHours(user.id)}</div>`;
-  if (user.dailyStepGoal > repo.getAverage()) {
-    userCard.innerHTML += `<div class='user-info'> Your average step goal is ${user.dailyStepGoal -repo.getAverage()} over the average of ${repo.getAverage()}! Great work!</div>`
+  if (user.dailyStepGoal > repo.getAverageSteps()) {
+    userCard.innerHTML += `<div class='user-info'> Your average step goal is ${user.dailyStepGoal -repo.getAverageSteps()} over the average of ${repo.getAverageSteps()}! Great work!</div>`
   } else {
-    userCard.innerHTML += `<div class='user-info'> Your average step goal is ${repo.getAverage() - user.dailyStepGoal} under the average of ${repo.getAverage()}! You can STEP it up!</div>`
+    userCard.innerHTML += `<div class='user-info'> Your average step goal is ${repo.getAverageSteps() - user.dailyStepGoal} under the average of ${repo.getAverageSteps()}! You can STEP it up!</div>`
   }
   populateFriends(user);
 };
@@ -136,7 +136,7 @@ function createWaterChart(user) {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       datasets: [{
         label: `${user.name}'s weekly hydration in fl oz`,
-        data: hydrationRepo.findWeekHydration(user.id, hydrationRepo.findRecentDate(user.id)),
+        data: hydrationRepo.findWeeklyHydration(user.id, hydrationRepo.findRecentDate(user.id)),
         backgroundColor: [
           'rgba(23, 97, 85, .7)',
         ],
