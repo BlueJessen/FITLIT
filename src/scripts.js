@@ -73,8 +73,7 @@ function populateFriends(user) {
 }
 
 function hydrationDisplay(user, repo) {
-  //should drink 85 fl oz a day
-  let recentDate = '2020/01/22';
+  let recentDate = repo.findRecentDate(user.id);
   let displayInfo = getRectangleDegree(repo.findDayHydration(user.id, recentDate), 85);
   setProgressWidget(displayInfo, 'hydration');
 }
@@ -109,7 +108,7 @@ function progressWidgetSleep(info, degreeSkew, rectangleAmount) {
 }
 
 function sleepDisplay(user, repo) {
-  let recentDate = '2020/01/22';
+  let recentDate = repo.findRecentDate(user.id);
   let displayInfo = getRectangleDegree(repo.findDaySleepHours(user.id, recentDate), 8);
   displayInfo['dayQuality'] = `${repo.findDaySleepQuality(user.id, recentDate)}`;
   setProgressWidget(displayInfo, 'sleep');
