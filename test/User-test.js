@@ -47,7 +47,7 @@ describe('User' , () => {
 
   it('should not have a number as a name', () => {
 
-    expect(user.name).to.not.be.an('nan');
+    expect(user.name).to.be(NAN);
   });
 
   it('should have an address', () => {
