@@ -32,7 +32,7 @@ describe('User' , () => {
 
   it('should not have a number as an id', () => {
 
-    expect(user.id).to.not.equal('hello')
+    expect(user.id).to.not.be.an('string');
   });
 
   it('should have a name', () => {
@@ -42,12 +42,12 @@ describe('User' , () => {
 
   it('should be a string', () => {
 
-    expect(user.name).to.be.a('string')
+    expect(user.name).to.be.a('string');
   });
 
   it('should not have a number as a name', () => {
 
-    expect(user.name).to.not.include(0, 1, 3, 4, 5, 6, 7, 8, 9)
+    expect(user.name).to.not.be.an('nan');
   });
 
   it('should have an address', () => {
@@ -57,7 +57,7 @@ describe('User' , () => {
 
 it('should always be a string', () => {
 
-  expect(user.address).to.be.a('string')
+  expect(user.address).to.be.a('string');
 });
 
 it('should have an email', () => {
@@ -67,12 +67,12 @@ expect(user.email).to.equal("Diana.Hayes1@hotmail.com");
 
 it('should be a valid email', () => {
 
-  expect(user.email).to.include('@')
+  expect(user.email).to.include('@');
 });
 
 it('should always be a string', () => {
 
-  expect(user.email).to.be.a('string')
+  expect(user.email).to.be.a('string');
 });
 
 it('should have a recorded stride length', () => {
@@ -80,9 +80,19 @@ it('should have a recorded stride length', () => {
   expect(user.strideLength).to.equal(4.3);
 });
 
+it('should have a default stride length', () => {
+
+  expect(user.strideLength).to.equal(0);
+});
+
 it('should have a daily step goal', () => {
 
 expect(user.dailyStepGoal).to.equal(10000);
+});
+
+it('should have a default daily step goal', () => {
+
+  expect(user.dailystepGoal).to.equal(0);
 });
 
 it('should have friends', () => {
@@ -90,8 +100,17 @@ it('should have friends', () => {
 expect(user.friends).to.deep.equal([ 16, 4, 8 ]);
 });
 
+it('should have a default friendslist', () => {
+
+  expect(user.friends).to.equal([]);
+});
+
 it('should be able to return the first name of each user', () => {
 
 expect(user.returnUserName()).to.equal("Luisa");
+});
+it('should always return a string, when returning the first name', () => {
+
+  expect(user.returnUserName()).to.be.a('string');
 });
 });
