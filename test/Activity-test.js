@@ -10,10 +10,10 @@ describe('Activity', () => {
   let userRepo = [];
   beforeEach( () => {
     activityRepo = new Activity(activityData);
-    userArray = userData.map(user => new User(user));
+    let userArray = userData.map(user => new User(user));
     userRepo = new UserRepository(userArray);
   });
-  
+
   it('should be a function', function () {
     expect(Activity).to.be.a('function');
   });
@@ -44,7 +44,7 @@ describe('Activity', () => {
 
   it('should be able to find all days a user exceeded their step goal', function () {
     expect(activityRepo.daysStepGoalReached(7)).to.equal(["2020/01/14", "2020/01/18"]);
-    expect(activityRepo.daysStepGoalReached(90)).to.equal("2020/01/13"]);
+    expect(activityRepo.daysStepGoalReached(90)).to.equal(["2020/01/13"]);
   });
 
   it('should be able to find the most stairs a user climbed in a day', function () {
