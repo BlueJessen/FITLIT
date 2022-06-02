@@ -1,35 +1,67 @@
 import { expect } from 'chai';
 import UserRepository from '../src/UserRepository.js';
 import User from '../src/User.js';
-import Activity from '../src/activity.js';
+import Activity from '../src/Activity.js';
+import { activityData } from './test-data.js';
+import { userData } from './test-data.js';
 
 describe('Activity', () => {
   let activityRepo = [];
+  let userRepo = [];
   beforeEach( () => {
-    let userArray = [{"id":7,"name":"Breanne Fay","address":"834 Retta Knoll, Stantonland MA 71627-4121","email":"Dashawn28@gmail.com","strideLength":2.9,"dailyStepGoal":8000,"friends":[12,27,22,30]},{"id":8,"name":"Laney Abshire","address":"86416 Koch Inlet, North Kaciefurt MA 80635","email":"Janice_Nitzsche2@yahoo.com","strideLength":2.8,"dailyStepGoal":2000,"friends":[11,41,23,49]},{"id":9,"name":"Myron Schmitt","address":"85251 Martina Fields, West Aletha MD 00163-5315","email":"Gerard_Langosh22@hotmail.com","strideLength":3.8,"dailyStepGoal":6000,"friends":[16,26,17]}].map(user => new User(user));
-    let userRepo = new UserRepository(userArray);
-    activityRepo = new Activity([{"userID":7,"date":"2020/01/13","numSteps":1503,"minutesActive":542,"flightsOfStairs":40}, {"userID":7,"date":"2020/01/14","numSteps":2503,"minutesActive":2,"flightsOfStairs":27},{"userID":7,"date":"2020/01/15","numSteps":3503,"minutesActive":261,"flightsOfStairs":32},{"userID":7,"date":"2020/01/16","numSteps":4403,"minutesActive":621,"flightsOfStairs":18},{"userID":7,"date":"2020/01/17","numSteps":2203,"minutesActive":126,"flightsOfStairs":70},{"userID":7,"date":"2020/01/18","numSteps":5503,"minutesActive":162,"flightsOfStairs":105},{"userID":7,"date":"2020/01/19","numSteps":1111,"minutesActive":333,"flightsOfStairs":1},{"userID":7,"date":"2020/01/20","numSteps":2222,"minutesActive":512,"flightsOfStairs":33},{"userID":7,"date":"2020/01/21","numSteps":2323,"minutesActive":8,"flightsOfStairs":40},{"userID":7,"date":"2020/01/22","numSteps":3232,"minutesActive":88,"flightsOfStairs":8},{"userID":90,"date":"2020/01/13","numSteps":5031,"minutesActive":362,"flightsOfStairs":4},])
+    activityRepo = new Activity(activityData);
+    userArray = userData.map(user => new User(user));
+    userRepo = new UserRepository(userArray);
   });
-
+  
   it('should be a function', function () {
     expect(Activity).to.be.a('function');
   });
-  it('should be an instance of Hydration', function () {
 
+  it('should be an instance of Activity', function () {
     expect(hydrationRepo).to.be.an.instanceof(Activity);
   });
 
-  it('should be able to find the most recent date', function () {
-    expect(hydrationRepo.findRecentDate(7)).to.equal("2020/01/22");
+  it('should be able to find the miles walked on a date', function () {
+    expect(activityRepo.milesWalked(7, "2020/01/22")).to.equal(1.8);
+    expect(activityRepo.milesWalked(7, "2020/01/21")).to.equal(1.3);
   });
-  it("should be able to find a user's info", function () {
-    expect(hydrationRepo.findUser(49)).to.deep.equal([{"userID":49,"date":"2020/01/14","numOunces":87},{"userID":49,"date":"2020/01/15","numOunces":57},{"userID":49,"date":"2020/01/16","numOunces":71},{"userID":49,"date":"2020/01/17","numOunces":68},{"userID":49,"date":"2020/01/18","numOunces":55},{"userID":49,"date":"2020/01/19","numOunces":52},{"userID":49,"date":"2020/01/20","numOunces":37},{"userID":49,"date":"2020/01/21","numOunces":38},{"userID":49,"date":"2020/01/22","numOunces":36},])
+
+  it('should be able to find the minutes active on a date', function () {
+    expect(activityRepo.minutesActive(7, "2020/01/22")).to.equal(88);
+    expect(activityRepo.minutesActive(7, "2020/01/21")).to.equal(8);
   });
-  it("should be able to find how much a user drank on a certain day", function () {
-    expect(hydrationRepo.findDayHydration(50,"2020/01/16")).to.equal(43)
+
+  it('should be able to find the average minutes active on a week', function () {
+    expect(activityRepo.weeklyActivityAverage(7, "2020/01/22")).to.equal(264);
+    expect(activityRepo.weeklyActivityAverage(7, "2020/01/21")).to.equal(289);
   });
-  it("should be able to find how much a user drank each day for a week", function () {
-    expect(hydrationRepo.findWeekHydration(49,"2020/01/22")).to.deep.equal([71, 68, 55, 52, 37, 38, 36]);
+
+  it('should be able to find if a user reached their step goal on a date', function () {
+    expect(activityRepo.stepGoalReached(7, "2020/01/22")).to.equal(false);
+    expect(activityRepo.stepGoalReached(7, "2020/01/18")).to.equal(true);
+  });
+
+  it('should be able to find all days a user exceeded their step goal', function () {
+    expect(activityRepo.daysStepGoalReached(7)).to.equal(["2020/01/14", "2020/01/18"]);
+    expect(activityRepo.daysStepGoalReached(90)).to.equal("2020/01/13"]);
+  });
+
+  it('should be able to find the most stairs a user climbed in a day', function () {
+    expect(activityRepo.maxStairs(7)).to.equal(105);
+    expect(activityRepo.maxStairs(90)).to.equal(4);
+  });
+
+  it('should be able to find the average stairs climbed on a day', function () {
+    expect(activityRepo.averageStairs("2020/01/13")).to.equal(22);
+  });
+
+  it('should be able to find the average steps taken on a day', function () {
+    expect(activityRepo.averageSteps("2020/01/13")).to.equal(3267);
+  });
+
+  it('should be able to find the average minutes active on a day', function () {
+    expect(activityRepo.averageActivity("2020/01/13")).to.equal(452);
   });
 
 });
