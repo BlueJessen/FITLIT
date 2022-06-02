@@ -58,8 +58,8 @@ function displayUserInfo(user, repo) {
     <div class='user-info'> ${user.email}</div>
     <div class='user-info'> Stride Count: ${user.strideLength}</div>
     <div class='user-info'> Daily Step Goal: ${user.dailyStepGoal}</div>
-    <div class='user-info'>All time average sleep (Quality): ${sleepRepo.findAverageSleepQuality(user.id)}</div>
-    <div class='user-info'>All time average sleep (Hours): ${sleepRepo.findAverageSleepHours(user.id)}</div>`;
+    <div class='user-info'>All time average sleep (Quality): ${sleepRepo.findAverage(user.id, 'quality')}</div>
+    <div class='user-info'>All time average sleep (Hours): ${sleepRepo.findAverage(user.id, 'hours')}</div>`;
   if (user.dailyStepGoal > repo.getAverageSteps()) {
     userCard.innerHTML += `<div class='user-info'> Your average step goal is ${user.dailyStepGoal -repo.getAverageSteps()} over the average of ${repo.getAverageSteps()}! Great work!</div>`
   } else {
@@ -72,9 +72,9 @@ function populateFriends(user) {
   userFriends.innerHTML = `<div> Friends: ${user.friends}</div>`;
 }
 
-function hydrationDisplay(user, repo) {
+function createHydrationDisplay(user, repo) {
   let recentDate = repo.findRecentDate(user.id);
-  let displayInfo = getRectangleDegree(repo.findDayHydration(user.id, recentDate), 85);
+  let displayInfo = getRectangleDegree(repo.findDateData(user.id, recentDate), 85);
   setProgressWidget(displayInfo, 'hydration');
 }
 
@@ -109,8 +109,8 @@ function addProgressWidgetSleep(info, degreeSkew, rectangleAmount) {
 
 function showSleepDisplay(user, repo) {
   let recentDate = repo.findRecentDate(user.id);
-  let displayInfo = getRectangleDegree(repo.findDaySleepHours(user.id, recentDate), 8);
-  displayInfo['dayQuality'] = `${repo.findDaySleepQuality(user.id, recentDate)}`;
+  let displayInfo = getRectangleDegree(repo.findDateData(user.id, recentDate, 'hours'), 8);
+  displayInfo['dayQuality'] = `${repo.findDateData(user.id, recentDate, 'quality')}`;
   setProgressWidget(displayInfo, 'sleep');
 }
 
@@ -122,7 +122,7 @@ function initialSetup() {
   randomUser = getRandomUser(userRepo.userData);
   displayUserInfo(randomUser, userRepo);
   showSleepDisplay(randomUser, sleepRepo);
-  hydrationDisplay(randomUser, hydrationRepo);
+  createHydrationDisplay(randomUser, hydrationRepo);
   createWaterChart(randomUser);
   createSleepWidget(randomUser);
 }
@@ -136,7 +136,7 @@ function createWaterChart(user) {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       datasets: [{
         label: `${user.name}'s weekly hydration in fl oz`,
-        data: hydrationRepo.findWeeklyHydration(user.id, hydrationRepo.findRecentDate(user.id)),
+        data: hydrationRepo.findWeeklyData(user.id, hydrationRepo.findRecentDate(user.id)),
         backgroundColor: [
           'rgba(23, 97, 85, .7)',
         ],
@@ -162,7 +162,7 @@ function createSleepWidget(user) {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       datasets: [{
         label: `${user.name}'s Sleep Time in Hours`,
-        data: sleepRepo.findWeeklySleepHours(user.id, sleepRepo.findRecentDate(user.id)),
+        data: sleepRepo.findWeeklyData(user.id, sleepRepo.findRecentDate(user.id), 'hours'),
         backgroundColor: [
           'rgba(0, 39, 44, 0.88)',
         ],
@@ -170,7 +170,7 @@ function createSleepWidget(user) {
         borderWidth: 2
       }, {
         label: `${user.name}'s Sleep Quality`,
-        data: sleepRepo.findWeeklySleepQuality(user.id, sleepRepo.findRecentDate(user.id)),
+        data: sleepRepo.findWeeklyData(user.id, sleepRepo.findRecentDate(user.id), 'quality'),
         backgroundColor: [
           'rgba(249, 130, 0, 0.8)',
         ],

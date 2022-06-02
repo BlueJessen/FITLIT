@@ -13,7 +13,7 @@ findUser(id) {
   return userInfo;
 }
 
-findDayHydration(id, date) {
+findDateData(id, date) {
   let userHydration = this.findUser(id);
   let day = userHydration.find(data => date === data.date);
   return day.numOunces;
@@ -23,7 +23,7 @@ findRecentDate(id) {
   return this.findUser(id).slice(-1)[0].date
 }
 
-findWeeklyHydration(id, date) {
+findWeeklyData(id, date) {
   let userHydration = this.findUser(id);
   let dayIndex = userHydration.findIndex(data => date === data.date);
   const toDate = userHydration.slice(0 , (dayIndex+1));
