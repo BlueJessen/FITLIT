@@ -5,10 +5,10 @@ class UserRepository {
   findUser(id) {
     return this.userData.find(user => id === user.id);
   };
-  getAverage() {
-    const totalSteps = this.userData.reduce((a, user) => {
-      a += user.dailyStepGoal;
-      return a;
+  getAverageSteps() {
+    const totalSteps = this.userData.reduce((total, user) => {
+      total += user.dailyStepGoal;
+      return total;
     }, 0);
     return Math.floor(totalSteps / this.userData.length)
   };

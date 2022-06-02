@@ -4,16 +4,16 @@ constructor(userStats) {
 this.userData = userStats;
 }
 findUser(id) {
-  let userInfo = this.userData.reduce((acc,user) => {
+  let userInfo = this.userData.reduce((data, user) => {
     if(id === user.userID) {
-      acc.push(user);
+      data.push(user);
     }
-    return acc
+    return data
   },[]);
   return userInfo;
 }
 
-findDayHydration(id, date) {
+findDateData(id, date) {
   let userHydration = this.findUser(id);
   let day = userHydration.find(data => date === data.date);
   return day.numOunces;
@@ -23,7 +23,7 @@ findRecentDate(id) {
   return this.findUser(id).slice(-1)[0].date
 }
 
-findWeekHydration(id, date) {
+findWeeklyData(id, date) {
   let userHydration = this.findUser(id);
   let dayIndex = userHydration.findIndex(data => date === data.date);
   const toDate = userHydration.slice(0 , (dayIndex+1));
