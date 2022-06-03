@@ -3,6 +3,7 @@ import {
   allData
 } from './apiCalls';
 import Chart from 'chart.js/auto';
+import CircleProgress from 'js-circle-progress';
 import UserRepository from './UserRepository';
 import User from './User';
 import Hydration from './Hydration';
@@ -21,6 +22,7 @@ var sleepBtn = document.querySelector('.sleepBtn');
 var waterBtn = document.querySelector('.waterBtn');
 var waterChart = document.querySelector('.waterChart');
 var sleepChart = document.querySelector('.sleepChart');
+var progressCircle =document.querySelector('.progress');
 
 // globals -----------------------
 let userData = [];
@@ -32,7 +34,7 @@ let userArray;
 let userRepo;
 let sleepRepo;
 let hydrationRepo;
-
+const circleProgress = new CircleProgress(progressCircle);
 //EVENT LISTENERS -----------------------
 
 window.addEventListener('load', () => {
@@ -91,6 +93,9 @@ function setProgressWidget(info, type) {
 }
 
 function addProgressWidgetHydration(info, degreeSkew, rectangleAmount) {
+  console.log("userinfo", info);
+  circleProgress.max = 85;
+  circleProgress.value = info.userInfo;
   innerDisplayHydration.innerText = `${info.percent.toFixed(2)}%
   ${info.userInfo} fl oz`;
   for (let i = 0; i < rectangleAmount; i++) {
@@ -122,6 +127,7 @@ function initialSetup() {
   sleepRepo = new Sleep(sleepData.sleepData);
   hydrationRepo = new Hydration(hydrationData.hydrationData);
   randomUser = getRandomUser(userRepo.userData);
+
   displayUserInfo(randomUser, userRepo);
   showSleepDisplay(randomUser, sleepRepo);
   createHydrationDisplay(randomUser, hydrationRepo);
