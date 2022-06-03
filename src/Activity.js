@@ -69,6 +69,25 @@ class Activity {
       return sum;
     },0)/usersOnDate.length;
   }
+
+  averageSteps(date) {
+    const usersOnDate = this.activityRepo.filter(user => user.date === date);
+    return usersOnDate.reduce((sum, day) => {
+      sum += day.numSteps;
+      return sum;
+    },0)/usersOnDate.length;
+
+  }
+
+  averageActivity(date) {
+    const usersOnDate = this.activityRepo.filter(user => user.date === date);
+    return usersOnDate.reduce((sum, day) => {
+      sum += day.minutesActive;
+      return sum;
+    },0)/usersOnDate.length;
+  }
+
+
  }
 
 

@@ -42,7 +42,7 @@ describe('Activity', () => {
     expect(activityRepo.stepGoalReached(7, "2020/01/18", userRepo)).to.equal(true);
   });
 
-  it('should be able to find all days a user exceeded their step goal', function () {
+  it.only('should be able to find all days a user exceeded their step goal', function () {
     expect(activityRepo.daysStepGoalReached(7, userRepo)).to.deep.equal(["2020/01/14", "2020/01/18"]);
     expect(activityRepo.daysStepGoalReached(90, userRepo)).to.deep.equal(["2020/01/13"]);
   });
@@ -52,15 +52,15 @@ describe('Activity', () => {
     expect(activityRepo.maxStairs(90)).to.equal(4);
   });
 
-  it.only('should be able to find the average stairs climbed on a day', function () {
+  it('should be able to find the average stairs climbed on a day', function () {
     expect(activityRepo.averageStairs("2020/01/13")).to.equal(22);
   });
 
-  it.skip('should be able to find the average steps taken on a day', function () {
+  it('should be able to find the average steps taken on a day', function () {
     expect(activityRepo.averageSteps("2020/01/13")).to.equal(3267);
   });
 
-  it.skip('should be able to find the average minutes active on a day', function () {
+  it('should be able to find the average minutes active on a day', function () {
     expect(activityRepo.averageActivity("2020/01/13")).to.equal(452);
   });
 
