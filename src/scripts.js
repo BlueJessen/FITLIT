@@ -38,8 +38,10 @@ let hydrationRepo;
 window.addEventListener('load', () => {
   allData.then(data => {
     userData = data[0];
+    console.log(userData)
     sleepData = data[1];
     activityData = data[2];
+    console.log(activityData);
     hydrationData = data[3];
     initialSetup();
 
