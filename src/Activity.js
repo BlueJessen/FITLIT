@@ -32,7 +32,42 @@ class Activity {
         sum += day.minutesActive;
         return sum;
       }, 0);
-      return parseInt(result/7); 
+      return parseInt(result/7);
+  }
+
+  stepGoalReached(userID, date, userRepo) {
+      const goal = userRepo.findUser(userID).dailyStepGoal;
+      const dataSet = this.findAllUserData(userID);
+      const steps = dataSet.find(day => day.date === date).numSteps;
+      return goal < steps || goal === steps ? true : false;
+  }
+
+  daysStepGoalReached(userID, userInfo) {
+        const goal = userInfo.findUser(userID).dailyStepGoal;
+        const dataSet = this.findAllUserData(userID);
+        const daysGoalReached = dataSet.reduce((dates, day) => {
+          if (day.numSteps > goal || day.numSteps === goal) {
+            dates.push(day.date);
+            }
+            return dates;
+        },[])
+        return daysGoalReached;
+  }
+
+  maxStairs(userID) {
+      const dataSet = this.findAllUserData(userID);
+      let sortedSet = dataSet.sort((day, nextDay) => {
+      return nextDay.flightsOfStairs - day.flightsOfStairs;
+      });
+    return sortedSet[0].flightsOfStairs
+  }
+
+  averageStairs(date) {
+    const usersOnDate = this.activityRepo.filter(user => user.date === date);
+    return usersOnDate.reduce((sum, day) => {
+      sum += day.flightsOfStairs;
+      return sum;
+    },0)/usersOnDate.length;
   }
  }
 
