@@ -43,9 +43,10 @@ class Activity {
   }
 
   daysStepGoalReached(userID, userInfo) {
-        const goal = userInfo.findUser(userID).dailyStepGoal;
+        let goal = userInfo.findUser(userID);
+        goal = goal.dailyStepGoal;
         const dataSet = this.findAllUserData(userID);
-        const daysGoalReached = dataSet.reduce((dates, day) => {
+        let daysGoalReached = dataSet.reduce((dates, day) => {
           if (day.numSteps > goal || day.numSteps === goal) {
             dates.push(day.date);
             }

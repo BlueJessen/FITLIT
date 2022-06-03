@@ -42,9 +42,9 @@ describe('Activity', () => {
     expect(activityRepo.stepGoalReached(7, "2020/01/18", userRepo)).to.equal(true);
   });
 
-  it.only('should be able to find all days a user exceeded their step goal', function () {
-    expect(activityRepo.daysStepGoalReached(7, userRepo)).to.deep.equal(["2020/01/14", "2020/01/18"]);
-    expect(activityRepo.daysStepGoalReached(90, userRepo)).to.deep.equal(["2020/01/13"]);
+  it('should be able to find all days a user exceeded their step goal', function () {
+    let result = activityRepo.daysStepGoalReached(7, userRepo);
+    expect(result).to.deep.equal(["2020/01/14", "2020/01/18"]);
   });
 
   it('should be able to find the most stairs a user climbed in a day', function () {
