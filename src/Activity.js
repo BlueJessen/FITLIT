@@ -39,28 +39,12 @@ class Activity {
       return parseInt(result/7);
   }
 
-  weeklyActivity(userID, date) {
+  findWeeklyData(userID, date, type) {
       const dataSet = this.findAllUserData(userID);
       const dayIndex = dataSet.findIndex(data => date === data.date);
       const toDate = dataSet.slice(0 , (dayIndex+1));
       const result = toDate.slice(-7);
-      return result.map(day => day.minutesActive);
-  }
-
-  weeklyStairs(userID, date) {
-      const dataSet = this.findAllUserData(userID);
-      const dayIndex = dataSet.findIndex(data => date === data.date);
-      const toDate = dataSet.slice(0 , (dayIndex+1));
-      const result = toDate.slice(-7);
-      return result.map(day => day.flightsOfStairs);
-  }
-
-  weeklySteps(userID, date) {
-      const dataSet = this.findAllUserData(userID);
-      const dayIndex = dataSet.findIndex(data => date === data.date);
-      const toDate = dataSet.slice(0 , (dayIndex+1));
-      const result = toDate.slice(-7);
-      return result.map(day => day.numSteps);
+      return result.map(day => day[type]);
   }
 
 

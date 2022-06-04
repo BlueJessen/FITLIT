@@ -96,7 +96,7 @@ function createActivityChart(user) {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       datasets: [{
         label: `${user.name}'s daily minutes active`,
-        data: activityRepo.weeklyActivity(user.id, activityRepo.findRecentDate(user.id)),
+        data: activityRepo.findWeeklyData(user.id, activityRepo.findRecentDate(user.id), 'minutesActive'),
         backgroundColor: [
           'rgba(0, 39, 44, 0.88)',
         ],
@@ -104,7 +104,7 @@ function createActivityChart(user) {
         borderWidth: 2
       }, {
         label: `${user.name}'s daily stairs climbed`,
-        data: activityRepo.weeklyStairs(user.id, activityRepo.findRecentDate(user.id)),
+        data: activityRepo.findWeeklyData(user.id, activityRepo.findRecentDate(user.id), 'flightsOfStairs'),
         backgroundColor: [
           'rgba(249, 130, 0, 0.8)',
         ],
@@ -113,7 +113,7 @@ function createActivityChart(user) {
 
       }, {
         label: `${user.name}'s daily steps (in hundreds)`,
-        data: activityRepo.weeklySteps(user.id, activityRepo.findRecentDate(user.id)).map(steps => steps/100),
+        data: activityRepo.findWeeklyData(user.id, activityRepo.findRecentDate(user.id), 'numSteps').map(steps => steps/100),
         backgroundColor: [
           'rgba(249, 88, 38, 0.8)',
         ],
