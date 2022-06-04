@@ -2,11 +2,17 @@ import './css/styles.css';
 import {
   allData
 } from './apiCalls';
+import {
+createWaterChart,
+createSleepWidget,
+changeToSleepChart
+} from './chartFunctions';
 import Chart from 'chart.js/auto';
 import UserRepository from './UserRepository';
 import User from './User';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
+
 
 // query selectors -----------------------
 
@@ -21,6 +27,7 @@ var sleepBtn = document.querySelector('.sleepBtn');
 var waterBtn = document.querySelector('.waterBtn');
 var waterChart = document.querySelector('.waterChart');
 var sleepChart = document.querySelector('.sleepChart');
+var ctx = document.getElementById('waterChart').getContext('2d');
 
 // globals -----------------------
 let userData = [];
@@ -32,6 +39,10 @@ let userArray;
 let userRepo;
 let sleepRepo;
 let hydrationRepo;
+let chart = new Chart(ctx, {
+    type: 'line'
+});
+
 
 //EVENT LISTENERS -----------------------
 
@@ -126,83 +137,19 @@ function initialSetup() {
   showSleepDisplay(randomUser, sleepRepo);
   createHydrationDisplay(randomUser, hydrationRepo);
   createWaterChart(randomUser);
-  createSleepWidget(randomUser);
 }
 
-function createWaterChart(user) {
-  const ctx = document.getElementById('waterChart').getContext('2d');
-  let hydrationRepo = new Hydration(hydrationData.hydrationData);
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      datasets: [{
-        label: `${user.name}'s weekly hydration in fl oz`,
-        data: hydrationRepo.findWeeklyData(user.id, hydrationRepo.findRecentDate(user.id)),
-        backgroundColor: [
-          'rgba(23, 97, 85, .7)',
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  })
-};
-
-function createSleepWidget(user) {
-  const ctx = document.getElementById('sleepChart').getContext('2d');
-  let sleepRepo = new Sleep(sleepData.sleepData);
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      datasets: [{
-        label: `${user.name}'s Sleep Time in Hours`,
-        data: sleepRepo.findWeeklyData(user.id, sleepRepo.findRecentDate(user.id), 'hours'),
-        backgroundColor: [
-          'rgba(0, 39, 44, 0.88)',
-        ],
-        borderColor: 'rgba(0, 39, 44, 0.88)',
-        borderWidth: 2
-      }, {
-        label: `${user.name}'s Sleep Quality`,
-        data: sleepRepo.findWeeklyData(user.id, sleepRepo.findRecentDate(user.id), 'quality'),
-        backgroundColor: [
-          'rgba(249, 130, 0, 0.8)',
-        ],
-        borderColor: 'rgba(249, 130, 0, 0.8)',
-        borderWidth: 2
-
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  })
-};
 
 function clickWaterBtn() {
-  sleepChart.classList.add('hidden')
-  waterBtn.classList.add('hidden')
-  waterChart.classList.remove('hidden')
-  sleepBtn.classList.remove('hidden')
+  createWaterChart(randomUser);
+  waterBtn.classList.add('hidden');
+  sleepBtn.classList.remove('hidden');
 };
 
 function clickSleepBtn() {
-  waterChart.classList.add('hidden')
-  sleepBtn.classList.add('hidden')
-  sleepChart.classList.remove('hidden')
-  waterBtn.classList.remove('hidden')
+  createSleepWidget(randomUser)
+  sleepBtn.classList.add('hidden');
+  waterBtn.classList.remove('hidden');
 };
 
 //data functions -----------------------
