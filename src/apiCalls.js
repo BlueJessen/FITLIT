@@ -20,7 +20,18 @@ const postUserCall = (postObject, dataType) => {
   .then(response => response.json())
 };
 
+const checkForError = (response) => {
+  if (response.ok) {
+    return response
+  } else {
+    throw new Error(response.status)
+  }
+}
+
+
 
 export {
-allData
+allData,
+postUserCall,
+checkForError
 }

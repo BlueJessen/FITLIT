@@ -1,6 +1,8 @@
 import './css/styles.css';
 import {
-  allData
+  allData,
+  postUserCall,
+  checkForError
 } from './apiCalls';
 import {
 createWaterChart,
@@ -22,7 +24,7 @@ let userCard = document.querySelector('.user-card');
 let userFriends = document.querySelector('.user-friends');
 let name = document.querySelector('#name');
 let hydrationWidget = document.querySelector('.hydration');
-let sleepWidget = document.querySelector('.sleep');
+// let sleepWidget = document.querySelector('.sleep');
 let innerDisplayHydration = document.querySelector('.inner-hydration');
 let innerDisplaySleep = document.querySelector('.inner-sleep');
 let sleepBtn = document.querySelector('.sleepBtn');
@@ -33,6 +35,7 @@ let activityCircle = document.querySelector('.progress-activity');
 let widgetTabs = document.querySelector('#widget');
 let activityBtn = document.querySelector('.activityBtn');
 let ctx = document.getElementById('chart').getContext('2d');
+
 
 
 // globals -----------------------
@@ -49,6 +52,15 @@ let activityRepo;
 let chart = new Chart(ctx, {
     type: 'line'
 });
+
+// POST
+let personObject =
+{
+    userID: 50,
+    date: "10/29/2021" ,
+    hoursSlept: 2,
+    sleepQuality:2.2
+};
 
 const activityProgress = new CircleProgress(activityCircle)
 //EVENT LISTENERS -----------------------
@@ -75,6 +87,9 @@ activityBtn.addEventListener('click', clickActivityBtn);
 function getTarget(target){
   console.log(target);
 }
+
+// POST
+postUserCall(personObject, 'sleep')
 
 function displayUserInfo(user, repo) {
   name.innerHTML = `Welcome ${user.returnUserName()}!`;
