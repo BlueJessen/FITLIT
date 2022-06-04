@@ -133,32 +133,4 @@ function createActivityChart(user) {
   })
 };
 
-// Creating the Activity chart requires a few new methods for Activity.
-
-// function createActivityChart(user, userRepo) {
-//   Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
-//   let activityRepo = new Activity(sleepData.sleepData);
-//   chart = new Chart(ctx, {
-//     type: 'bar',
-//     data: {
-//       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-//       datasets: [{
-//         label: `${user.name}'s weekly activity in minutes`,
-//         data: ActivityRepo.findWeeklyData(user.id, hydrationRepo.findRecentDate(user.id)),
-//         backgroundColor: [
-//           'rgba(23, 97, 85, .7)',
-//         ],
-//         borderWidth: 1
-//       }]
-//     },
-//     options: {
-//       scales: {
-//         y: {
-//           beginAtZero: true
-//         }
-//       }
-//     }
-//   })
-// };
-
 export {createWaterChart, createSleepWidget, createActivityChart};
