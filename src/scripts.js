@@ -26,6 +26,7 @@ var sleepChart = document.querySelector('.sleepChart');
 var hydrationCircle =document.querySelector('.progress-hydration');
 let sleepCircle = document.querySelector('.progress-sleep');
 let activityCircle = document.querySelector('.progress-activity');
+let widgetTabs = document.querySelector('#widget');
 
 // globals -----------------------
 let userData = [];
@@ -41,7 +42,7 @@ let activityRepo
 
 const activityProgress = new CircleProgress(activityCircle)
 //EVENT LISTENERS -----------------------
-
+widgetTabs.addEventListener('click', getTarget(event));
 window.addEventListener('load', () => {
   allData.then(data => {
     userData = data[0];
@@ -59,6 +60,10 @@ sleepBtn.addEventListener('click', clickSleepBtn);
 waterBtn.addEventListener('click', clickWaterBtn);
 
 //Dom functions -----------------------
+
+function getTarget(target){
+  console.log(target);
+}
 
 function displayUserInfo(user, repo) {
   name.innerHTML = `Welcome ${user.returnUserName()}!`;
@@ -89,7 +94,7 @@ function addProgressWidgetHydration(user, repo) {
   hydrationProgress.value = displayInfo;
 }
 
-function addProgressWidgetSleep(user, repo) {
+function addProgressWidgetSleep(user, repo, target) {
   const sleepProgress = new CircleProgress(sleepCircle);
   let recentDate = repo.findRecentDate(user.id);
   let displayInfo = repo.findDateData(user.id, recentDate, 'hours');
@@ -97,7 +102,7 @@ function addProgressWidgetSleep(user, repo) {
   sleepProgress.value = displayInfo;
 }
 
-function showActivityDisplay (user, repo) {
+function showActivityDisplay (user, repo, target) {
   const activityProgress = new CircleProgress(activityCircle)
   let recentDate = repo.findRecentDate(user.id);
   let displayInfo = repo.findStepsForDate(user.id, recentDate);
