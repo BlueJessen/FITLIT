@@ -32,7 +32,9 @@ body, html {
   display: flex;
 }
 
-nav {
+/* LEFT-SIDE-BAR */
+
+.side-bar {
   height: var(--vhMAX);
   width: 20vw;
   background: var(--darkMint);
@@ -53,6 +55,18 @@ h1 {
   text-align: center;
   font-size: 5vh;
 }
+
+/* NAV */
+.tabs-container {
+
+}
+
+.button-container {
+
+}
+
+
+
 
 .user-card {
   background-color: var(--seafoam);
