@@ -1,6 +1,7 @@
 import Chart from 'chart.js/auto';
 import UserRepository from './UserRepository';
 import User from './User';
+import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
@@ -12,7 +13,7 @@ let userData = [];
 let sleepData = [];
 let activityData = [];
 let hydrationData = [];
-var ctx = document.getElementById('waterChart').getContext('2d');
+var ctx = document.getElementById('chart').getContext('2d');
 let chart
 
 window.addEventListener('load', () => {
@@ -86,32 +87,50 @@ function createSleepWidget(user) {
   })
 };
 
-// Creating the Activity chart requires a few new methods for Activity.
+function createActivityChart(user) {
+  Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
+  let activityRepo = new Activity(activityData.activityData);
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      datasets: [{
+        label: `${user.name}'s daily minutes active`,
+        data: activityRepo.findWeeklyData(user.id, activityRepo.findRecentDate(user.id), 'minutesActive'),
+        backgroundColor: [
+          'rgba(0, 39, 44, 0.88)',
+        ],
+        borderColor: 'rgba(0, 39, 44, 0.88)',
+        borderWidth: 2
+      }, {
+        label: `${user.name}'s daily stairs climbed`,
+        data: activityRepo.findWeeklyData(user.id, activityRepo.findRecentDate(user.id), 'flightsOfStairs'),
+        backgroundColor: [
+          'rgba(249, 130, 0, 0.8)',
+        ],
+        borderColor: 'rgba(249, 130, 0, 0.8)',
+        borderWidth: 2
 
-// function createActivityChart(user, userRepo) {
-//   Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
-//   let activityRepo = new Activity(sleepData.sleepData);
-//   chart = new Chart(ctx, {
-//     type: 'bar',
-//     data: {
-//       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-//       datasets: [{
-//         label: `${user.name}'s weekly activity in minutes`,
-//         data: ActivityRepo.findWeeklyData(user.id, hydrationRepo.findRecentDate(user.id)),
-//         backgroundColor: [
-//           'rgba(23, 97, 85, .7)',
-//         ],
-//         borderWidth: 1
-//       }]
-//     },
-//     options: {
-//       scales: {
-//         y: {
-//           beginAtZero: true
-//         }
-//       }
-//     }
-//   })
-// };
+      }, {
+        label: `${user.name}'s daily steps (in hundreds)`,
+        data: activityRepo.findWeeklyData(user.id, activityRepo.findRecentDate(user.id), 'numSteps').map(steps => steps/100),
+        backgroundColor: [
+          'rgba(249, 88, 38, 0.8)',
+        ],
+        borderColor: 'rgba(249, 88, 38, 0.8)',
+        borderWidth: 2
 
-export {createWaterChart, createSleepWidget,};
+      }
+    ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  })
+};
+
+export {createWaterChart, createSleepWidget, createActivityChart};

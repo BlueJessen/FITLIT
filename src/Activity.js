@@ -8,6 +8,10 @@ class Activity {
     return this.activityRepo.find(user => user.userID === userID);
   };
 
+  findRecentDate(id) {
+    return this.findAllUserData(id).slice(-1)[0].date
+  }
+
   findAllUserData(userID) {
     return this.activityRepo.filter(user => user.userID === userID);
   };
@@ -34,6 +38,15 @@ class Activity {
       }, 0);
       return parseInt(result/7);
   }
+
+  findWeeklyData(userID, date, type) {
+      const dataSet = this.findAllUserData(userID);
+      const dayIndex = dataSet.findIndex(data => date === data.date);
+      const toDate = dataSet.slice(0 , (dayIndex+1));
+      const result = toDate.slice(-7);
+      return result.map(day => day[type]);
+  }
+
 
   stepGoalReached(userID, date, userRepo) {
       const goal = userRepo.findUser(userID).dailyStepGoal;
