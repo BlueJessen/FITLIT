@@ -8,6 +8,17 @@ function getPromise(dataType) {
   //populate all databases
 let allData = Promise.all([getPromise('users'), getPromise('sleep'), getPromise('activity'), getPromise('hydration')]);
 
+const postUserCall = (postObject, dataType) => {
+  return fetch(`http://localhost:3001/api/v1/${dataType}`, {
+    method: 'POST',
+    body: JSON.stringify(postObject),
+    headers: {
+    	'Content-Type': 'application/json'
+    }
+  })
+  .then(response => checkForError(response))
+  .then(response => response.json())
+};
 
 
 export {

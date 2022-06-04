@@ -14,7 +14,6 @@ import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
-import Activity from './Activity';
 
 
 // query selectors -----------------------
