@@ -38,8 +38,7 @@ let userRepo;
 let sleepRepo;
 let hydrationRepo;
 let activityRepo
-const hydrationProgress = new CircleProgress(hydrationCircle);
-const sleepProgress = new CircleProgress(sleepCircle);
+
 const activityProgress = new CircleProgress(activityCircle)
 //EVENT LISTENERS -----------------------
 
@@ -82,40 +81,24 @@ function populateFriends(user) {
   userFriends.innerHTML = `<div> Friends: ${user.friends}</div>`;
 }
 
-function createHydrationDisplay(user, repo) {
+function addProgressWidgetHydration(user, repo) {
+  const hydrationProgress = new CircleProgress(hydrationCircle);
   let recentDate = repo.findRecentDate(user.id);
   let displayInfo = repo.findDateData(user.id, recentDate);
-  setProgressWidget(displayInfo, 'hydration');
-}
-
-function setProgressWidget(info, type) {
-  if (type === 'hydration') {
-    addProgressWidgetHydration(info);
-  }else if (type === 'sleep') {
-    addProgressWidgetSleep(info);
-  }
-}
-
-function addProgressWidgetHydration(info) {
   hydrationProgress.max = 85;
-  hydrationProgress.value = info;
-  hydrationProgress.textFormat = 'percent';
+  hydrationProgress.value = displayInfo;
 }
 
-function addProgressWidgetSleep(info) {
-    sleepProgress.max = 8;
-    sleepProgress.value = info.hours;
-    // sleepProgress.textFormat = `${info.dayQuality}`;
-}
-
-function showSleepDisplay(user, repo) {
+function addProgressWidgetSleep(user, repo) {
+  const sleepProgress = new CircleProgress(sleepCircle);
   let recentDate = repo.findRecentDate(user.id);
-  let displayInfo = {hours: repo.findDateData(user.id, recentDate, 'hours')};
-  displayInfo['dayQuality'] = `${repo.findDateData(user.id, recentDate, 'quality')}`;
-  setProgressWidget(displayInfo, 'sleep');
+  let displayInfo = repo.findDateData(user.id, recentDate, 'hours');
+  sleepProgress.max = 8;
+  sleepProgress.value = displayInfo;
 }
 
 function showActivityDisplay (user, repo) {
+  const activityProgress = new CircleProgress(activityCircle)
   let recentDate = repo.findRecentDate(user.id);
   let displayInfo = repo.findStepsForDate(user.id, recentDate);
   activityProgress.max = user.dailyStepGoal;
@@ -132,8 +115,8 @@ function initialSetup() {
   randomUser = getRandomUser(userRepo.userData);
 
   displayUserInfo(randomUser, userRepo);
-  showSleepDisplay(randomUser, sleepRepo);
-  createHydrationDisplay(randomUser, hydrationRepo);
+  addProgressWidgetSleep(randomUser, sleepRepo);
+  addProgressWidgetHydration(randomUser, hydrationRepo);
   createWaterChart(randomUser);
   createSleepWidget(randomUser);
   showActivityDisplay(randomUser, activityRepo);

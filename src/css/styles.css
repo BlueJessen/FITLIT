@@ -97,29 +97,21 @@ padding-top: 5vh;
 .progress-holder {
   display: flex;
   justify-content: space-around;
-  padding: 20px;
   padding-top: 40px;
-  width: 65vw;
+  /* width: 65vw; */
 }
 
-.progress-circle {
-  position: relative;
-  height: 25vh;
-  width: 15vw;
-  border-radius: 50%;
-  background-color: var(--navyblue);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+.progress{
+  margin: 40px;
 }
-
 /* PROGRESS CIRCLE */
 .progress-container {
   position: relative;
   display: inline-block;
   margin-right: 20px;
+  margin: 20px;
 }
+
 .circle-progress-value {
 	stroke-width: 6px;
 	stroke: white;
@@ -129,73 +121,14 @@ padding-top: 5vh;
 	stroke-width: 8px;
 	stroke: #888;
 }
+
 .circle-progress-text {
 	fill: #888;
 }
 
-.rectangle-1 {
-  background-color: var(--paleRed);
-  position: absolute;
-  bottom:50%;
-  left:50%;
-  width: 50vw;
-  height: 50vh;
-  transform-origin: 0 0;
-}
-
-.rectangle-2 {
-  background-color: var(--paleRed);
-  position: absolute;
-  bottom:50%;
-  right:50%;
-  width: 50vw;
-  height: 50vh;
-  transform-origin: 0 0;
-}
-
-.rectangle-3 {
-  background-color: var(--paleRed);
-  position: absolute;
-  top:50%;
-  left:50%;
-  width: 50vw;
-  height: 50vh;
-  transform-origin: 0 0;
-}
-
-.rectangle-4 {
-  background-color: var(--paleRed);
-  position: absolute;
-  top:50%;
-  right:50%;
-  width: 50vw;
-  height: 50vh;
-  transform-origin: 0 0;
-}
-
-.inner-circle {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 16vh;
-  width: 10vw;
-  border-radius: 50%;
-  background-color: var(--paleRed);
-  color: black;
-  z-index: 1;
-}
-
-.inner-ring {
-  position: relative;
-  height: 20vh;
-  width: 12vw;
-  border-radius: 50%;
-  background-color: var(--orange);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+.circle-progress {
+  width: 15vw;
+  height: auto;
 }
 
 .hidden {
