@@ -13,7 +13,7 @@ let userData = [];
 let sleepData = [];
 let activityData = [];
 let hydrationData = [];
-var ctx = document.getElementById('waterChart').getContext('2d');
+var ctx = document.getElementById('chart').getContext('2d');
 let chart
 
 window.addEventListener('load', () => {

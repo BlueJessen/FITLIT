@@ -26,9 +26,10 @@ var innerDisplayHydration = document.querySelector('.inner-hydration');
 var innerDisplaySleep = document.querySelector('.inner-sleep');
 var sleepBtn = document.querySelector('.sleepBtn');
 var waterBtn = document.querySelector('.waterBtn');
-var waterChart = document.querySelector('.waterChart');
-var sleepChart = document.querySelector('.sleepChart');
-var ctx = document.getElementById('waterChart').getContext('2d');
+var activityBtn = document.querySelector('.activityBtn');
+// var waterChart = document.querySelector('.waterChart');
+// var sleepChart = document.querySelector('.sleepChart');
+var ctx = document.getElementById('chart').getContext('2d');
 
 // globals -----------------------
 let userData = [];
@@ -62,6 +63,7 @@ window.addEventListener('load', () => {
 
 sleepBtn.addEventListener('click', clickSleepBtn);
 waterBtn.addEventListener('click', clickWaterBtn);
+activityBtn.addEventListener('click', clickActivityBtn);
 
 //Dom functions -----------------------
 
@@ -145,12 +147,20 @@ function clickWaterBtn() {
   createWaterChart(randomUser);
   waterBtn.classList.add('hidden');
   sleepBtn.classList.remove('hidden');
+  activityBtn.classList.remove('hidden');
 };
 
 function clickSleepBtn() {
-  // createSleepWidget(randomUser)
-  createActivityChart(randomUser);
+  createSleepWidget(randomUser)
   sleepBtn.classList.add('hidden');
+  waterBtn.classList.remove('hidden');
+  activityBtn.classList.remove('hidden');
+};
+
+function clickActivityBtn() {
+  createActivityChart(randomUser);
+  activityBtn.classList.add('hidden');
+  sleepBtn.classList.remove('hidden');
   waterBtn.classList.remove('hidden');
 };
 
