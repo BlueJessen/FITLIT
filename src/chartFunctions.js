@@ -1,6 +1,7 @@
 import Chart from 'chart.js/auto';
 import UserRepository from './UserRepository';
 import User from './User';
+import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
@@ -86,6 +87,52 @@ function createSleepWidget(user) {
   })
 };
 
+function createActivityChart(user) {
+  Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
+  let activityRepo = new Activity(activityData.activityData);
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      datasets: [{
+        label: `${user.name}'s daily minutes active`,
+        data: activityRepo.weeklyActivity(user.id, activityRepo.findRecentDate(user.id)),
+        backgroundColor: [
+          'rgba(0, 39, 44, 0.88)',
+        ],
+        borderColor: 'rgba(0, 39, 44, 0.88)',
+        borderWidth: 2
+      }, {
+        label: `${user.name}'s daily stairs climbed`,
+        data: activityRepo.weeklyStairs(user.id, activityRepo.findRecentDate(user.id)),
+        backgroundColor: [
+          'rgba(249, 130, 0, 0.8)',
+        ],
+        borderColor: 'rgba(249, 130, 0, 0.8)',
+        borderWidth: 2
+
+      }, {
+        label: `${user.name}'s daily steps (in hundreds)`,
+        data: activityRepo.weeklySteps(user.id, activityRepo.findRecentDate(user.id)).map(steps => steps/100),
+        backgroundColor: [
+          'rgba(249, 88, 38, 0.8)',
+        ],
+        borderColor: 'rgba(249, 88, 38, 0.8)',
+        borderWidth: 2
+
+      }
+    ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  })
+};
+
 // Creating the Activity chart requires a few new methods for Activity.
 
 // function createActivityChart(user, userRepo) {
@@ -114,4 +161,4 @@ function createSleepWidget(user) {
 //   })
 // };
 
-export {createWaterChart, createSleepWidget,};
+export {createWaterChart, createSleepWidget, createActivityChart};

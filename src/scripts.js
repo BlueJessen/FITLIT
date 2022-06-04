@@ -5,11 +5,12 @@ import {
 import {
 createWaterChart,
 createSleepWidget,
-changeToSleepChart
+createActivityChart
 } from './chartFunctions';
 import Chart from 'chart.js/auto';
 import UserRepository from './UserRepository';
 import User from './User';
+import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
@@ -147,7 +148,8 @@ function clickWaterBtn() {
 };
 
 function clickSleepBtn() {
-  createSleepWidget(randomUser)
+  // createSleepWidget(randomUser)
+  createActivityChart(randomUser);
   sleepBtn.classList.add('hidden');
   waterBtn.classList.remove('hidden');
 };
