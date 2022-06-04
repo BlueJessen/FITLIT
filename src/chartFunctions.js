@@ -12,24 +12,22 @@ let userData = [];
 let sleepData = [];
 let activityData = [];
 let hydrationData = [];
+var ctx = document.getElementById('waterChart').getContext('2d');
+let chart
 
 window.addEventListener('load', () => {
   allData.then(data => {
     userData = data[0];
-    console.log(userData)
     sleepData = data[1];
     activityData = data[2];
-    console.log(activityData);
     hydrationData = data[3];
-    initialSetup();
-
   }).catch(error => console.log(error))
 });
 
 function createWaterChart(user) {
-  const ctx = document.getElementById('waterChart').getContext('2d');
+  Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
   let hydrationRepo = new Hydration(hydrationData.hydrationData);
-  new Chart(ctx, {
+  chart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -53,7 +51,7 @@ function createWaterChart(user) {
 };
 
 function createSleepWidget(user) {
-  const ctx = document.getElementById('sleepChart').getContext('2d');
+  Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
   let sleepRepo = new Sleep(sleepData.sleepData);
   new Chart(ctx, {
     type: 'line',
@@ -88,4 +86,32 @@ function createSleepWidget(user) {
   })
 };
 
-export {createWaterChart, createSleepWidget};
+// Creating the Activity chart requires a few new methods for Activity.
+
+// function createActivityChart(user, userRepo) {
+//   Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
+//   let activityRepo = new Activity(sleepData.sleepData);
+//   chart = new Chart(ctx, {
+//     type: 'bar',
+//     data: {
+//       labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+//       datasets: [{
+//         label: `${user.name}'s weekly activity in minutes`,
+//         data: ActivityRepo.findWeeklyData(user.id, hydrationRepo.findRecentDate(user.id)),
+//         backgroundColor: [
+//           'rgba(23, 97, 85, .7)',
+//         ],
+//         borderWidth: 1
+//       }]
+//     },
+//     options: {
+//       scales: {
+//         y: {
+//           beginAtZero: true
+//         }
+//       }
+//     }
+//   })
+// };
+
+export {createWaterChart, createSleepWidget,};

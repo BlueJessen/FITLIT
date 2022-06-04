@@ -5,6 +5,7 @@ import {
 import {
 createWaterChart,
 createSleepWidget,
+changeToSleepChart
 } from './chartFunctions';
 import Chart from 'chart.js/auto';
 import UserRepository from './UserRepository';
@@ -26,6 +27,7 @@ var sleepBtn = document.querySelector('.sleepBtn');
 var waterBtn = document.querySelector('.waterBtn');
 var waterChart = document.querySelector('.waterChart');
 var sleepChart = document.querySelector('.sleepChart');
+var ctx = document.getElementById('waterChart').getContext('2d');
 
 // globals -----------------------
 let userData = [];
@@ -37,6 +39,10 @@ let userArray;
 let userRepo;
 let sleepRepo;
 let hydrationRepo;
+let chart = new Chart(ctx, {
+    type: 'line'
+});
+
 
 //EVENT LISTENERS -----------------------
 
@@ -131,22 +137,19 @@ function initialSetup() {
   showSleepDisplay(randomUser, sleepRepo);
   createHydrationDisplay(randomUser, hydrationRepo);
   createWaterChart(randomUser);
-  createSleepWidget(randomUser);
 }
 
 
 function clickWaterBtn() {
-  sleepChart.classList.add('hidden')
-  waterBtn.classList.add('hidden')
-  waterChart.classList.remove('hidden')
-  sleepBtn.classList.remove('hidden')
+  createWaterChart(randomUser);
+  waterBtn.classList.add('hidden');
+  sleepBtn.classList.remove('hidden');
 };
 
 function clickSleepBtn() {
-  waterChart.classList.add('hidden')
-  sleepBtn.classList.add('hidden')
-  sleepChart.classList.remove('hidden')
-  waterBtn.classList.remove('hidden')
+  createSleepWidget(randomUser)
+  sleepBtn.classList.add('hidden');
+  waterBtn.classList.remove('hidden');
 };
 
 //data functions -----------------------
