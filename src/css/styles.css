@@ -80,6 +80,12 @@ h1 {
   font-size: 5vh;
 }
 
+.widget-hover {
+  background-color: white;
+  width: 10px;
+  height: 10px;
+}
+
 .user-friends {
 text-align: center;
 padding-top: 5vh;
@@ -97,93 +103,73 @@ padding-top: 5vh;
 .progress-holder {
   display: flex;
   justify-content: space-around;
-  padding: 20px;
-  padding-top: 40px;
-  width: 65vw;
+  padding-top: 20px;
+  width: 90%;
 }
 
-.progress-circle {
-  position: relative;
-  height: 25vh;
-  width: 15vw;
-  border-radius: 50%;
-  background-color: var(--navyblue);
+.progress-window {
+  background-color: orange;
+  border-radius: 10%;
+  margin:2vw;
+  width:20vw;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  overflow: hidden;
+  align-content: center;
+  align-items: center;
+}
+.widget-button {
+  border: none;
+  outline: none;
+  background-color: orange;
+  color: white;
+  font-size: 1rem;
 }
 
+.widget-button:hover {
+  background-color: brown;
+  cursor:pointer;
+}
+
+.widget-nav {
+  display:flex;
+  height: 100%;
+  width: 100%;
+}
 /* PROGRESS CIRCLE */
+.progress{
+  margin: 40px;
+}
+
 .progress-container {
   position: relative;
   display: inline-block;
   margin-right: 20px;
-}
-
-.rectangle-1 {
-  background-color: var(--paleRed);
-  position: absolute;
-  bottom:50%;
-  left:50%;
-  width: 50vw;
-  height: 50vh;
-  transform-origin: 0 0;
-}
-
-.rectangle-2 {
-  background-color: var(--paleRed);
-  position: absolute;
-  bottom:50%;
-  right:50%;
-  width: 50vw;
-  height: 50vh;
-  transform-origin: 0 0;
-}
-
-.rectangle-3 {
-  background-color: var(--paleRed);
-  position: absolute;
-  top:50%;
-  left:50%;
-  width: 50vw;
-  height: 50vh;
-  transform-origin: 0 0;
-}
-
-.rectangle-4 {
-  background-color: var(--paleRed);
-  position: absolute;
-  top:50%;
-  right:50%;
-  width: 50vw;
-  height: 50vh;
-  transform-origin: 0 0;
-}
-
-.inner-circle {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 16vh;
-  width: 10vw;
-  border-radius: 50%;
-  background-color: var(--paleRed);
-  color: black;
-  z-index: 1;
-}
-
-.inner-ring {
-  position: relative;
-  height: 20vh;
-  width: 12vw;
-  border-radius: 50%;
-  background-color: var(--orange);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 20px;
   overflow: hidden;
+}
+
+.circle-progress:hover{
+   cursor: pointer;
+}
+
+.circle-progress-value {
+	stroke-width: 6px;
+	stroke: white;
+	stroke-linecap: round;
+}
+.circle-progress-circle {
+	stroke-width: 8px;
+	stroke: #888;
+}
+
+.circle-progress-text {
+	fill: #888;
+}
+
+.circle-progress {
+  width: 13vw;
+  height: auto;
 }
 
 .hidden {

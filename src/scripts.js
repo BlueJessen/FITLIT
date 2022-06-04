@@ -8,28 +8,33 @@ createSleepWidget,
 createActivityChart
 } from './chartFunctions';
 import Chart from 'chart.js/auto';
+import CircleProgress from 'js-circle-progress';
 import UserRepository from './UserRepository';
 import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
+import Activity from './Activity';
 
 
 // query selectors -----------------------
 
-var userCard = document.querySelector('.user-card');
-var userFriends = document.querySelector('.user-friends');
-var name = document.querySelector('#name');
-var hydrationWidget = document.querySelector('.hydration');
-var sleepWidget = document.querySelector('.sleep');
-var innerDisplayHydration = document.querySelector('.inner-hydration');
-var innerDisplaySleep = document.querySelector('.inner-sleep');
-var sleepBtn = document.querySelector('.sleepBtn');
-var waterBtn = document.querySelector('.waterBtn');
-var activityBtn = document.querySelector('.activityBtn');
-// var waterChart = document.querySelector('.waterChart');
-// var sleepChart = document.querySelector('.sleepChart');
-var ctx = document.getElementById('chart').getContext('2d');
+let userCard = document.querySelector('.user-card');
+let userFriends = document.querySelector('.user-friends');
+let name = document.querySelector('#name');
+let hydrationWidget = document.querySelector('.hydration');
+let sleepWidget = document.querySelector('.sleep');
+let innerDisplayHydration = document.querySelector('.inner-hydration');
+let innerDisplaySleep = document.querySelector('.inner-sleep');
+let sleepBtn = document.querySelector('.sleepBtn');
+let waterBtn = document.querySelector('.waterBtn');
+let hydrationCircle =document.querySelector('.progress-hydration');
+let sleepCircle = document.querySelector('.progress-sleep');
+let activityCircle = document.querySelector('.progress-activity');
+let widgetTabs = document.querySelector('#widget');
+let activityBtn = document.querySelector('.activityBtn');
+let ctx = document.getElementById('chart').getContext('2d');
+
 
 // globals -----------------------
 let userData = [];
@@ -41,13 +46,14 @@ let userArray;
 let userRepo;
 let sleepRepo;
 let hydrationRepo;
+let activityRepo;
 let chart = new Chart(ctx, {
     type: 'line'
 });
 
-
+const activityProgress = new CircleProgress(activityCircle)
 //EVENT LISTENERS -----------------------
-
+widgetTabs.addEventListener('click', getTarget(event));
 window.addEventListener('load', () => {
   allData.then(data => {
     userData = data[0];
@@ -66,6 +72,10 @@ waterBtn.addEventListener('click', clickWaterBtn);
 activityBtn.addEventListener('click', clickActivityBtn);
 
 //Dom functions -----------------------
+
+function getTarget(target){
+  console.log(target);
+}
 
 function displayUserInfo(user, repo) {
   name.innerHTML = `Welcome ${user.returnUserName()}!`;
@@ -88,46 +98,29 @@ function populateFriends(user) {
   userFriends.innerHTML = `<div> Friends: ${user.friends}</div>`;
 }
 
-function createHydrationDisplay(user, repo) {
+function addProgressWidgetHydration(user, repo) {
+  const hydrationProgress = new CircleProgress(hydrationCircle);
   let recentDate = repo.findRecentDate(user.id);
-  let displayInfo = getRectangleDegree(repo.findDateData(user.id, recentDate), 85);
-  setProgressWidget(displayInfo, 'hydration');
+  let displayInfo = repo.findDateData(user.id, recentDate);
+  hydrationProgress.max = 85;
+  hydrationProgress.value = displayInfo;
 }
 
-function setProgressWidget(info, type) {
-  let rectangleAmount = Math.ceil(info.degree / 90);
-  let degreeSkew = getDegreeSkew(rectangleAmount, info);
-  if (type === 'hydration') {
-    addProgressWidgetHydration(info, degreeSkew, rectangleAmount);
-  }else if (type === 'sleep') {
-    addProgressWidgetSleep(info, degreeSkew, rectangleAmount);
-  }
-}
-
-function addProgressWidgetHydration(info, degreeSkew, rectangleAmount) {
-  innerDisplayHydration.innerText = `${info.percent.toFixed(2)}%
-  ${info.userInfo} fl oz`;
-  for (let i = 0; i < rectangleAmount; i++) {
-    hydrationWidget.innerHTML += `<div class= "rectangle-${i+1}" style= ></div>`;
-  }
-  hydrationWidget.children[hydrationWidget.children.length - 1].style = `transform: skew(${degreeSkew}deg)`;
-}
-
-function addProgressWidgetSleep(info, degreeSkew, rectangleAmount) {
-  innerDisplaySleep.innerText = `${info.percent.toFixed(2)}%
-    ${info.userInfo} hours
-    ${info.dayQuality} quality`;
-  for (let i = 0; i < rectangleAmount; i++) {
-    sleepWidget.innerHTML += `<div class= "rectangle-${i+1}" style= ></div>`;
-  }
-  sleepWidget.children[sleepWidget.children.length - 1].style = `transform: skew(${degreeSkew}deg)`;
-}
-
-function showSleepDisplay(user, repo) {
+function addProgressWidgetSleep(user, repo, target) {
+  const sleepProgress = new CircleProgress(sleepCircle);
   let recentDate = repo.findRecentDate(user.id);
-  let displayInfo = getRectangleDegree(repo.findDateData(user.id, recentDate, 'hours'), 8);
-  displayInfo['dayQuality'] = `${repo.findDateData(user.id, recentDate, 'quality')}`;
-  setProgressWidget(displayInfo, 'sleep');
+  let displayInfo = repo.findDateData(user.id, recentDate, 'hours');
+  sleepProgress.max = 8;
+  sleepProgress.value = displayInfo;
+}
+
+function showActivityDisplay (user, repo, target) {
+  const activityProgress = new CircleProgress(activityCircle)
+  let recentDate = repo.findRecentDate(user.id);
+  let displayInfo = repo.findStepsForDate(user.id, recentDate);
+  activityProgress.max = user.dailyStepGoal;
+  activityProgress.value = displayInfo;
+  activityProgress.textFormat = 'percent';
 }
 
 function initialSetup() {
@@ -135,13 +128,15 @@ function initialSetup() {
   userRepo = new UserRepository(userArray);
   sleepRepo = new Sleep(sleepData.sleepData);
   hydrationRepo = new Hydration(hydrationData.hydrationData);
+  activityRepo = new Activity(activityData.activityData);
   randomUser = getRandomUser(userRepo.userData);
-  displayUserInfo(randomUser, userRepo);
-  showSleepDisplay(randomUser, sleepRepo);
-  createHydrationDisplay(randomUser, hydrationRepo);
-  createWaterChart(randomUser);
-}
 
+  displayUserInfo(randomUser, userRepo);
+  addProgressWidgetSleep(randomUser, sleepRepo);
+  addProgressWidgetHydration(randomUser, hydrationRepo);
+  createWaterChart(randomUser);
+  showActivityDisplay(randomUser, activityRepo);
+}
 
 function clickWaterBtn() {
   createWaterChart(randomUser);
@@ -165,24 +160,6 @@ function clickActivityBtn() {
 };
 
 //data functions -----------------------
-
-function getRectangleDegree(userInfo, rec) {
-  let percent = (userInfo / rec) * 100;
-  let degree = 360 - (((percent * 360) / 100).toFixed(0));
-  return {
-    degree: degree,
-    percent: percent,
-    userInfo: userInfo
-  };
-}
-
-function getDegreeSkew(rectangleAmount, info) {
-  let degreeSkew = 0;
-  if (rectangleAmount > 1) {
-    degreeSkew = 90 - (info.degree - 90 * (rectangleAmount - 1));
-  }
-  return degreeSkew;
-}
 
 function getRandomUser(array) {
   let randomIndex = Math.floor(Math.random() * array.length)

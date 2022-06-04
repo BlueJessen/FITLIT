@@ -16,11 +16,20 @@ class Activity {
     return this.activityRepo.filter(user => user.userID === userID);
   };
 
+  findRecentDate(id) {
+  return this.findAllUserData(id).slice(-1)[0].date;
+  }
+
   milesWalked(userID, date, userRepo) {
   let strideLength = userRepo.findUser(userID).strideLength;
   let dataSet = this.findAllUserData(userID);
   let steps = dataSet.find(day => day.date === date).numSteps;
   return parseFloat(((steps*strideLength)/this.mile).toFixed(1));
+  }
+
+  findStepsForDate(userID, date) {
+    let dataSet = this.findAllUserData(userID);
+    return dataSet.find(day => day.date === date).numSteps;
   }
 
   minutesActive(userID, date) {

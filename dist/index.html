@@ -23,24 +23,30 @@
 
           </section>
           <section class="progress-holder">
-            <div class= "progress-container">
-              <h1>Todays Water Intake</h1>
-            <div class ="progress-circle hydration">
-                      <div class="inner-circle inner-hydration"></div>
-            </div>
-          </div>
-          <div class ="progress-container">
-                  <h1>Last Night Hours of Sleep<h1>
-                    <div class="progress-circle sleep">
-                      <div class='inner-circle inner-sleep'></div>
-                    </div>
-                </div>
-              <div class ="progress-container">
-                <h1>Steps vs Steps Goal<h1>
-                  <div class="progress-circle steps">
-                      <div class='inner-circle inner-step'></div>
-                  </div>
+            <div class="progress-window">
+              <div class ="progress progress-hydration">
+                <h1>Todays Water Intake</h1>
               </div>
+            </div>
+            <div class="progress-window">
+              <div class ="progress progress-sleep">
+                <h1>Hours of Sleep<h1>
+              </div>
+              <section class='widget-nav'>
+                <button class='widget-button sleep'>Sleep Hours</button>
+                <button class='widget-button sleep'>Sleep Quality</button>
+              </section>
+            </div>
+            <div class="progress-window">
+              <div class="progress progress-activity steps">
+                <h1>Steps vs Steps Goal<h1>
+              </div>
+                <section class='widget-nav'>
+                  <button class='widget-button activity' id='widget'>Steps Today</button>
+                  <button class='widget-button activity' id='widget'>Minutes Active</button>
+                  <button class='widget-button activity' id='widget'>Flights of Stairs</button>
+                </section>
+            </div>
           </section>
         </section>
     </section>
