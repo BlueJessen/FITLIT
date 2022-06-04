@@ -120,6 +120,18 @@ padding-top: 5vh;
   display: inline-block;
   margin-right: 20px;
 }
+.circle-progress-value {
+	stroke-width: 6px;
+	stroke: white;
+	stroke-linecap: round;
+}
+.circle-progress-circle {
+	stroke-width: 8px;
+	stroke: #888;
+}
+.circle-progress-text {
+	fill: #888;
+}
 
 .rectangle-1 {
   background-color: var(--paleRed);
