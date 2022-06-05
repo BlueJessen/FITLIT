@@ -77,17 +77,6 @@ const activityProgress = new CircleProgress(activityCircle)
 //EVENT LISTENERS -----------------------
 window.addEventListener('load', reloadData);
 
-function reloadData() {
-  allData.then(data => {
-    userData = data[0];
-    sleepData = data[1];
-    activityData = data[2];
-    hydrationData = data[3];
-    initialSetup();
-
-  }).catch(error => console.log(error))
-};
-
 widgetTabs.addEventListener('click', getEvent);
 sleepBtn.addEventListener('click', clickSleepBtn);
 waterBtn.addEventListener('click', clickWaterBtn);
@@ -273,6 +262,17 @@ function clickActivityBtn() {
 
 //data functions -----------------------
 
+function reloadData() {
+  allData.then(data => {
+    userData = data[0];
+    sleepData = data[1];
+    activityData = data[2];
+    hydrationData = data[3];
+    initialSetup();
+
+  }).catch(error => console.log(error))
+};
+
 function getRandomUser(array) {
   let randomIndex = Math.floor(Math.random() * array.length)
   return array[randomIndex]
@@ -282,6 +282,7 @@ function submitHydrationForm() {
   event.preventDefault();
   let hydrationObj = { userID: randomUser.id, date: reformatDate(hydrationDate.value), numOunces: hydrationInput.value }
   postUserCall(hydrationObj, 'hydration')
+  reloadData();
 }
 
 function submitSleepForm() {
