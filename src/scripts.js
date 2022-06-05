@@ -75,7 +75,9 @@ let chart = new Chart(ctx, {
 
 const activityProgress = new CircleProgress(activityCircle)
 //EVENT LISTENERS -----------------------
-window.addEventListener('load', () => {
+window.addEventListener('load', reloadData);
+
+function reloadData() {
   allData.then(data => {
     userData = data[0];
     sleepData = data[1];
@@ -84,7 +86,7 @@ window.addEventListener('load', () => {
     initialSetup();
 
   }).catch(error => console.log(error))
-});
+};
 
 widgetTabs.addEventListener('click', getEvent);
 sleepBtn.addEventListener('click', clickSleepBtn);
@@ -276,14 +278,6 @@ function getRandomUser(array) {
   return array[randomIndex]
 }
 
-function reformatDate(date) {
-  let dateArray = date.split(-);
-  let formatedDate = [];
-  formatedDate.push(dateArray[1]);
-  formatedDate.push(dateArray[2]);
-  formatedDate.push(dateArray[0]);
-  return formatedDate.join('/');
-  
 function submitHydrationForm() {
   event.preventDefault();
   let hydrationObj = { userID: randomUser.id, date: reformatDate(hydrationDate.value), numOunces: hydrationInput.value }
