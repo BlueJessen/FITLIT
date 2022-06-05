@@ -51,9 +51,10 @@ let activeDate = document.getElementById('calender');
 let numSteps = document.getElementById('numSteps');
 let minutesActive = document.getElementById('minutesActive');
 let flightOfStairs = document.getElementById('flightOfStairs');
-
+//LINEBREAK(FOR TABS)--------------
 let tabs = document.querySelector('.tabs-container');
 let tabButton = document.querySelectorAll('.tab-button');
+let contents = document.querySelectorAll('.content')
 
 
 
@@ -71,15 +72,6 @@ let activityRepo;
 let chart = new Chart(ctx, {
     type: 'line'
 });
-
-// POST
-let personObject =
-{
-    userID: 50,
-    date: "10/29/2021" ,
-    hoursSlept: 2,
-    sleepQuality:2.2
-};
 
 const activityProgress = new CircleProgress(activityCircle)
 //EVENT LISTENERS -----------------------
@@ -103,15 +95,32 @@ activityBtn.addEventListener('click', clickActivityBtn);
 submitFormH.addEventListener('click', submitHydrationForm);
 submitFormS.addEventListener('click', submitSleepForm);
 submitFormA.addEventListener('click', submitActiveForm);
+tabs.addEventListener('click', changeTabs)
+
 //Dom functions -----------------------
 
 function getTarget(target){
   console.log(target);
 }
 
-//POST -------------------------
-// postUserCall(personObject, 'sleep')
+function changeTabs() {
+  let id = event.target.dataset.id;
+  if (id) {
+    tabButton.forEach(btn => {
+      btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
 
+    contents.forEach(content => {
+      content.classList.remove('active');
+    });
+
+    let element = document.getElementById(id);
+    element.classList.add('active')
+  }
+}
+
+//POST -------------------------
 function displayUserInfo(user, repo) {
   name.innerHTML = `Welcome ${user.returnUserName()}!`;
   userCard.innerHTML = `
@@ -209,7 +218,7 @@ function submitHydrationForm() {
 
 function submitSleepForm() {
   event.preventDefault();
-  let sleepObj = { userID: randomUser.id, date: reformatDate(sleepDate.value), hoursSlept: hoursSlept.value, sleepQuality: sleepQuality.value}
+  let sleepObj = { userID: randomUser.id, date: reformatDate(sleepDate.value), hoursSlept: hoursSlept.value, sleepQuality: sleepQuality.value }
   postUserCall(sleepObj, 'sleep')
 }
 

@@ -13,16 +13,16 @@
         <!-- NAV TABS -->
         <section class="tabs-container">
           <div class="button-container">
-            <button class="tab-button active">Profile</button>
-            <button class="tab-button">Hydration</button>
-            <button class="tab-button">Sleep</button>
-            <button class="tab-button">Active</button>
-            <button class="tab-button">Friends</button>
+            <button class="tab-button" data-id="profile">Profile</button>
+            <button class="tab-button" data-id="hydroForm">Hydration</button>
+            <button class="tab-button" data-id="sleepForm">Sleep</button>
+            <button class="tab-button" data-id="activeForm">Active</button>
+            <button class="tab-button" data-id="friends">Friends</button>
           </div>
-          <section class="user-card content">Loading...</section>
-          <section class="user-friends content"></section>
+          <section class="user-card content" id="profile">Loading...</section>
+          <section class="user-friends content" id="friends"></section>
           <!-- linebreak -->
-          <section class="hydration-form content">
+          <section class="hydration-form content" id="hydroForm">
             <form method="post">
               <label for="calendar" id="calendarLabel">Enter Date:
                 <input type="date" name="calenderData" id="calender">
@@ -34,7 +34,7 @@
             </form>
           </section>
           <!-- linebreak -->
-          <section class="sleep-form content">
+          <section class="sleep-form content" id="sleepForm">
             <form method="post">
               <label for="calendar" id="calenderLabel">Enter Date:
                 <input type="date" name="calenderData" id="calendar">
@@ -49,7 +49,7 @@
             </form>
           </section>
           <!-- linebreak -->
-          <section class="active-form content active">
+          <section class="active-form content" id="activeForm">
             <form>
               <label for="calendar" id="calenderLabel">Enter Date:
                 <input type="date" name="calenderData" id="calendar">
