@@ -13,29 +13,61 @@
         <!-- NAV TABS -->
         <section class="tabs-container">
           <div class="button-container">
-            <button class=tabLinks>Profile</button>
-            <button class=tabLinks>Form</button>
-            <button class=tabLinks>Friends</button>
+            <button class="tab-button" data-id="profile">Profile</button>
+            <button class="tab-button" data-id="hydroForm">Hydration</button>
+            <button class="tab-button" data-id="sleepForm">Sleep</button>
+            <button class="tab-button" data-id="activeForm">Active</button>
+            <button class="tab-button" data-id="friends">Friends</button>
           </div>
+          <section class="user-card content" id="profile">Loading...</section>
+          <section class="user-friends content" id="friends"></section>
+          <!-- linebreak -->
+          <section class="hydration-form content" id="hydroForm">
+            <form method="post">
+              <label for="calendar" id="calendarLabel">Enter Date:
+                <input type="date" name="calenderData" id="calender">
+              </label><br>
+              <label for="hydration" id="hydrationLabel">Daily Intake:
+                <input type="number" name="hydrationData" id="hydration" required placeholder="Enter in fluid Oz">
+              </label><br>
+              <input type="submit" value="Submit" id="submitHydration">
+            </form>
+          </section>
+          <!-- linebreak -->
+          <section class="sleep-form content" id="sleepForm">
+            <form method="post">
+              <label for="calendar" id="calenderLabel">Enter Date:
+                <input type="date" name="calenderData" id="calendar">
+              </label><br>
+              <label for="sleepHours" id="sleepHoursLabel">Hours Slept:
+                <input type="number" name="sleepHours" id="sleepHours" required placeholder="Enter Hours Slept">
+              </label><br>
+              <label for="sleepQuality" id="sleepQualityLabel">Sleep Quality:
+                <input type="number" name="sleepQuality" id="sleepQuality" required placeholder="Enter hours of quality sleep">
+              </label><br>
+              <input type="submit" value="Submit" id="submitSleep">
+            </form>
+          </section>
+          <!-- linebreak -->
+          <section class="active-form content" id="activeForm">
+            <form>
+              <label for="calendar" id="calenderLabel">Enter Date:
+                <input type="date" name="calenderData" id="calendar">
+              </label><br>
+              <label for="numSteps" id="numStepsLabel">Number of Steps:
+                <input type="number" name="numSteps" id="numSteps" required placeholder="Enter number of steps">
+              </label><br>
+              <label for="minutesActive" id="minutesActiveLabel">Minutes Active:
+                <input type="number" name="minutesActive" id="minutesActive" required placeholder="Enter minutes active">
+              </label><br>
+              <label for="flightOfStairs" id="flightOfStairsLabel">Flights Of Stairs:
+                <input type="number" name="flightOfStairs" id="flightOfStairs" required placeholder="Enter number of stairs climbed">
+              </label><br>
+              <input type="submit" value="Submit" id="submitActive">
+            </form>
+          </section>
         </section>
-        <section class="user-card tabContent">Loading...</section>
-        <section class="user-friends tabContent"></section>
-        <section class="form tabContent">
-          <form method="post">
-            <label for="hydration" id="hydrationLabel">Daily Intake:
-              <input type="number" name="hydrationData" id="hydration" required placeholder="Enter in fluid Oz">
-            </label><br>
-            <label for="sleepHours" id="sleepHoursLabel">Hours Slept:
-              <input type="number" name="sleepHours" id="sleepHours" required placeholder="Enter Hours Slept">
-            </label><br>
-            <label for="sleepQuality" id="sleepQualityLabel">Sleep Quality:
-            <input type="number" name="sleepQuality" id="sleepQuality" required placeholder="Enter hours of quality sleep">
-            </label><br>
-            <label for="stepsTracker" id="stepsTrackerLabel">Steps Tracker:
-              <input type="number" name="stepsData" id="stepsTracker" required placeholder="Enter step count">
-            </label>
-          </form>
-        </section>
+        <!-- NAV TABS END -->
       </section>
         <section class="user-data">
             <h1 class="chart-text">Activity Tracker</h1>

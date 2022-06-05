@@ -1,6 +1,8 @@
 import './css/styles.css';
 import {
-  allData
+  allData,
+  postUserCall,
+  checkForError
 } from './apiCalls';
 import {
 createWaterChart,
@@ -14,7 +16,6 @@ import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
-import Activity from './Activity';
 
 
 // query selectors -----------------------
@@ -23,7 +24,7 @@ let userCard = document.querySelector('.user-card');
 let userFriends = document.querySelector('.user-friends');
 let name = document.querySelector('#name');
 let hydrationWidget = document.querySelector('.hydration');
-let sleepWidget = document.querySelector('.sleep');
+// let sleepWidget = document.querySelector('.sleep');
 let innerDisplayHydration = document.querySelector('.inner-hydration');
 let innerDisplaySleep = document.querySelector('.inner-sleep');
 let sleepBtn = document.querySelector('.sleepBtn');
@@ -34,6 +35,27 @@ let activityCircle = document.querySelector('.progress-activity');
 let widgetTabs = document.querySelector('#widget');
 let activityBtn = document.querySelector('.activityBtn');
 let ctx = document.getElementById('chart').getContext('2d');
+//FORM(QUERY SELECTOR)---------
+//LINEBREAK(FOR FORM HYDRATION)--------------
+let submitFormH = document.getElementById('submitHydration');
+let hydrationDate = document.getElementById('calender');
+let hydrationInput = document.getElementById('hydration');
+//LINEBREAK(FOR FORM SLEEP)--------------
+let submitFormS = document.getElementById('submitSleep');
+let sleepDate = document.getElementById('calender');
+let hoursSlept = document.getElementById('sleepHours');
+let sleepQuality = document.getElementById('sleepQuality');
+//LINEBREAK(FOR FORM ACTIVITY)--------------
+let submitFormA = document.getElementById('submitActive');
+let activeDate = document.getElementById('calender');
+let numSteps = document.getElementById('numSteps');
+let minutesActive = document.getElementById('minutesActive');
+let flightOfStairs = document.getElementById('flightOfStairs');
+//LINEBREAK(FOR TABS)--------------
+let tabs = document.querySelector('.tabs-container');
+let tabButton = document.querySelectorAll('.tab-button');
+let contents = document.querySelectorAll('.content')
+
 
 
 // globals -----------------------
@@ -70,6 +92,10 @@ window.addEventListener('load', () => {
 sleepBtn.addEventListener('click', clickSleepBtn);
 waterBtn.addEventListener('click', clickWaterBtn);
 activityBtn.addEventListener('click', clickActivityBtn);
+submitFormH.addEventListener('click', submitHydrationForm);
+submitFormS.addEventListener('click', submitSleepForm);
+submitFormA.addEventListener('click', submitActiveForm);
+tabs.addEventListener('click', changeTabs)
 
 //Dom functions -----------------------
 
@@ -77,6 +103,24 @@ function getTarget(target){
   console.log(target);
 }
 
+function changeTabs() {
+  let id = event.target.dataset.id;
+  if (id) {
+    tabButton.forEach(btn => {
+      btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    contents.forEach(content => {
+      content.classList.remove('active');
+    });
+
+    let element = document.getElementById(id);
+    element.classList.add('active')
+  }
+}
+
+//POST -------------------------
 function displayUserInfo(user, repo) {
   name.innerHTML = `Welcome ${user.returnUserName()}!`;
   userCard.innerHTML = `
@@ -164,4 +208,26 @@ function clickActivityBtn() {
 function getRandomUser(array) {
   let randomIndex = Math.floor(Math.random() * array.length)
   return array[randomIndex]
+}
+
+function submitHydrationForm() {
+  event.preventDefault();
+  let hydrationObj = { userID: randomUser.id, date: reformatDate(hydrationDate.value), numOunces: hydrationInput.value }
+  postUserCall(hydrationObj, 'hydration')
+}
+
+function submitSleepForm() {
+  event.preventDefault();
+  let sleepObj = { userID: randomUser.id, date: reformatDate(sleepDate.value), hoursSlept: hoursSlept.value, sleepQuality: sleepQuality.value }
+  postUserCall(sleepObj, 'sleep')
+}
+
+function submitActiveForm() {
+  event.preventDefault();
+  let activeObj = { userID: randomUser.id, date: reformatDate(activeDate.value), numSteps: numSteps.value, minutesActive: minutesActive.value, flightOfStairs: flightOfStairs.value }
+  postUserCall(activeObj, 'activity')
+}
+
+function reformatDate(date) {
+  return date.split('-').join('/');
 }
