@@ -276,6 +276,14 @@ function getRandomUser(array) {
   return array[randomIndex]
 }
 
+function reformatDate(date) {
+  let dateArray = date.split(-);
+  let formatedDate = [];
+  formatedDate.push(dateArray[1]);
+  formatedDate.push(dateArray[2]);
+  formatedDate.push(dateArray[0]);
+  return formatedDate.join('/');
+  
 function submitHydrationForm() {
   event.preventDefault();
   let hydrationObj = { userID: randomUser.id, date: reformatDate(hydrationDate.value), numOunces: hydrationInput.value }

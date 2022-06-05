@@ -23,10 +23,10 @@ describe('Hydration', () => {
     expect(hydrationRepo.findUser(49)).to.deep.equal([{"userID":49,"date":"2020/01/14","numOunces":87},{"userID":49,"date":"2020/01/15","numOunces":57},{"userID":49,"date":"2020/01/16","numOunces":71},{"userID":49,"date":"2020/01/17","numOunces":68},{"userID":49,"date":"2020/01/18","numOunces":55},{"userID":49,"date":"2020/01/19","numOunces":52},{"userID":49,"date":"2020/01/20","numOunces":37},{"userID":49,"date":"2020/01/21","numOunces":38},{"userID":49,"date":"2020/01/22","numOunces":36},])
   });
   it("should be able to find how much a user drank on a certain day", function () {
-    expect(hydrationRepo.findDayHydration(50,"2020/01/16")).to.equal(43)
+    expect(hydrationRepo.findDateData(50,"2020/01/16")).to.equal(43)
   });
   it("should be able to find how much a user drank each day for a week", function () {
-    expect(hydrationRepo.findWeekHydration(49,"2020/01/22")).to.deep.equal([71, 68, 55, 52, 37, 38, 36]);
+    expect(hydrationRepo.findWeeklyData(49,"2020/01/22")).to.deep.equal([71, 68, 55, 52, 37, 38, 36]);
   });
 
 });
