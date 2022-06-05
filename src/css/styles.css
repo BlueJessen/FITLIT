@@ -154,8 +154,7 @@ padding-top: 5vh;
 }
 
 .progress-window {
-  background-color: orange;
-  border-radius: 10%;
+  background-color: #81a39e;
   margin:2vw;
   width:20vw;
   display: flex;
@@ -167,13 +166,14 @@ padding-top: 5vh;
 .widget-button {
   border: none;
   outline: none;
-  background-color: orange;
-  color: white;
+  margin:0;
+  background-color: #5a6664;
+  color: black;
   font-size: 1rem;
 }
 
 .widget-button:hover {
-  background-color: brown;
+  background-color: #6299b5;
   cursor:pointer;
 }
 
@@ -204,18 +204,24 @@ padding-top: 5vh;
 	stroke: white;
 	stroke-linecap: round;
 }
+
 .circle-progress-circle {
 	stroke-width: 8px;
 	stroke: #888;
 }
 
 .circle-progress-text {
-	fill: #888;
+	fill: black;
 }
 
 .circle-progress {
   width: 13vw;
   height: auto;
+}
+
+.current {
+  background-color: #81a39e;
+
 }
 
 .hidden {
