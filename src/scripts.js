@@ -148,19 +148,19 @@ function showActivityDisplay (user, repo, target) {
 function toggleActivity(target) {
   widgetBtns.forEach((btn) => {
     if(btn.classList.contains('activity')) {
-    btn.classList.remove('active');
+    btn.classList.remove('current');
   }
 });
-  target.classList.add('active');
+  target.classList.add('current');
 }
 
 function toggleSleep(target) {
   widgetBtns.forEach((btn) => {
     if(btn.classList.contains('sleep')){
-    btn.classList.remove('active')
+    btn.classList.remove('current')
   }
 });
-  target.classList.add('active');
+  target.classList.add('current');
 }
 
 function setUpSteps(target) {
@@ -170,7 +170,7 @@ function setUpSteps(target) {
   activityProgress.constrain = false;
   activityProgress.max = randomUser.dailyStepGoal;
   activityProgress.value = displayInfo;
-  activityProgress.textFormat = 'vertical'; 
+  activityProgress.textFormat = 'vertical';
 }
 
 function setUpMinutes() {
