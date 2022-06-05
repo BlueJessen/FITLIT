@@ -35,9 +35,20 @@ let activityCircle = document.querySelector('.progress-activity');
 let widgetTabs = document.querySelector('#widget');
 let activityBtn = document.querySelector('.activityBtn');
 let ctx = document.getElementById('chart').getContext('2d');
-let submitForm = document.getElementById('submit');
-let hydrationDate = document.getElementById('calender')
-let hydrationInput = document.getElementById('hydration')
+// FORM(QUERY SELECTOR)---------
+//LINEBREAK(FOR FORM HYDRATION)--------------
+let submitFormH = document.getElementById('submitHydration');
+let hydrationDate = document.getElementById('calender');
+let hydrationInput = document.getElementById('hydration');
+//LINEBREAK(FOR FORM SLEEP )--------------
+let submitFormS = document.getElementById('submitSleep')
+let sleepDate = document.getElementById('calender')
+let hoursSlept = document.getElementById('sleepHours')
+let sleepQuality = document.getElementById('sleepQuality')
+
+let tabs = document.querySelector('.tabs-container');
+let tabButton = document.querySelectorAll('.tab-button');
+
 
 
 // globals -----------------------
@@ -83,7 +94,8 @@ window.addEventListener('load', () => {
 sleepBtn.addEventListener('click', clickSleepBtn);
 waterBtn.addEventListener('click', clickWaterBtn);
 activityBtn.addEventListener('click', clickActivityBtn);
-submitForm.addEventListener('click', submitHydrationForm);
+submitFormH.addEventListener('click', submitHydrationForm);
+submitFormS.addEventListener('click', submitSleepForm);
 
 //Dom functions -----------------------
 
@@ -187,6 +199,12 @@ function submitHydrationForm() {
   event.preventDefault();
   let hydrationObj = { userID: randomUser.id, date: reformatDate(hydrationDate.value), numOunces: hydrationInput.value }
   postUserCall(hydrationObj, 'hydration')
+}
+
+function submitSleepForm() {
+  event.preventDefault();
+  let sleepObj = { userID: randomUser.id, date: reformatDate(sleepDate.value), hoursSlept: hoursSlept.value, sleepQuality: sleepQuality.value}
+  postUserCall(sleepObj, 'sleep')
 }
 
 function reformatDate(date) {

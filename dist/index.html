@@ -14,32 +14,43 @@
         <section class="tabs-container">
           <div class="button-container">
             <button class="tab-button active">Profile</button>
-            <button class="tab-button">Form</button>
+            <button class="tab-button">Hydration</button>
+            <button class="tab-button">Sleep</button>
+            <button class="tab-button">Active</button>
             <button class="tab-button">Friends</button>
           </div>
-        </section>
-        <section class="user-card content active">Loading...</section>
-        <section class="user-friends content"></section>
-        <section class="hydration-form content">
-          <form method="post">
-            <label for="calendar" id="calendarLabel">Enter Date:
-              <input type="date" name="calenderData" id="calender">
-            </label><br>
-            <label for="hydration" id="hydrationLabel">Daily Intake:
-              <input type="number" name="hydrationData" id="hydration" required placeholder="Enter in fluid Oz">
-            </label><br>
-            <input type="submit" value="Submit" id="submit">
-          </form>
-            <!-- <label for="sleepHours" id="sleepHoursLabel">Hours Slept:
-              <input type="number" name="sleepHours" id="sleepHours" required placeholder="Enter Hours Slept">
-            </label><br>
-            <label for="sleepQuality" id="sleepQualityLabel">Sleep Quality:
-            <input type="number" name="sleepQuality" id="sleepQuality" required placeholder="Enter hours of quality sleep">
-            </label><br>
-            <label for="stepsTracker" id="stepsTrackerLabel">Steps Tracker:
+          <section class="user-card content">Loading...</section>
+          <section class="user-friends content"></section>
+          <!-- linebreak -->
+          <section class="hydration-form content">
+            <form method="post">
+              <label for="calendar" id="calendarLabel">Enter Date:
+                <input type="date" name="calenderData" id="calender">
+              </label><br>
+              <label for="hydration" id="hydrationLabel">Daily Intake:
+                <input type="number" name="hydrationData" id="hydration" required placeholder="Enter in fluid Oz">
+              </label><br>
+              <input type="submit" value="Submit" id="submitHydration">
+            </form>
+          </section>
+          <!-- linebreak -->
+          <section class="sleep-form content active">
+            <form method="post">
+              <label for="calendar" id="calenderLabel">Enter Date:
+                <input type="date" name="calenderData" id="caldender">
+              </label><br>
+              <label for="sleepHours" id="sleepHoursLabel">Hours Slept:
+                <input type="number" name="sleepHours" id="sleepHours" required placeholder="Enter Hours Slept">
+              </label><br>
+              <label for="sleepQuality" id="sleepQualityLabel">Sleep Quality:
+              <input type="number" name="sleepQuality" id="sleepQuality" required placeholder="Enter hours of quality sleep">
+              </label><br>
+              <input type="submit" value="Submit" id="submitSleep">
+            </form>
+          </section>
+            <!-- <label for="stepsTracker" id="stepsTrackerLabel">Steps Tracker:
               <input type="number" name="stepsData" id="stepsTracker" required placeholder="Enter step count">
             </label> -->
-
         </section>
       </section>
         <section class="user-data">
