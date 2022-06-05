@@ -18,6 +18,7 @@ const postUserCall = (postObject, dataType) => {
   })
   .then(response => checkForError(response))
   .then(response => response.json())
+  .catch(error => selection.innerHTML = `<p>Sorry, we received a ${error.message} Error!</p>`)
 };
 
 const checkForError = (response) => {

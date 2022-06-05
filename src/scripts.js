@@ -35,7 +35,9 @@ let activityCircle = document.querySelector('.progress-activity');
 let widgetTabs = document.querySelector('#widget');
 let activityBtn = document.querySelector('.activityBtn');
 let ctx = document.getElementById('chart').getContext('2d');
-
+let submitForm = document.getElementById('submit');
+let hydrationDate = document.getElementById('calender')
+let hydrationInput = document.getElementById('hydration')
 
 
 // globals -----------------------
@@ -81,6 +83,7 @@ window.addEventListener('load', () => {
 sleepBtn.addEventListener('click', clickSleepBtn);
 waterBtn.addEventListener('click', clickWaterBtn);
 activityBtn.addEventListener('click', clickActivityBtn);
+submitForm.addEventListener('click', submitHydrationForm);
 
 //Dom functions -----------------------
 
@@ -88,8 +91,8 @@ function getTarget(target){
   console.log(target);
 }
 
-// POST
-postUserCall(personObject, 'sleep')
+//POST -------------------------
+// postUserCall(personObject, 'sleep')
 
 function displayUserInfo(user, repo) {
   name.innerHTML = `Welcome ${user.returnUserName()}!`;
@@ -178,4 +181,10 @@ function clickActivityBtn() {
 function getRandomUser(array) {
   let randomIndex = Math.floor(Math.random() * array.length)
   return array[randomIndex]
+}
+
+function submitHydrationForm() {
+  event.preventDefault();
+  let hydrationObj = { userID: randomUser.id, date: hydrationDate.value, numOunces: hydrationInput.value }
+  postUserCall(hydrationObj, 'hydration')
 }
