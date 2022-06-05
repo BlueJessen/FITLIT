@@ -16,10 +16,6 @@ class Activity {
     return this.activityRepo.filter(user => user.userID === userID);
   };
 
-  findRecentDate(id) {
-  return this.findAllUserData(id).slice(-1)[0].date;
-  }
-
   milesWalked(userID, date, userRepo) {
   let strideLength = userRepo.findUser(userID).strideLength;
   let dataSet = this.findAllUserData(userID);
@@ -83,6 +79,12 @@ class Activity {
       return nextDay.flightsOfStairs - day.flightsOfStairs;
       });
     return sortedSet[0].flightsOfStairs
+  }
+
+  stairsOnDate(userID, date) {
+      const dataSet = this.findAllUserData(userID);
+      console.log(dataSet.filter(day => day.date === date).flightsOfStairs);
+
   }
 
   averageStairs(date) {

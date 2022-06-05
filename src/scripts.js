@@ -14,8 +14,6 @@ import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
-import Activity from './Activity';
-
 
 // query selectors -----------------------
 
@@ -31,7 +29,7 @@ let waterBtn = document.querySelector('.waterBtn');
 let hydrationCircle =document.querySelector('.progress-hydration');
 let sleepCircle = document.querySelector('.progress-sleep');
 let activityCircle = document.querySelector('.progress-activity');
-let widgetTabs = document.querySelector('#widget');
+let widgetTabs = document.querySelector('.widget-nav');
 let activityBtn = document.querySelector('.activityBtn');
 let ctx = document.getElementById('chart').getContext('2d');
 
@@ -53,7 +51,7 @@ let chart = new Chart(ctx, {
 
 const activityProgress = new CircleProgress(activityCircle)
 //EVENT LISTENERS -----------------------
-widgetTabs.addEventListener('click', getTarget(event));
+widgetTabs.addEventListener('click', getEvent);
 window.addEventListener('load', () => {
   allData.then(data => {
     userData = data[0];
@@ -73,8 +71,12 @@ activityBtn.addEventListener('click', clickActivityBtn);
 
 //Dom functions -----------------------
 
-function getTarget(target){
-  console.log(target);
+function getEvent(){
+if(event.target.classList.contains('sleep')){
+  addProgressWidgetSleep(randomUser, sleepRepo, event.target.id);
+}else if(event.target.classList.contains('activity')) {
+  showActivityDisplay(randomUser, activityRepo, event.target.id);
+}
 }
 
 function displayUserInfo(user, repo) {
@@ -106,21 +108,52 @@ function addProgressWidgetHydration(user, repo) {
   hydrationProgress.value = displayInfo;
 }
 
-function addProgressWidgetSleep(user, repo, target) {
+function addProgressWidgetSleep(user, repo, type) {
   const sleepProgress = new CircleProgress(sleepCircle);
   let recentDate = repo.findRecentDate(user.id);
-  let displayInfo = repo.findDateData(user.id, recentDate, 'hours');
+
+  if (type === 'hours') {
+  let displayInfo = repo.findDateData(user.id, recentDate, type)
   sleepProgress.max = 8;
   sleepProgress.value = displayInfo;
+} else {
+   let displayInfo = repo.findDateData(user.id, recentDate, type)
+  sleepProgress.max = 10;
+  sleepProgress.value = displayInfo;
+}
 }
 
 function showActivityDisplay (user, repo, target) {
+  if(target === 'steps') {
+    setUpSteps()
+  }else if(target === 'minutes') {
+    setUpMinutes()
+  }else if(target === 'stairs') {
+    setUpStairs()
+  }
+}
+
+function setUpSteps() {
   const activityProgress = new CircleProgress(activityCircle)
-  let recentDate = repo.findRecentDate(user.id);
-  let displayInfo = repo.findStepsForDate(user.id, recentDate);
-  activityProgress.max = user.dailyStepGoal;
+  let recentDate = activityRepo.findRecentDate(randomUser.id);
+  let displayInfo = activityRepo.findStepsForDate(randomUser.id, recentDate);
+  activityProgress.max = randomUser.dailyStepGoal;
   activityProgress.value = displayInfo;
   activityProgress.textFormat = 'percent';
+}
+
+function setUpMinutes() {
+    const activityProgress = new CircleProgress(activityCircle);
+    let recentDate = activityRepo.findRecentDate(randomUser.id);
+    activityProgress.max = 30;
+    activityProgress.value = activityRepo.minutesActive(randomUser.id, recentDate);
+}
+
+functions setUpStairs() {
+  const activityProgress = new CircleProgress(activityCircle);
+  let recentDate = activityRepo.findRecentDate(randomUser.id);
+  activityProgress.max = 100;
+  activityProgress.value = activityRepo.stairsOnDate(randomUser.id, recentDate);
 }
 
 function initialSetup() {
@@ -132,10 +165,10 @@ function initialSetup() {
   randomUser = getRandomUser(userRepo.userData);
 
   displayUserInfo(randomUser, userRepo);
-  addProgressWidgetSleep(randomUser, sleepRepo);
+  addProgressWidgetSleep(randomUser, sleepRepo, 'hours');
   addProgressWidgetHydration(randomUser, hydrationRepo);
   createWaterChart(randomUser);
-  showActivityDisplay(randomUser, activityRepo);
+  showActivityDisplay(randomUser, activityRepo, 'steps');
 }
 
 function clickWaterBtn() {
