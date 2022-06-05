@@ -34,23 +34,38 @@
             </form>
           </section>
           <!-- linebreak -->
-          <section class="sleep-form content active">
+          <section class="sleep-form content">
             <form method="post">
               <label for="calendar" id="calenderLabel">Enter Date:
-                <input type="date" name="calenderData" id="caldender">
+                <input type="date" name="calenderData" id="calendar">
               </label><br>
               <label for="sleepHours" id="sleepHoursLabel">Hours Slept:
                 <input type="number" name="sleepHours" id="sleepHours" required placeholder="Enter Hours Slept">
               </label><br>
               <label for="sleepQuality" id="sleepQualityLabel">Sleep Quality:
-              <input type="number" name="sleepQuality" id="sleepQuality" required placeholder="Enter hours of quality sleep">
+                <input type="number" name="sleepQuality" id="sleepQuality" required placeholder="Enter hours of quality sleep">
               </label><br>
               <input type="submit" value="Submit" id="submitSleep">
             </form>
           </section>
-            <!-- <label for="stepsTracker" id="stepsTrackerLabel">Steps Tracker:
-              <input type="number" name="stepsData" id="stepsTracker" required placeholder="Enter step count">
-            </label> -->
+          <!-- linebreak -->
+          <section class="active-form content active">
+            <form>
+              <label for="calendar" id="calenderLabel">Enter Date:
+                <input type="date" name="calenderData" id="calendar">
+              </label><br>
+              <label for="numSteps" id="numStepsLabel">Number of Steps:
+                <input type="number" name="numSteps" id="numSteps" required placeholder="Enter number of steps">
+              </label><br>
+              <label for="minutesActive" id="minutesActiveLabel">Minutes Active:
+                <input type="number" name="minutesActive" id="minutesActive" required placeholder="Enter minutes active">
+              </label><br>
+              <label for="flightOfStairs" id="flightOfStairsLabel">Flights Of Stairs:
+                <input type="number" name="flightOfStairs" id="flightOfStairs" required placeholder="Enter number of stairs climbed">
+              </label><br>
+              <input type="submit" value="Submit" id="submitActive">
+            </form>
+          </section>
         </section>
       </section>
         <section class="user-data">

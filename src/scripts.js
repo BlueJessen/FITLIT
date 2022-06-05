@@ -35,16 +35,22 @@ let activityCircle = document.querySelector('.progress-activity');
 let widgetTabs = document.querySelector('#widget');
 let activityBtn = document.querySelector('.activityBtn');
 let ctx = document.getElementById('chart').getContext('2d');
-// FORM(QUERY SELECTOR)---------
+//FORM(QUERY SELECTOR)---------
 //LINEBREAK(FOR FORM HYDRATION)--------------
 let submitFormH = document.getElementById('submitHydration');
 let hydrationDate = document.getElementById('calender');
 let hydrationInput = document.getElementById('hydration');
-//LINEBREAK(FOR FORM SLEEP )--------------
-let submitFormS = document.getElementById('submitSleep')
-let sleepDate = document.getElementById('calender')
-let hoursSlept = document.getElementById('sleepHours')
-let sleepQuality = document.getElementById('sleepQuality')
+//LINEBREAK(FOR FORM SLEEP)--------------
+let submitFormS = document.getElementById('submitSleep');
+let sleepDate = document.getElementById('calender');
+let hoursSlept = document.getElementById('sleepHours');
+let sleepQuality = document.getElementById('sleepQuality');
+//LINEBREAK(FOR FORM ACTIVITY)--------------
+let submitFormA = document.getElementById('submitActive');
+let activeDate = document.getElementById('calender');
+let numSteps = document.getElementById('numSteps');
+let minutesActive = document.getElementById('minutesActive');
+let flightOfStairs = document.getElementById('flightOfStairs');
 
 let tabs = document.querySelector('.tabs-container');
 let tabButton = document.querySelectorAll('.tab-button');
