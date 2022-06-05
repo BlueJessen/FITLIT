@@ -14,7 +14,6 @@ import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
-import Activity from './Activity';
 
 
 // query selectors -----------------------
@@ -164,4 +163,13 @@ function clickActivityBtn() {
 function getRandomUser(array) {
   let randomIndex = Math.floor(Math.random() * array.length)
   return array[randomIndex]
+}
+
+function reformatDate(date) {
+  let dateArray = date.split(-);
+  let formatedDate = [];
+  formatedDate.push(dateArray[1]);
+  formatedDate.push(dateArray[2]);
+  formatedDate.push(dateArray[0]);
+  return formatedDate.join('/');
 }
