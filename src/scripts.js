@@ -230,7 +230,8 @@ function initialSetup() {
   sleepRepo = new Sleep(sleepData.sleepData);
   hydrationRepo = new Hydration(hydrationData.hydrationData);
   activityRepo = new Activity(activityData.activityData);
-  randomUser = getRandomUser(userRepo.userData);
+  // randomUser = getRandomUser(userRepo.userData);
+  randomUser = userRepo.findUser(1)
 
   displayUserInfo(randomUser, userRepo);
   addProgressWidgetSleep(randomUser, sleepRepo, 'hours');
@@ -269,7 +270,7 @@ function reloadData() {
     activityData = data[2];
     hydrationData = data[3];
     initialSetup();
-
+    console.log('hydration', hydrationData)
   }).catch(error => console.log(error))
 };
 
@@ -281,20 +282,19 @@ function getRandomUser(array) {
 function submitHydrationForm() {
   event.preventDefault();
   let hydrationObj = { userID: randomUser.id, date: reformatDate(hydrationDate.value), numOunces: hydrationInput.value }
-  postUserCall(hydrationObj, 'hydration')
-  reloadData();
+  postUserCall(hydrationObj, 'hydration').then(response => reloadData())
 }
 
 function submitSleepForm() {
   event.preventDefault();
   let sleepObj = { userID: randomUser.id, date: reformatDate(sleepDate.value), hoursSlept: hoursSlept.value, sleepQuality: sleepQuality.value }
-  postUserCall(sleepObj, 'sleep')
+  postUserCall(sleepObj, 'sleep').then(response => reloadData())
 }
 
 function submitActiveForm() {
   event.preventDefault();
   let activeObj = { userID: randomUser.id, date: reformatDate(activeDate.value), numSteps: numSteps.value, minutesActive: minutesActive.value, flightOfStairs: flightOfStairs.value }
-  postUserCall(activeObj, 'activity')
+  postUserCall(activeObj, 'activity').then(response => reloadData())
 }
 
 function reformatDate(date) {
