@@ -16,7 +16,7 @@ class Sleep {
     const average = userData.reduce((total, dataEntry) => {
       return type === 'hours' ? total += dataEntry.sleepQuality: total += dataEntry.hoursSlept;
     }, 0)/userData.length;
-    return average.toFixed(1);
+    return parseFloat(average.toFixed(1));
   };
 
   findDateData(userID, date, type) {

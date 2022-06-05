@@ -34,12 +34,12 @@ describe('Sleep', () => {
 
   it('should be able to find the average sleep per day', () => {
 
-    expect(sleepData.findAverageSleepHours(10)).to.equal(5.6);
+    expect(sleepData.findAverage(10)).to.equal(5.6);
   });
 
   it('should be able to find the average sleep quality, per day, over all time for a specific user', () => {
 
-    expect(sleepData.findAverageSleepQuality(10)).to.equal(2.9);
+    expect(sleepData.findAverage(10, 'hours')).to.equal(2.9);
   });
 
   it('should be able to find the most recent date', () => {
@@ -48,22 +48,22 @@ describe('Sleep', () => {
 
   it('should find how many hours a user slept for a specific day', () => {
 
-    expect(sleepData.findDaySleepHours(10, "2019/06/15")).to.equal(4.4);
+    expect(sleepData.findDateData(10, "2019/06/15", 'hours')).to.equal(4.4);
   });
 
   it('should find users sleep quality for a specific day', () => {
 
-    expect(sleepData.findDaySleepQuality(10, "2019/06/16")).to.equal(4.4);
+    expect(sleepData.findDateData(10, "2019/06/16")).to.equal(4.4);
   });
 
   it('should calculate how many hours slept each day over the course of a given week', () => {
 
-    expect(sleepData.findWeeklySleepHours(10, "2019/06/21")).to.deep.equal([4.4, 8, 4.3, 7, 5.3, 5.5, 4.5]);
+    expect(sleepData.findWeeklyData(10, "2019/06/21", 'hours')).to.deep.equal([4.4, 8, 4.3, 7, 5.3, 5.5, 4.5]);
   });
 
   it('should find users sleep quality each day over the course of a given week', () => {
 
-    expect(sleepData.findWeeklySleepQuality(10, "2019/06/21")).to.deep.equal([1.6, 4.4, 3.6, 3.8, 3.1, 1.1, 2.5]);
+    expect(sleepData.findWeeklyData(10, "2019/06/21")).to.deep.equal([1.6, 4.4, 3.6, 3.8, 3.1, 1.1, 2.5]);
   });
 
   it('should find all users average sleep quality', () => {
