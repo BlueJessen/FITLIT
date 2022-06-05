@@ -31,8 +31,10 @@ let sleepCircle = document.querySelector('.progress-sleep');
 let activityCircle = document.querySelector('.progress-activity');
 let widgetTabs = document.querySelector('.progress-holder');
 let activityBtn = document.querySelector('.activityBtn');
+let widgetBtns = document.querySelectorAll('.widget-button');
 let ctx = document.getElementById('chart').getContext('2d');
-
+let widgetTextActive = document.querySelector('.widget-text-active');
+let widgetTextSleep = document.querySelector('.widget-text-sleep');
 
 // globals -----------------------
 let userData = [];
@@ -54,10 +56,8 @@ const activityProgress = new CircleProgress(activityCircle)
 window.addEventListener('load', () => {
   allData.then(data => {
     userData = data[0];
-    console.log(userData)
     sleepData = data[1];
     activityData = data[2];
-    console.log(activityData);
     hydrationData = data[3];
     initialSetup();
 
@@ -72,10 +72,11 @@ activityBtn.addEventListener('click', clickActivityBtn);
 //Dom functions -----------------------
 
 function getEvent(){
-  console.log(event.target)
 if(event.target.classList.contains('sleep')){
+  toggleSleep(event.target);
   addProgressWidgetSleep(randomUser, sleepRepo, event.target.id);
 }else if(event.target.classList.contains('activity')){
+  toggleActivity(event.target);
   showActivityDisplay(randomUser, activityRepo, event.target.id);
 }
 }
@@ -122,6 +123,15 @@ function addProgressWidgetSleep(user, repo, type) {
   sleepProgress.max = 10;
   sleepProgress.value = displayInfo;
 }
+setText('sleep', type);
+}
+
+function setText(type, dataType) {
+if(type === 'sleep') {
+      widgetTextSleep.innerText = `Sleep ${dataType}`;
+    }else{
+      widgetTextActive.innerText = `Activity: ${dataType}`;
+    }
 }
 
 function showActivityDisplay (user, repo, target) {
@@ -132,14 +142,35 @@ function showActivityDisplay (user, repo, target) {
   }else if(target === 'stairs') {
     setUpStairs()
   }
+  setText('activity', target);
 }
 
-function setUpSteps() {
+function toggleActivity(target) {
+  widgetBtns.forEach((btn) => {
+    if(btn.classList.contains('activity')) {
+    btn.classList.remove('active');
+  }
+});
+  target.classList.add('active');
+}
+
+function toggleSleep(target) {
+  widgetBtns.forEach((btn) => {
+    if(btn.classList.contains('sleep')){
+    btn.classList.remove('active')
+  }
+});
+  target.classList.add('active');
+}
+
+function setUpSteps(target) {
   const activityProgress = new CircleProgress(activityCircle)
   let recentDate = activityRepo.findRecentDate(randomUser.id);
   let displayInfo = activityRepo.findStepsForDate(randomUser.id, recentDate);
+  activityProgress.constrain = false;
   activityProgress.max = randomUser.dailyStepGoal;
   activityProgress.value = displayInfo;
+  activityProgress.textFormat = 'vertical'; 
 }
 
 function setUpMinutes() {
@@ -147,6 +178,7 @@ function setUpMinutes() {
     let recentDate = activityRepo.findRecentDate(randomUser.id);
     activityProgress.max = 30;
     activityProgress.value = activityRepo.minutesActive(randomUser.id, recentDate);
+    activityProgress.constrain = false;
 }
 
 function setUpStairs() {
@@ -154,6 +186,7 @@ function setUpStairs() {
   let recentDate = activityRepo.findRecentDate(randomUser.id);
   activityProgress.max = 100;
   activityProgress.value = activityRepo.stairsOnDate(randomUser.id, recentDate);
+  activityProgress.constrain = false;
 }
 
 function initialSetup() {

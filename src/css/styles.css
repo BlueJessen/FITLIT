@@ -132,7 +132,7 @@ padding-top: 5vh;
   border: none;
   outline: none;
   margin:0;
-  background-color: #81a39e;
+  background-color: #5a6664;
   color: black;
   font-size: 1rem;
 }
@@ -169,6 +169,7 @@ padding-top: 5vh;
 	stroke: white;
 	stroke-linecap: round;
 }
+
 .circle-progress-circle {
 	stroke-width: 8px;
 	stroke: #888;
@@ -184,7 +185,7 @@ padding-top: 5vh;
 }
 
 .active {
-  display: block;
+  background-color: #81a39e;
 
 }
 
