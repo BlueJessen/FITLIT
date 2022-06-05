@@ -102,7 +102,7 @@ waterBtn.addEventListener('click', clickWaterBtn);
 activityBtn.addEventListener('click', clickActivityBtn);
 submitFormH.addEventListener('click', submitHydrationForm);
 submitFormS.addEventListener('click', submitSleepForm);
-
+submitFormA.addEventListener('click', submitActiveForm);
 //Dom functions -----------------------
 
 function getTarget(target){
@@ -211,6 +211,12 @@ function submitSleepForm() {
   event.preventDefault();
   let sleepObj = { userID: randomUser.id, date: reformatDate(sleepDate.value), hoursSlept: hoursSlept.value, sleepQuality: sleepQuality.value}
   postUserCall(sleepObj, 'sleep')
+}
+
+function submitActiveForm() {
+  event.preventDefault();
+  let activeObj = { userID: randomUser.id, date: reformatDate(activeDate.value), numSteps: numSteps.value, minutesActive: minutesActive.value, flightOfStairs: flightOfStairs.value }
+  postUserCall(activeObj, 'activity')
 }
 
 function reformatDate(date) {
