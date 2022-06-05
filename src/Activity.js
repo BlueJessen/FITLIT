@@ -83,8 +83,8 @@ class Activity {
 
   stairsOnDate(userID, date) {
       const dataSet = this.findAllUserData(userID);
-      console.log(dataSet.filter(day => day.date === date).flightsOfStairs);
-
+      let day = dataSet.filter(day => day.date === date);
+      return day.flightsOfStairs;
   }
 
   averageStairs(date) {

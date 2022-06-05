@@ -29,7 +29,7 @@ let waterBtn = document.querySelector('.waterBtn');
 let hydrationCircle =document.querySelector('.progress-hydration');
 let sleepCircle = document.querySelector('.progress-sleep');
 let activityCircle = document.querySelector('.progress-activity');
-let widgetTabs = document.querySelector('.widget-nav');
+let widgetTabs = document.querySelector('.progress-holder');
 let activityBtn = document.querySelector('.activityBtn');
 let ctx = document.getElementById('chart').getContext('2d');
 
@@ -51,7 +51,6 @@ let chart = new Chart(ctx, {
 
 const activityProgress = new CircleProgress(activityCircle)
 //EVENT LISTENERS -----------------------
-widgetTabs.addEventListener('click', getEvent);
 window.addEventListener('load', () => {
   allData.then(data => {
     userData = data[0];
@@ -65,6 +64,7 @@ window.addEventListener('load', () => {
   }).catch(error => console.log(error))
 });
 
+widgetTabs.addEventListener('click', getEvent);
 sleepBtn.addEventListener('click', clickSleepBtn);
 waterBtn.addEventListener('click', clickWaterBtn);
 activityBtn.addEventListener('click', clickActivityBtn);
@@ -72,9 +72,10 @@ activityBtn.addEventListener('click', clickActivityBtn);
 //Dom functions -----------------------
 
 function getEvent(){
+  console.log(event.target)
 if(event.target.classList.contains('sleep')){
   addProgressWidgetSleep(randomUser, sleepRepo, event.target.id);
-}else if(event.target.classList.contains('activity')) {
+}else if(event.target.classList.contains('activity')){
   showActivityDisplay(randomUser, activityRepo, event.target.id);
 }
 }
@@ -139,7 +140,6 @@ function setUpSteps() {
   let displayInfo = activityRepo.findStepsForDate(randomUser.id, recentDate);
   activityProgress.max = randomUser.dailyStepGoal;
   activityProgress.value = displayInfo;
-  activityProgress.textFormat = 'percent';
 }
 
 function setUpMinutes() {
@@ -149,7 +149,7 @@ function setUpMinutes() {
     activityProgress.value = activityRepo.minutesActive(randomUser.id, recentDate);
 }
 
-functions setUpStairs() {
+function setUpStairs() {
   const activityProgress = new CircleProgress(activityCircle);
   let recentDate = activityRepo.findRecentDate(randomUser.id);
   activityProgress.max = 100;
