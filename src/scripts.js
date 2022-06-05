@@ -190,10 +190,5 @@ function submitHydrationForm() {
 }
 
 function reformatDate(date) {
-  let dateArray = date.split(-);
-  let formatedDate = [];
-  formatedDate.push(dateArray[1]);
-  formatedDate.push(dateArray[2]);
-  formatedDate.push(dateArray[0]);
-  return formatedDate.join('/');
+  return date.split('-').join('/');
 }
