@@ -1,6 +1,8 @@
 import './css/styles.css';
 import {
-  allData
+  allData,
+  postUserCall,
+  checkForError
 } from './apiCalls';
 import {
 createWaterChart,
@@ -15,14 +17,13 @@ import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
-
 // query selectors -----------------------
 
 let userCard = document.querySelector('.user-card');
 let userFriends = document.querySelector('.user-friends');
 let name = document.querySelector('#name');
 let hydrationWidget = document.querySelector('.hydration');
-let sleepWidget = document.querySelector('.sleep');
+// let sleepWidget = document.querySelector('.sleep');
 let innerDisplayHydration = document.querySelector('.inner-hydration');
 let innerDisplaySleep = document.querySelector('.inner-sleep');
 let sleepBtn = document.querySelector('.sleepBtn');
@@ -30,10 +31,32 @@ let waterBtn = document.querySelector('.waterBtn');
 let hydrationCircle =document.querySelector('.progress-hydration');
 let sleepCircle = document.querySelector('.progress-sleep');
 let activityCircle = document.querySelector('.progress-activity');
-let widgetTabs = document.querySelector('#widget');
+let widgetTabs = document.querySelector('.progress-holder');
 let activityBtn = document.querySelector('.activityBtn');
+let widgetBtns = document.querySelectorAll('.widget-button');
 let ctx = document.getElementById('chart').getContext('2d');
-
+let widgetTextActive = document.querySelector('.widget-text-active');
+let widgetTextSleep = document.querySelector('.widget-text-sleep');
+//FORM(QUERY SELECTOR)---------
+//LINEBREAK(FOR FORM HYDRATION)--------------
+let submitFormH = document.getElementById('submitHydration');
+let hydrationDate = document.getElementById('calender');
+let hydrationInput = document.getElementById('hydration');
+//LINEBREAK(FOR FORM SLEEP)--------------
+let submitFormS = document.getElementById('submitSleep');
+let sleepDate = document.getElementById('calender');
+let hoursSlept = document.getElementById('sleepHours');
+let sleepQuality = document.getElementById('sleepQuality');
+//LINEBREAK(FOR FORM ACTIVITY)--------------
+let submitFormA = document.getElementById('submitActive');
+let activeDate = document.getElementById('calender');
+let numSteps = document.getElementById('numSteps');
+let minutesActive = document.getElementById('minutesActive');
+let flightOfStairs = document.getElementById('flightOfStairs');
+//LINEBREAK(FOR TABS)--------------
+let tabs = document.querySelector('.tabs-container');
+let tabButton = document.querySelectorAll('.tab-button');
+let contents = document.querySelectorAll('.content');
 
 // globals -----------------------
 let userData = [];
@@ -52,30 +75,56 @@ let chart = new Chart(ctx, {
 
 const activityProgress = new CircleProgress(activityCircle)
 //EVENT LISTENERS -----------------------
-widgetTabs.addEventListener('click', getTarget(event));
 window.addEventListener('load', () => {
   allData.then(data => {
     userData = data[0];
-    console.log(userData)
     sleepData = data[1];
     activityData = data[2];
-    console.log(activityData);
     hydrationData = data[3];
     initialSetup();
 
   }).catch(error => console.log(error))
 });
 
+widgetTabs.addEventListener('click', getEvent);
 sleepBtn.addEventListener('click', clickSleepBtn);
 waterBtn.addEventListener('click', clickWaterBtn);
 activityBtn.addEventListener('click', clickActivityBtn);
+submitFormH.addEventListener('click', submitHydrationForm);
+submitFormS.addEventListener('click', submitSleepForm);
+submitFormA.addEventListener('click', submitActiveForm);
+tabs.addEventListener('click', changeTabs)
 
 //Dom functions -----------------------
 
-function getTarget(target){
-  console.log(target);
+function getEvent(){
+if(event.target.classList.contains('sleep')){
+  toggleSleep(event.target);
+  addProgressWidgetSleep(randomUser, sleepRepo, event.target.id);
+}else if(event.target.classList.contains('activity')){
+  toggleActivity(event.target);
+  showActivityDisplay(randomUser, activityRepo, event.target.id);
+}
 }
 
+function changeTabs() {
+  let id = event.target.dataset.id;
+  if (id) {
+    tabButton.forEach(btn => {
+      btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    contents.forEach(content => {
+      content.classList.remove('active');
+    });
+
+    let element = document.getElementById(id);
+    element.classList.add('active')
+  }
+}
+
+//POST -------------------------
 function displayUserInfo(user, repo) {
   name.innerHTML = `Welcome ${user.returnUserName()}!`;
   userCard.innerHTML = `
@@ -105,21 +154,83 @@ function addProgressWidgetHydration(user, repo) {
   hydrationProgress.value = displayInfo;
 }
 
-function addProgressWidgetSleep(user, repo, target) {
+function addProgressWidgetSleep(user, repo, type) {
   const sleepProgress = new CircleProgress(sleepCircle);
   let recentDate = repo.findRecentDate(user.id);
-  let displayInfo = repo.findDateData(user.id, recentDate, 'hours');
+
+  if (type === 'hours') {
+  let displayInfo = repo.findDateData(user.id, recentDate, type)
   sleepProgress.max = 8;
   sleepProgress.value = displayInfo;
+} else {
+   let displayInfo = repo.findDateData(user.id, recentDate, type)
+  sleepProgress.max = 10;
+  sleepProgress.value = displayInfo;
+}
+setText('sleep', type);
+}
+
+function setText(type, dataType) {
+if(type === 'sleep') {
+      widgetTextSleep.innerText = `Sleep ${dataType}`;
+    }else{
+      widgetTextActive.innerText = `Activity: ${dataType}`;
+    }
 }
 
 function showActivityDisplay (user, repo, target) {
+  if(target === 'steps') {
+    setUpSteps()
+  }else if(target === 'minutes') {
+    setUpMinutes()
+  }else if(target === 'stairs') {
+    setUpStairs()
+  }
+  setText('activity', target);
+}
+
+function toggleActivity(target) {
+  widgetBtns.forEach((btn) => {
+    if(btn.classList.contains('activity')) {
+    btn.classList.remove('current');
+  }
+});
+  target.classList.add('current');
+}
+
+function toggleSleep(target) {
+  widgetBtns.forEach((btn) => {
+    if(btn.classList.contains('sleep')){
+    btn.classList.remove('current')
+  }
+});
+  target.classList.add('current');
+}
+
+function setUpSteps(target) {
   const activityProgress = new CircleProgress(activityCircle)
-  let recentDate = repo.findRecentDate(user.id);
-  let displayInfo = repo.findStepsForDate(user.id, recentDate);
-  activityProgress.max = user.dailyStepGoal;
+  let recentDate = activityRepo.findRecentDate(randomUser.id);
+  let displayInfo = activityRepo.findStepsForDate(randomUser.id, recentDate);
+  activityProgress.constrain = false;
+  activityProgress.max = randomUser.dailyStepGoal;
   activityProgress.value = displayInfo;
-  activityProgress.textFormat = 'percent';
+  activityProgress.textFormat = 'vertical';
+}
+
+function setUpMinutes() {
+    const activityProgress = new CircleProgress(activityCircle);
+    let recentDate = activityRepo.findRecentDate(randomUser.id);
+    activityProgress.max = 30;
+    activityProgress.value = activityRepo.minutesActive(randomUser.id, recentDate);
+    activityProgress.constrain = false;
+}
+
+function setUpStairs() {
+  const activityProgress = new CircleProgress(activityCircle);
+  let recentDate = activityRepo.findRecentDate(randomUser.id);
+  activityProgress.max = 100;
+  activityProgress.value = activityRepo.stairsOnDate(randomUser.id, recentDate);
+  activityProgress.constrain = false;
 }
 
 function initialSetup() {
@@ -131,10 +242,10 @@ function initialSetup() {
   randomUser = getRandomUser(userRepo.userData);
 
   displayUserInfo(randomUser, userRepo);
-  addProgressWidgetSleep(randomUser, sleepRepo);
+  addProgressWidgetSleep(randomUser, sleepRepo, 'hours');
   addProgressWidgetHydration(randomUser, hydrationRepo);
   createWaterChart(randomUser);
-  showActivityDisplay(randomUser, activityRepo);
+  showActivityDisplay(randomUser, activityRepo, 'steps');
 }
 
 function clickWaterBtn() {
@@ -172,4 +283,25 @@ function reformatDate(date) {
   formatedDate.push(dateArray[2]);
   formatedDate.push(dateArray[0]);
   return formatedDate.join('/');
+  
+function submitHydrationForm() {
+  event.preventDefault();
+  let hydrationObj = { userID: randomUser.id, date: reformatDate(hydrationDate.value), numOunces: hydrationInput.value }
+  postUserCall(hydrationObj, 'hydration')
+}
+
+function submitSleepForm() {
+  event.preventDefault();
+  let sleepObj = { userID: randomUser.id, date: reformatDate(sleepDate.value), hoursSlept: hoursSlept.value, sleepQuality: sleepQuality.value }
+  postUserCall(sleepObj, 'sleep')
+}
+
+function submitActiveForm() {
+  event.preventDefault();
+  let activeObj = { userID: randomUser.id, date: reformatDate(activeDate.value), numSteps: numSteps.value, minutesActive: minutesActive.value, flightOfStairs: flightOfStairs.value }
+  postUserCall(activeObj, 'activity')
+}
+
+function reformatDate(date) {
+  return date.split('-').join('/');
 }

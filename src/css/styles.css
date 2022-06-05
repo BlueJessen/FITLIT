@@ -56,22 +56,54 @@ h1 {
   font-size: 5vh;
 }
 
-/* NAV */
+/* NAV-TAB */
 .tabs-container {
 
 }
 
 .button-container {
-
+  display: flex;
+  justify-content: center;
 }
 
+.tab-button {
+  width: 20%;
+  letter-spacing: 1px;
+  border: none;
+  padding: 10px;
+  background-color: #bccbe9;
+  color: #232c3d;
+  font-size: 55%;
+  cursor: pointer;
+  transition: 0.5s;
+}
 
+.tab-button:hover {
+  background-color: #d5e3ff;
+}
 
+.tab-button.active {
+  background-color: white;
+}
+
+.active {
+  background-color: white;
+}
 
 .user-card {
-  background-color: var(--seafoam);
+  /* background-color: var(--seafoam); */
   text-align: center;
 }
+
+.content {
+  display: none;
+}
+
+.content.active {
+  display: block;
+}
+
+/* NAV END */
 
 .chart-holder {
   height: 40vh;
@@ -122,8 +154,7 @@ padding-top: 5vh;
 }
 
 .progress-window {
-  background-color: orange;
-  border-radius: 10%;
+  background-color: #81a39e;
   margin:2vw;
   width:20vw;
   display: flex;
@@ -135,13 +166,14 @@ padding-top: 5vh;
 .widget-button {
   border: none;
   outline: none;
-  background-color: orange;
-  color: white;
+  margin:0;
+  background-color: #5a6664;
+  color: black;
   font-size: 1rem;
 }
 
 .widget-button:hover {
-  background-color: brown;
+  background-color: #6299b5;
   cursor:pointer;
 }
 
@@ -172,18 +204,24 @@ padding-top: 5vh;
 	stroke: white;
 	stroke-linecap: round;
 }
+
 .circle-progress-circle {
 	stroke-width: 8px;
 	stroke: #888;
 }
 
 .circle-progress-text {
-	fill: #888;
+	fill: black;
 }
 
 .circle-progress {
   width: 13vw;
   height: auto;
+}
+
+.current {
+  background-color: #81a39e;
+
 }
 
 .hidden {

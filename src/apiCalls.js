@@ -8,8 +8,31 @@ function getPromise(dataType) {
   //populate all databases
 let allData = Promise.all([getPromise('users'), getPromise('sleep'), getPromise('activity'), getPromise('hydration')]);
 
+const postUserCall = (postObject, dataType) => {
+  return fetch(`http://localhost:3001/api/v1/${dataType}`, {
+    method: 'POST',
+    body: JSON.stringify(postObject),
+    headers: {
+    	'Content-Type': 'application/json'
+    }
+  })
+  .then(response => checkForError(response))
+  .then(response => response.json())
+  .catch(error => selection.innerHTML = `<p>Sorry, we received a ${error.message} Error!</p>`)
+};
+
+const checkForError = (response) => {
+  if (response.ok) {
+    return response
+  } else {
+    throw new Error(response.status)
+  }
+}
+
 
 
 export {
-allData
+allData,
+postUserCall,
+checkForError
 }
