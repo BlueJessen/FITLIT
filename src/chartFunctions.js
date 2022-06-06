@@ -51,7 +51,7 @@ function createWaterChart(user, hydrationRepo) {
   })
 };
 
-function createSleepWidget(user, sleepRepo) {
+function createSleepChart(user, sleepRepo) {
   Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
   new Chart(ctx, {
     type: 'line',
@@ -131,4 +131,4 @@ function createActivityChart(user, activityRepo) {
   })
 };
 
-export {createWaterChart, createSleepWidget, createActivityChart};
+export {createWaterChart, createSleepChart, createActivityChart};

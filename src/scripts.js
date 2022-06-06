@@ -6,7 +6,7 @@ import {
 } from './apiCalls';
 import {
 createWaterChart,
-createSleepWidget,
+createSleepChart,
 createActivityChart
 } from './chartFunctions';
 import Chart from 'chart.js/auto';
@@ -209,7 +209,7 @@ function clickWaterBtn() {
 };
 
 function clickSleepBtn() {
-  createSleepWidget(randomUser, sleepRepo)
+  createSleepChart(randomUser, sleepRepo)
   sleepBtn.classList.add('hidden');
   waterBtn.classList.remove('hidden');
   activityBtn.classList.remove('hidden');
