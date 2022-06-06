@@ -75,16 +75,7 @@ let chart = new Chart(ctx, {
 
 const activityProgress = new CircleProgress(activityCircle)
 //EVENT LISTENERS -----------------------
-window.addEventListener('load', () => {
-  allData.then(data => {
-    userData = data[0];
-    sleepData = data[1];
-    activityData = data[2];
-    hydrationData = data[3];
-    initialSetup();
-
-  }).catch(error => console.log(error))
-});
+window.addEventListener('load', reloadData);
 
 widgetTabs.addEventListener('click', getEvent);
 sleepBtn.addEventListener('click', clickSleepBtn);
@@ -239,7 +230,8 @@ function initialSetup() {
   sleepRepo = new Sleep(sleepData.sleepData);
   hydrationRepo = new Hydration(hydrationData.hydrationData);
   activityRepo = new Activity(activityData.activityData);
-  randomUser = getRandomUser(userRepo.userData);
+  // randomUser = getRandomUser(userRepo.userData);
+  randomUser = userRepo.findUser(1)
 
   displayUserInfo(randomUser, userRepo);
   addProgressWidgetSleep(randomUser, sleepRepo, 'hours');
@@ -271,35 +263,38 @@ function clickActivityBtn() {
 
 //data functions -----------------------
 
+function reloadData() {
+  allData.then(data => {
+    userData = data[0];
+    sleepData = data[1];
+    activityData = data[2];
+    hydrationData = data[3];
+    initialSetup();
+    console.log('hydration', hydrationData)
+  }).catch(error => console.log(error))
+};
+
 function getRandomUser(array) {
   let randomIndex = Math.floor(Math.random() * array.length)
   return array[randomIndex]
 }
 
-function reformatDate(date) {
-  let dateArray = date.split(-);
-  let formatedDate = [];
-  formatedDate.push(dateArray[1]);
-  formatedDate.push(dateArray[2]);
-  formatedDate.push(dateArray[0]);
-  return formatedDate.join('/');
-  
 function submitHydrationForm() {
   event.preventDefault();
   let hydrationObj = { userID: randomUser.id, date: reformatDate(hydrationDate.value), numOunces: hydrationInput.value }
-  postUserCall(hydrationObj, 'hydration')
+  postUserCall(hydrationObj, 'hydration').then(response => reloadData())
 }
 
 function submitSleepForm() {
   event.preventDefault();
   let sleepObj = { userID: randomUser.id, date: reformatDate(sleepDate.value), hoursSlept: hoursSlept.value, sleepQuality: sleepQuality.value }
-  postUserCall(sleepObj, 'sleep')
+  postUserCall(sleepObj, 'sleep').then(response => reloadData())
 }
 
 function submitActiveForm() {
   event.preventDefault();
   let activeObj = { userID: randomUser.id, date: reformatDate(activeDate.value), numSteps: numSteps.value, minutesActive: minutesActive.value, flightOfStairs: flightOfStairs.value }
-  postUserCall(activeObj, 'activity')
+  postUserCall(activeObj, 'activity').then(response => reloadData())
 }
 
 function reformatDate(date) {
