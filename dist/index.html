@@ -25,11 +25,12 @@
           <!-- linebreak -->
           <section class="hydration-form content" id="hydroForm">
             <form method="post">
+              <h1 class='error-hydration form-error-handling hidden'>Please fill all values</h1>
               <label for="calendarHydration" id="calendarLabel">Enter Date:
                 <input type="date" name="calendarData" id="calendarHydration">
               </label><br>
               <label for="hydration" id="hydrationLabel">Daily Intake:
-                <input type="number" name="hydrationData" id="hydration" required placeholder="Enter in fluid Oz">
+                <input type="number" name="hydrationData" id="hydration" placeholder="Enter in fluid Oz" required>
               </label><br>
               <input type="submit" value="Submit" id="submitHydration">
             </form>
@@ -37,6 +38,7 @@
           <!-- linebreak -->
           <section class="sleep-form content" id="sleepForm">
             <form method="post">
+              <h1 class='error-sleep form-error-handling hidden'>Please fill all values</h1>
               <label for="calendarSleep" id="calendarLabel">Enter Date:
                 <input type="date" name="calendarData" id="calendarSleep">
               </label><br>
@@ -52,6 +54,7 @@
           <!-- linebreak -->
           <section class="active-form content" id="activeForm">
             <form>
+              <h1 class='error-active form-error-handling hidden'>Please fill all values</h1>
               <label for="calendarActive" id="calendarLabel">Enter Date:
                 <input type="date" name="calendarData" id="calendarActive">
               </label><br>

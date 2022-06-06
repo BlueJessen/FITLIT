@@ -40,15 +40,18 @@ let widgetTextActive = document.querySelector('.widget-text-active');
 let widgetTextSleep = document.querySelector('.widget-text-sleep');
 //FORM(QUERY SELECTOR)---------
 //LINEBREAK(FOR FORM HYDRATION)--------------
+let errorHydration= document.querySelector('.error-hydration');
 let submitFormH = document.getElementById('submitHydration');
 let hydrationDate = document.getElementById('calendarHydration');
 let hydrationInput = document.getElementById('hydration');
 //LINEBREAK(FOR FORM SLEEP)--------------
+let errorSleep= document.querySelector('.error-sleep');
 let submitFormS = document.getElementById('submitSleep');
 let sleepDate = document.getElementById('calendarSleep');
 let hoursSlept = document.getElementById('sleepHours');
 let sleepQuality = document.getElementById('sleepQuality');
 //LINEBREAK(FOR FORM ACTIVITY)--------------
+let errorActive= document.querySelector('.error-active');
 let submitFormA = document.getElementById('submitActive');
 let activeDate = document.getElementById('calendarActive');
 let numSteps = document.getElementById('numSteps');
@@ -259,12 +262,18 @@ function getRandomUser(array) {
 
 function submitHydrationForm() {
   event.preventDefault();
+  if(sleepDate.value === '' || hoursSlept.value === '' || sleepQuality.value === '' ) {
+    errorHydration.classList.remove('hidden');
+  }
   let hydrationObj = { userID: randomUser.id, date: reformatDate(hydrationDate.value), numOunces: hydrationInput.value }
   postUserCall(hydrationObj, 'hydration').then(response => reloadData('hydration'))
 }
 
 function submitSleepForm() {
   event.preventDefault();
+  if(sleepDate.value === '' || hoursSlept.value === '' || sleepQuality.value === '' ) {
+    errorSleep.classList.remove('hidden');
+  }
   let sleepObj = { userID: randomUser.id, date: reformatDate(sleepDate.value), hoursSlept: hoursSlept.value, sleepQuality: sleepQuality.value }
   console.log(sleepObj)
   postUserCall(sleepObj, 'sleep').then(response => reloadData('sleep'))
@@ -272,6 +281,9 @@ function submitSleepForm() {
 
 function submitActiveForm() {
   event.preventDefault();
+  if(activeDate.value === '' || numSteps.value === '' || minutesActive.value === '' || flightsOfStairs.value === '') {
+    errorActive.classList.remove('hidden');
+  }
   let activeObj = { userID: randomUser.id, date: reformatDate(activeDate.value), numSteps: numSteps.value, minutesActive: minutesActive.value, flightsOfStairs: flightOfStairs.value }
   console.log(activeObj)
   postUserCall(activeObj, 'activity').then(response => reloadData('active'))

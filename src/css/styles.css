@@ -25,6 +25,11 @@ body, html {
   display: flex;
   background-color: var(--Mint);
 }
+
+button:hover {
+  cursor: pointer;
+}
+
 /* MAIN */
 .main {
   height: var(--vhMAX);
@@ -135,6 +140,10 @@ h1 {
 .user-friends {
 text-align: center;
 padding-top: 5vh;
+}
+
+.form-error-handling {
+  color:red;
 }
 
 .user-info {
