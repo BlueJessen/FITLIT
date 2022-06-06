@@ -254,7 +254,7 @@ function submitSleepForm() {
 
 function submitActiveForm() {
   event.preventDefault();
-  let activeObj = { userID: randomUser.id, date: reformatDate(activeDate.value), numSteps: numSteps.value, minutesActive: minutesActive.value, flightOfStairs: flightOfStairs.value }
+  let activeObj = { userID: randomUser.id, date: reformatDate(activeDate.value), numSteps: numSteps.value, minutesActive: minutesActive.value, flightsOfStairs: flightOfStairs.value }
   console.log(activeObj)
   postUserCall(activeObj, 'activity').then(response => reloadData())
 }
