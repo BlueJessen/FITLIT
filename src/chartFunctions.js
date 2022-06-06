@@ -56,7 +56,7 @@ function createSleepWidget(user, sleepRepo) {
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      labels: sleepRepo.findWeeklyDates(user.id, sleepRepo.findRecentDate(user.id)),
       datasets: [{
         label: `${user.name}'s Sleep Time in Hours`,
         data: sleepRepo.findWeeklyData(user.id, sleepRepo.findRecentDate(user.id), 'hours'),
