@@ -235,13 +235,20 @@ function loadData() {
 };
 
 
-function reloadData() {
+function reloadData(formType) {
   allData.then(data => {
     userData = data[0];
     sleepData = data[1];
     activityData = data[2];
     hydrationData = data[3];
     initialSetup();
+    if (formType === 'active') {
+      clickActivityBtn()
+    } else if (formType === 'hydration') {
+      clickWaterBtn()
+    } else if (formType === 'sleep') {
+      clickSleepBtn()
+    }
   }).catch(error => console.log(error))
 };
 
@@ -253,21 +260,21 @@ function getRandomUser(array) {
 function submitHydrationForm() {
   event.preventDefault();
   let hydrationObj = { userID: randomUser.id, date: reformatDate(hydrationDate.value), numOunces: hydrationInput.value }
-  postUserCall(hydrationObj, 'hydration').then(response => reloadData())
+  postUserCall(hydrationObj, 'hydration').then(response => reloadData('hydration'))
 }
 
 function submitSleepForm() {
   event.preventDefault();
   let sleepObj = { userID: randomUser.id, date: reformatDate(sleepDate.value), hoursSlept: hoursSlept.value, sleepQuality: sleepQuality.value }
   console.log(sleepObj)
-  postUserCall(sleepObj, 'sleep').then(response => reloadData())
+  postUserCall(sleepObj, 'sleep').then(response => reloadData('sleep'))
 }
 
 function submitActiveForm() {
   event.preventDefault();
   let activeObj = { userID: randomUser.id, date: reformatDate(activeDate.value), numSteps: numSteps.value, minutesActive: minutesActive.value, flightsOfStairs: flightOfStairs.value }
   console.log(activeObj)
-  postUserCall(activeObj, 'activity').then(response => reloadData())
+  postUserCall(activeObj, 'activity').then(response => reloadData('active'))
 }
 
 function reformatDate(date) {
