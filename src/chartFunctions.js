@@ -25,9 +25,9 @@ window.addEventListener('load', () => {
   }).catch(error => console.log(error))
 });
 
-function createWaterChart(user) {
+function createWaterChart(user, hydrationRepo) {
   Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
-  let hydrationRepo = new Hydration(hydrationData.hydrationData);
+  console.log(hydrationRepo)
   chart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -51,9 +51,8 @@ function createWaterChart(user) {
   })
 };
 
-function createSleepWidget(user) {
+function createSleepWidget(user, sleepRepo) {
   Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
-  let sleepRepo = new Sleep(sleepData.sleepData);
   new Chart(ctx, {
     type: 'line',
     data: {
@@ -87,9 +86,8 @@ function createSleepWidget(user) {
   })
 };
 
-function createActivityChart(user) {
+function createActivityChart(user, activityRepo) {
   Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
-  let activityRepo = new Activity(activityData.activityData);
   new Chart(ctx, {
     type: 'line',
     data: {
