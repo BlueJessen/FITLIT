@@ -16,6 +16,7 @@ import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
+import Widget from './Widget';
 
 // query selectors -----------------------
 
@@ -91,10 +92,10 @@ tabs.addEventListener('click', changeTabs)
 function getEvent(){
 if(event.target.classList.contains('sleep')){
   toggleSleep(event.target);
-  addProgressWidgetSleep(randomUser, sleepRepo, event.target.id);
+  addProgressWidgetSleep(event.target.id);
 }else if(event.target.classList.contains('activity')){
   toggleActivity(event.target);
-  showActivityDisplay(randomUser, activityRepo, event.target.id);
+  showActivityDisplay(event.target.id);
 }
 }
 
@@ -137,28 +138,17 @@ function populateFriends(user) {
   userFriends.innerHTML = `<div> Friends: ${user.friends}</div>`;
 }
 
-function addProgressWidgetHydration(user, repo) {
+function addProgressWidgetHydration() {
   const hydrationProgress = new CircleProgress(hydrationCircle);
-  let recentDate = repo.findRecentDate(user.id);
-  let displayInfo = repo.findDateData(user.id, recentDate);
-  hydrationProgress.max = 85;
-  hydrationProgress.value = displayInfo;
+  const hydrationWidget = new Widget(randomUser, hydrationRepo, 'hydration', hydrationProgress);
+  hydrationWidget.findWidgetType();
 }
 
-function addProgressWidgetSleep(user, repo, type) {
+function addProgressWidgetSleep(type) {
   const sleepProgress = new CircleProgress(sleepCircle);
-  let recentDate = repo.findRecentDate(user.id);
-
-  if (type === 'hours') {
-  let displayInfo = repo.findDateData(user.id, recentDate, type)
-  sleepProgress.max = 8;
-  sleepProgress.value = displayInfo;
-} else {
-   let displayInfo = repo.findDateData(user.id, recentDate, type)
-  sleepProgress.max = 10;
-  sleepProgress.value = displayInfo;
-}
-setText('sleep', type);
+  const sleepWidget = new Widget(randomUser, sleepRepo, 'sleep', sleepProgress, type);
+  sleepWidget.findWidgetType();
+  setText('sleep', type);
 }
 
 function setText(type, dataType) {
@@ -169,14 +159,10 @@ if(type === 'sleep') {
     }
 }
 
-function showActivityDisplay (user, repo, target) {
-  if(target === 'steps') {
-    setUpSteps()
-  }else if(target === 'minutes') {
-    setUpMinutes()
-  }else if(target === 'stairs') {
-    setUpStairs()
-  }
+function showActivityDisplay (target) {
+  const activityProgress = new CircleProgress(activityCircle);
+  const activityWidget = new Widget(randomUser,activityRepo, 'activity', activityProgress, target);
+  activityWidget.findWidgetType();
   setText('activity', target);
 }
 
@@ -198,32 +184,6 @@ function toggleSleep(target) {
   target.classList.add('current');
 }
 
-function setUpSteps(target) {
-  const activityProgress = new CircleProgress(activityCircle)
-  let recentDate = activityRepo.findRecentDate(randomUser.id);
-  let displayInfo = activityRepo.findStepsForDate(randomUser.id, recentDate);
-  activityProgress.constrain = false;
-  activityProgress.max = randomUser.dailyStepGoal;
-  activityProgress.value = displayInfo;
-  activityProgress.textFormat = 'vertical';
-}
-
-function setUpMinutes() {
-    const activityProgress = new CircleProgress(activityCircle);
-    let recentDate = activityRepo.findRecentDate(randomUser.id);
-    activityProgress.max = 30;
-    activityProgress.value = activityRepo.minutesActive(randomUser.id, recentDate);
-    activityProgress.constrain = false;
-}
-
-function setUpStairs() {
-  const activityProgress = new CircleProgress(activityCircle);
-  let recentDate = activityRepo.findRecentDate(randomUser.id);
-  activityProgress.max = 100;
-  activityProgress.value = activityRepo.stairsOnDate(randomUser.id, recentDate);
-  activityProgress.constrain = false;
-}
-
 function initialSetup() {
   userArray = userData.userData.map(person => new User(person));
   userRepo = new UserRepository(userArray);
@@ -234,10 +194,10 @@ function initialSetup() {
   randomUser = userRepo.findUser(1)
 
   displayUserInfo(randomUser, userRepo);
-  addProgressWidgetSleep(randomUser, sleepRepo, 'hours');
-  addProgressWidgetHydration(randomUser, hydrationRepo);
+  addProgressWidgetSleep('hours');
+  addProgressWidgetHydration();
   createWaterChart(randomUser);
-  showActivityDisplay(randomUser, activityRepo, 'steps');
+  showActivityDisplay('steps');
 }
 
 function clickWaterBtn() {

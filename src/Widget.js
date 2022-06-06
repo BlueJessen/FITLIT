@@ -4,12 +4,12 @@ import Sleep from './Sleep';
 import Activity from './Activity';
 
 class Widget {
-constructor(user, repo, type, widget) {
+constructor(user, repo, type, widget, dataType) {
 this.user = user;
 this.repo = repo;
 this.type = type;
+this.dataType = dataType;
 this.widget = widget;
-this.dataSet = {};
 }
 
 findWidgetType() {
@@ -24,30 +24,30 @@ findWidgetType() {
 
 setWidgetSleep() {
   let recentDate = this.repo.findRecentDate(this.user.id);
-  let displayInfo = this.repo.findDateData(this.user.id, recentDate, this.type)
-  if(this.type === 'hours') {
-    this.addHourDisplay();
+  let displayInfo = this.repo.findDateData(this.user.id, recentDate, this.dataType)
+  if(this.dataType === 'hours') {
+    this.addHourDisplay(displayInfo);
   } else {
-    this.addQualityDisplay();
+    this.addQualityDisplay(displayInfo);
   }
 }
 
-addHourDisplay() {
+addHourDisplay(info) {
   this.widget.max = 8;
-  this.widget.value = displayInfo;
+  this.widget.value = info;
 }
 
-addQualityDisplay() {
+addQualityDisplay(info) {
   this.widget.max = 10;
-  this.widget.value = displayInfo;
+  this.widget.value = info;
 }
 
 setWidgetActivity() {
-  if(this.type === 'steps') {
+  if(this.dataType === 'steps') {
     this.addStepDisplay();
-  }else if(this.type  === 'minutes') {
+  }else if(this.dataType  === 'minutes') {
     this.addMinuteDisplay();
-  }else if(this.type  === 'stairs') {
+  }else if(this.dataType  === 'stairs') {
     this.addStairDisplay();
   }
 }
