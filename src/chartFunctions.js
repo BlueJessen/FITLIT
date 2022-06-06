@@ -31,7 +31,7 @@ function createWaterChart(user, hydrationRepo) {
   chart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      labels: hydrationRepo.findWeeklyDates(user.id, hydrationRepo.findRecentDate(user.id)),
       datasets: [{
         label: `${user.name}'s weekly hydration in fl oz`,
         data: hydrationRepo.findWeeklyData(user.id, hydrationRepo.findRecentDate(user.id)),

@@ -28,5 +28,7 @@ describe('Hydration', () => {
   it("should be able to find how much a user drank each day for a week", function () {
     expect(hydrationRepo.findWeeklyData(49,"2020/01/22")).to.deep.equal([71, 68, 55, 52, 37, 38, 36]);
   });
-
+  it("should be able to find dates of the 7 most recent entries for a user", function () {
+    expect(hydrationRepo.findWeeklyDates(49,"2020/01/22")).to.deep.equal(["2020/01/16", "2020/01/17", "2020/01/18", "2020/01/19", "2020/01/20", "2020/01/21", "2020/01/22"]);
+  });
 });
