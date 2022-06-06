@@ -91,7 +91,7 @@ function createActivityChart(user, activityRepo) {
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      labels: activityRepo.findWeeklyData(user.id, activityRepo.findRecentDate(user.id), 'date'),
       datasets: [{
         label: `${user.name}'s daily minutes active`,
         data: activityRepo.findWeeklyData(user.id, activityRepo.findRecentDate(user.id), 'minutesActive'),
