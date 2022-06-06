@@ -43,9 +43,9 @@ FITLIT is a webpage that allows you to keep track of fitness, sleep and even hyd
 
 
 ### Future Features
-- Allow users to select which user in the data set to display.
-- Add widgets with info on each of a user's friends.
-- Redesign/condense display of info in the data card in the sidebar
+- For UI/UX: Allow users to select which user in the data set to display.
+- For UI/UX: Add widgets with info on each of a user's friends.
+- For Side Bar: Redesign/condense display of info in the data card in the sidebar
 (NOTE: This has been changed, the new sidebar interface looks cleaner and has several options for Forms.).
 - For Side Bar: Redesign current sidebar buttons, Forms will be under one button with dropdown menu.
 - For Side Bar: Add profile picture for user.
@@ -56,9 +56,11 @@ FITLIT is a webpage that allows you to keep track of fitness, sleep and even hyd
 - For UI/UX: gratitude messages on reaching goals.
 
 ### Contributors
-- [David Daw](https://github.com/davidhdaw)
-- [Blue Jessen](https://github.com/BlueJessen/)
-- [Neil Linton](https://github.com/LINTONBNEIL)
+- [David Daw](https://github.com/davidhdaw)[LinkedIn](https://www.linkedin.com/in/david-daw-04aa36237/)
+- [Blue Jessen](https://github.com/BlueJessen/)[LinkedIn](https://www.linkedin.com/in/blue-nealis/)
+- [Neil Linton](https://github.com/LINTONBNEIL)[LinkedIn](https://www.linkedin.com/in/neil-b-linton/)
+
+
 
 ### Project Specifications
 - Project specs are located [here](https://frontend.turing.edu/projects/Fitlit-part-one.html).
