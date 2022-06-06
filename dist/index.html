@@ -24,8 +24,8 @@
           <!-- linebreak -->
           <section class="hydration-form content" id="hydroForm">
             <form method="post">
-              <label for="calendar" id="calendarLabel">Enter Date:
-                <input type="date" name="calenderData" id="calender">
+              <label for="calendarHydration" id="calendarLabel">Enter Date:
+                <input type="date" name="calendarData" id="calendarHydration">
               </label><br>
               <label for="hydration" id="hydrationLabel">Daily Intake:
                 <input type="number" name="hydrationData" id="hydration" required placeholder="Enter in fluid Oz">
@@ -36,8 +36,8 @@
           <!-- linebreak -->
           <section class="sleep-form content" id="sleepForm">
             <form method="post">
-              <label for="calendar" id="calenderLabel">Enter Date:
-                <input type="date" name="calenderData" id="calendar">
+              <label for="calendarSleep" id="calendarLabel">Enter Date:
+                <input type="date" name="calendarData" id="calendarSleep">
               </label><br>
               <label for="sleepHours" id="sleepHoursLabel">Hours Slept:
                 <input type="number" name="sleepHours" id="sleepHours" required placeholder="Enter Hours Slept">
@@ -51,8 +51,8 @@
           <!-- linebreak -->
           <section class="active-form content" id="activeForm">
             <form>
-              <label for="calendar" id="calenderLabel">Enter Date:
-                <input type="date" name="calenderData" id="calendar">
+              <label for="calendarActive" id="calendarLabel">Enter Date:
+                <input type="date" name="calendarData" id="calendarActive">
               </label><br>
               <label for="numSteps" id="numStepsLabel">Number of Steps:
                 <input type="number" name="numSteps" id="numSteps" required placeholder="Enter number of steps">
@@ -66,6 +66,7 @@
               <input type="submit" value="Submit" id="submitActive">
             </form>
           </section>
+          <!-- linebreak -->
         </section>
         <!-- NAV TABS END -->
       </section>
@@ -80,12 +81,12 @@
           </section>
           <section class="progress-holder">
             <div class="progress-window">
-              <div class ="progress progress-hydration">
+              <div class ="progress progress-hydration" aria-label="Hydration widget">
                 <h1 class='widget-text'>Todays Water Intake</h1>
               </div>
             </div>
             <div class="progress-window">
-              <div class ="progress progress-sleep">
+              <div class ="progress progress-sleep" aria-label="Sleep widget">
                 <h1 class='widget-text-sleep sleep'>Hours of Sleep<h1>
               </div>
               <section class='widget-nav'>
@@ -94,7 +95,7 @@
               </section>
             </div>
             <div class="progress-window">
-              <div class="progress progress-activity steps">
+              <div class="progress progress-activity steps" aria-label="Activity widget">
                 <h1 class='widget-text-active activity'>Steps vs Steps Goal<h1>
               </div>
                 <section class='widget-nav'>

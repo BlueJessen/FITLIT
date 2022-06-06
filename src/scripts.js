@@ -41,16 +41,16 @@ let widgetTextSleep = document.querySelector('.widget-text-sleep');
 //FORM(QUERY SELECTOR)---------
 //LINEBREAK(FOR FORM HYDRATION)--------------
 let submitFormH = document.getElementById('submitHydration');
-let hydrationDate = document.getElementById('calender');
+let hydrationDate = document.getElementById('calendarHydration');
 let hydrationInput = document.getElementById('hydration');
 //LINEBREAK(FOR FORM SLEEP)--------------
 let submitFormS = document.getElementById('submitSleep');
-let sleepDate = document.getElementById('calender');
+let sleepDate = document.getElementById('calendarSleep');
 let hoursSlept = document.getElementById('sleepHours');
 let sleepQuality = document.getElementById('sleepQuality');
 //LINEBREAK(FOR FORM ACTIVITY)--------------
 let submitFormA = document.getElementById('submitActive');
-let activeDate = document.getElementById('calender');
+let activeDate = document.getElementById('calendarActive');
 let numSteps = document.getElementById('numSteps');
 let minutesActive = document.getElementById('minutesActive');
 let flightOfStairs = document.getElementById('flightOfStairs');
@@ -248,12 +248,14 @@ function submitHydrationForm() {
 function submitSleepForm() {
   event.preventDefault();
   let sleepObj = { userID: randomUser.id, date: reformatDate(sleepDate.value), hoursSlept: hoursSlept.value, sleepQuality: sleepQuality.value }
+  console.log(sleepObj)
   postUserCall(sleepObj, 'sleep').then(response => reloadData())
 }
 
 function submitActiveForm() {
   event.preventDefault();
   let activeObj = { userID: randomUser.id, date: reformatDate(activeDate.value), numSteps: numSteps.value, minutesActive: minutesActive.value, flightOfStairs: flightOfStairs.value }
+  console.log(activeObj)
   postUserCall(activeObj, 'activity').then(response => reloadData())
 }
 

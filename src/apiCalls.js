@@ -21,7 +21,7 @@ const postUserCall = (postObject, dataType) => {
   response.json()
   allData = Promise.all([getPromise('users'), getPromise('sleep'), getPromise('activity'), getPromise('hydration')]);
 })
-  .catch(error => selection.innerHTML = `<p>Sorry, we received a ${error.message} Error!</p>`)
+  .catch(error => error)
 };
 
 const checkForError = (response) => {
