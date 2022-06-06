@@ -36,6 +36,13 @@ class Sleep {
     toDate.slice(-7).map(date => date.sleepQuality);
   }
 
+  findWeeklyDates(userID, date) {
+    const userData = this.findAllUserData(userID);
+    const dayIndex = userData.findIndex(dataEntry => dataEntry.date === date);
+    const toDate = userData.slice(0 , (dayIndex+1));
+    return toDate.slice(-7).map(date => date.date);
+  }
+
   findAllAverageSleepQuality() {
     let averageSleepQuality = this.sleepData.reduce((acc, dataEntry) => acc+=dataEntry.sleepQuality, 0)/this.sleepData.length;
     return Number(averageSleepQuality.toFixed(1))

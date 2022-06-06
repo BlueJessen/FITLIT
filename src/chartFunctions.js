@@ -25,13 +25,13 @@ window.addEventListener('load', () => {
   }).catch(error => console.log(error))
 });
 
-function createWaterChart(user) {
+function createWaterChart(user, hydrationRepo) {
   Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
-  let hydrationRepo = new Hydration(hydrationData.hydrationData);
+  console.log(hydrationRepo)
   chart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      labels: hydrationRepo.findWeeklyDates(user.id, hydrationRepo.findRecentDate(user.id)),
       datasets: [{
         label: `${user.name}'s weekly hydration in fl oz`,
         data: hydrationRepo.findWeeklyData(user.id, hydrationRepo.findRecentDate(user.id)),
@@ -51,13 +51,12 @@ function createWaterChart(user) {
   })
 };
 
-function createSleepWidget(user) {
+function createSleepChart(user, sleepRepo) {
   Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
-  let sleepRepo = new Sleep(sleepData.sleepData);
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      labels: sleepRepo.findWeeklyDates(user.id, sleepRepo.findRecentDate(user.id)),
       datasets: [{
         label: `${user.name}'s Sleep Time in Hours`,
         data: sleepRepo.findWeeklyData(user.id, sleepRepo.findRecentDate(user.id), 'hours'),
@@ -87,13 +86,12 @@ function createSleepWidget(user) {
   })
 };
 
-function createActivityChart(user) {
+function createActivityChart(user, activityRepo) {
   Object.keys(Chart.instances).forEach(chartID => Chart.instances[chartID].destroy());
-  let activityRepo = new Activity(activityData.activityData);
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      labels: activityRepo.findWeeklyData(user.id, activityRepo.findRecentDate(user.id), 'date'),
       datasets: [{
         label: `${user.name}'s daily minutes active`,
         data: activityRepo.findWeeklyData(user.id, activityRepo.findRecentDate(user.id), 'minutesActive'),
@@ -133,4 +131,4 @@ function createActivityChart(user) {
   })
 };
 
-export {createWaterChart, createSleepWidget, createActivityChart};
+export {createWaterChart, createSleepChart, createActivityChart};

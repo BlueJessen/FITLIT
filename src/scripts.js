@@ -6,7 +6,7 @@ import {
 } from './apiCalls';
 import {
 createWaterChart,
-createSleepWidget,
+createSleepChart,
 createActivityChart
 } from './chartFunctions';
 import Chart from 'chart.js/auto';
@@ -76,7 +76,7 @@ let chart = new Chart(ctx, {
 
 const activityProgress = new CircleProgress(activityCircle)
 //EVENT LISTENERS -----------------------
-window.addEventListener('load', reloadData);
+window.addEventListener('load', loadData);
 
 widgetTabs.addEventListener('click', getEvent);
 sleepBtn.addEventListener('click', clickSleepBtn);
@@ -184,38 +184,39 @@ function toggleSleep(target) {
   target.classList.add('current');
 }
 
-function initialSetup() {
+function initialSetup(first) {
   userArray = userData.userData.map(person => new User(person));
   userRepo = new UserRepository(userArray);
   sleepRepo = new Sleep(sleepData.sleepData);
   hydrationRepo = new Hydration(hydrationData.hydrationData);
   activityRepo = new Activity(activityData.activityData);
-  // randomUser = getRandomUser(userRepo.userData);
-  randomUser = userRepo.findUser(1)
+  if (first) {
+  randomUser = getRandomUser(userRepo.userData);
+  }
 
   displayUserInfo(randomUser, userRepo);
   addProgressWidgetSleep('hours');
   addProgressWidgetHydration();
-  createWaterChart(randomUser);
+  clickWaterBtn();
   showActivityDisplay('steps');
 }
 
 function clickWaterBtn() {
-  createWaterChart(randomUser);
+  createWaterChart(randomUser, hydrationRepo);
   waterBtn.classList.add('hidden');
   sleepBtn.classList.remove('hidden');
   activityBtn.classList.remove('hidden');
 };
 
 function clickSleepBtn() {
-  createSleepWidget(randomUser)
+  createSleepChart(randomUser, sleepRepo)
   sleepBtn.classList.add('hidden');
   waterBtn.classList.remove('hidden');
   activityBtn.classList.remove('hidden');
 };
 
 function clickActivityBtn() {
-  createActivityChart(randomUser);
+  createActivityChart(randomUser, activityRepo);
   activityBtn.classList.add('hidden');
   sleepBtn.classList.remove('hidden');
   waterBtn.classList.remove('hidden');
@@ -223,14 +224,31 @@ function clickActivityBtn() {
 
 //data functions -----------------------
 
-function reloadData() {
+function loadData() {
+  allData.then(data => {
+    userData = data[0];
+    sleepData = data[1];
+    activityData = data[2];
+    hydrationData = data[3];
+    initialSetup(true);
+  }).catch(error => console.log(error))
+};
+
+
+function reloadData(formType) {
   allData.then(data => {
     userData = data[0];
     sleepData = data[1];
     activityData = data[2];
     hydrationData = data[3];
     initialSetup();
-    console.log('hydration', hydrationData)
+    if (formType === 'active') {
+      clickActivityBtn()
+    } else if (formType === 'hydration') {
+      clickWaterBtn()
+    } else if (formType === 'sleep') {
+      clickSleepBtn()
+    }
   }).catch(error => console.log(error))
 };
 
@@ -242,21 +260,21 @@ function getRandomUser(array) {
 function submitHydrationForm() {
   event.preventDefault();
   let hydrationObj = { userID: randomUser.id, date: reformatDate(hydrationDate.value), numOunces: hydrationInput.value }
-  postUserCall(hydrationObj, 'hydration').then(response => reloadData())
+  postUserCall(hydrationObj, 'hydration').then(response => reloadData('hydration'))
 }
 
 function submitSleepForm() {
   event.preventDefault();
   let sleepObj = { userID: randomUser.id, date: reformatDate(sleepDate.value), hoursSlept: hoursSlept.value, sleepQuality: sleepQuality.value }
   console.log(sleepObj)
-  postUserCall(sleepObj, 'sleep').then(response => reloadData())
+  postUserCall(sleepObj, 'sleep').then(response => reloadData('sleep'))
 }
 
 function submitActiveForm() {
   event.preventDefault();
   let activeObj = { userID: randomUser.id, date: reformatDate(activeDate.value), numSteps: numSteps.value, minutesActive: minutesActive.value, flightsOfStairs: flightOfStairs.value }
   console.log(activeObj)
-  postUserCall(activeObj, 'activity').then(response => reloadData())
+  postUserCall(activeObj, 'activity').then(response => reloadData('active'))
 }
 
 function reformatDate(date) {
