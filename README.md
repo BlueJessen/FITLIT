@@ -46,6 +46,9 @@ FITLIT is a webpage that allows you to keep track of fitness, sleep and even hyd
 - Allow users to select which user in the data set to display.
 - Add widgets with info on each of a user's friends.
 - Redesign/condense display of info in the data card in the sidebar.
+- Add Login Page for an Admin & Users.
+- More CSS features that enhance the UI/UX
+
 
 ### Contributors
 - [David Daw](https://github.com/davidhdaw)
