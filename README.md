@@ -45,10 +45,15 @@ FITLIT is a webpage that allows you to keep track of fitness, sleep and even hyd
 ### Future Features
 - Allow users to select which user in the data set to display.
 - Add widgets with info on each of a user's friends.
-- Redesign/condense display of info in the data card in the sidebar.
-- Add Login Page for an Admin & Users.
-- More CSS features that enhance the UI/UX
-
+- Redesign/condense display of info in the data card in the sidebar
+(NOTE: This has been changed, the new sidebar interface looks cleaner and has several options for Forms.).
+- For Side Bar: Redesign current sidebar buttons, Forms will be under one button with dropdown menu.
+- For Side Bar: Add profile picture for user.
+- For Side Bar: Add top ten users friends list-with limited info.
+- For Window Load: Add Login Page for an Admin & Users.
+- For UI/UX: More CSS features that enhance the UI/UX.
+- For UI/UX: Possible custom made title or logo for project.
+- For UI/UX: gratitude messages on reaching goals.
 
 ### Contributors
 - [David Daw](https://github.com/davidhdaw)
