@@ -29,11 +29,11 @@ FITLIT is a webpage that allows you to keep track of fitness, sleep and even hyd
 ### Features
 - A data card on the left with all of the user's important info.
 - Custom widgets let users keep track of their progress on important stats like daily hydration and sleep quality.
-![Page Layout](/src/images/FITLIT2.gif)
+![Page Layout](/src/images/FITLIT.gif)
 - Users can swap between charts for their hydration data and their sleep data.
-![ChartSwap](/src/images/FITLIT1.gif)
+![ChartSwap](/src/images/FITLIT-UpDate.gif)
 - Charts using chart.js integration.
-![PageLayout](/src/images/FITLIT3.gif)
+
 
 ### Reflections
 - During this project we learned that javascript being dry and succinct makes it easier to implement the css and DOM manipulation, and in the future we want to make that consideration as we're building out a program.
@@ -53,7 +53,9 @@ FITLIT is a webpage that allows you to keep track of fitness, sleep and even hyd
 - For Window Load: Add Login Page for an Admin & Users.
 - For UI/UX: More CSS features that enhance the UI/UX.
 - For UI/UX: Possible custom made title or logo for project.
-- For UI/UX: gratitude messages on reaching goals.
+- For UI/UX: Gratitude messages on reaching goals.
+- For UI/UX: Structure the css so the page doesn't scroll.
+- For Devices: Would like to reformat for a multiple devices.
 
 ### Contributors
 - [David Daw](https://github.com/davidhdaw)[LinkedIn](https://www.linkedin.com/in/david-daw-04aa36237/)
